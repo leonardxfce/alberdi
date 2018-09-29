@@ -1,9 +1,10 @@
-package controladorVistas;
+package principal;
 
+import controladores.Controlador;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class vistaInicio extends Application {
+public class Inicio extends Application {
 
     public static void main(String[] args) {
         launch(args);
