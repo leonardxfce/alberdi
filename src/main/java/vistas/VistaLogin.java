@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class Login extends VistaPadre {
+public class VistaLogin extends VistaPadre {
 
     public TextField usuario_campo;
     public TextField contrasena_campo;
@@ -13,7 +13,7 @@ public class Login extends VistaPadre {
     Label usuario;
     Label contrasena;
 
-    public Login() {
+    public VistaLogin() {
         super();
         usuario = new Label("Usuario");
         contrasena = new Label("Contraseña");

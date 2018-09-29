@@ -1,4 +1,4 @@
-package controladorVistas;
+package controladores;
 
 import javafx.stage.Stage;
 import org.junit.Test;
@@ -7,7 +7,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
-public class ControladorVistasTest extends ApplicationTest {
+public class ControladorTest extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) {

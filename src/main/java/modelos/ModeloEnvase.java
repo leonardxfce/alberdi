@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modeloSQL_Envase;
+package modelos;
 
 import org.apache.log4j.Logger;
 
@@ -14,7 +14,7 @@ import java.sql.Statement;
 /**
  * @author caro_
  */
-public class Envase_Modelo {
+public class ModeloEnvase {
 
     Connection connection;
     Statement statement;
@@ -26,7 +26,7 @@ public class Envase_Modelo {
     String url;
 
 
-    public Envase_Modelo(String nombre, String tipo, String material, int capacidad) {
+    public ModeloEnvase(String nombre, String tipo, String material, int capacidad) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.material = material;
@@ -42,7 +42,7 @@ public class Envase_Modelo {
             System.out.println("insert into envase values(1,'" + nombre + "', '" + tipo + "', '" + material + "', '" + capacidad + "')");
             statement.executeUpdate("insert into envase values(1,'" + nombre + "', '" + tipo + "', '" + material + "',' " + capacidad + "')");
         } catch (Exception e) {
-            Logger logger = Logger.getLogger(Envase_Modelo.class);
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
         }
     }

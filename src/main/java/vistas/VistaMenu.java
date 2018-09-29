@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 /**
  * @author SantiagoLisa
  */
-public class vistaMenu extends VistaPadre {
+public class VistaMenu extends VistaPadre {
 
     Button btnEnvase;
     Button btnTapas;
     Button btnCerrarSesion;
     Label titulo;
 
-    public vistaMenu() {
+    public VistaMenu() {
         super();
         btnEnvase = new Button("Formulario Envase");
         btnTapas = new Button("Formulario Tapa");
