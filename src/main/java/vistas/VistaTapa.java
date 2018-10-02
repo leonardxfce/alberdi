@@ -1,5 +1,6 @@
 package vistas;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,31 +11,28 @@ import javafx.scene.layout.HBox;
  * @author ikariRules
  */
 public class VistaTapa extends VistaPadre {
+    Label labelTipo;
+    Label labelDescripcion;
+    TextField txTipo;
+    TextField txDescripcion;
     Button btnAceptar;
     Button btnCancelar;
-    Label cantidad;
-    Label tipoDeTapa;
-    TextField seleccionTipoDeTapa;
-    TextField seleccionCantidad;
-    HBox boxTipo;
-    HBox boxCantidad;
-    HBox boxBotones;
+
+    HBox bxTipo;
+    HBox bxDescripcion;
+    HBox bxBotones;
 
     public VistaTapa() {
         super();
+        labelTipo = new Label("Tipo");
+        labelDescripcion = new Label("Descripción");
+        txTipo = new TextField();
+        txDescripcion = new TextField();
         btnAceptar = new Button("Aceptar");
         btnCancelar = new Button("Cancelar");
-        cantidad = new Label("Cantidad");
-        tipoDeTapa = new Label("Tipo");
-        seleccionTipoDeTapa = new TextField();
-        seleccionCantidad = new TextField();
-        boxTipo = new HBox();
-        boxCantidad = new HBox();
-        boxBotones = new HBox();
-    }
-
-    public Scene getScene() {
-        return this.scene;
+        bxTipo = new HBox();
+        bxDescripcion = new HBox();
+        bxBotones = new HBox();
     }
 
     public Button getBtnAceptar() {
@@ -46,11 +44,11 @@ public class VistaTapa extends VistaPadre {
     }
 
     public void config() {
-        boxTipo.getChildren().addAll(tipoDeTapa, seleccionTipoDeTapa);
-        boxCantidad.getChildren().addAll(cantidad, seleccionCantidad);
-        boxBotones.getChildren().addAll(btnAceptar, btnCancelar);
-        contenido.getChildren().addAll(boxTipo, boxCantidad, boxBotones);
-        contenedor.getChildren().add(contenido);
+        bxTipo.getChildren().addAll(labelTipo, txTipo);
+        bxDescripcion.getChildren().addAll(labelDescripcion, txDescripcion);
+        bxBotones.getChildren().addAll(btnAceptar, btnCancelar);
+        bxBotones.setAlignment(Pos.CENTER);
+        contenido.getChildren().addAll(bxTipo, bxDescripcion, bxBotones);
     }
 
 }

@@ -31,16 +31,18 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaLogin.config();
         vistaTapa.config();
         menuIntermedioParaElegirFormulario.config();
-        vistaLogin.btnIngresar.setOnAction(this);
+        vistaLogin.getBtnIngresar().setOnAction(this);
         menuIntermedioParaElegirFormulario.getBtnEnvase().setOnAction(this);
         menuIntermedioParaElegirFormulario.getBtnTapas().setOnAction(this);
         menuIntermedioParaElegirFormulario.getBtnCerrarSesion().setOnAction(this);
-        vistaEnvase.getAceptar().setOnAction(this);
-        vistaEnvase.getCancelar().setOnAction(this);
+        vistaEnvase.getBtnGuardarEv().setOnAction(this);
+        vistaEnvase.getBtnCancelar().setOnAction(this);
         vistaTapa.getBtnAceptar().setOnAction(this);
         vistaTapa.getBtnCancelar().setOnAction(this);
+
         stage.setTitle("Formulario Envase");
         stage.setScene(vistaLogin.getScene());
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -61,10 +63,10 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "Cerrar Sesion":
                 stage.setScene(vistaLogin.getScene());
                 break;
-            case "Formulario Envase":
+            case "Cargar Envase":
                 stage.setScene(vistaEnvase.getScene());
                 break;
-            case "Formulario Tapa":
+            case "Cargar Tapa":
                 stage.setScene(vistaTapa.getScene());
                 break;
             case "Aceptar":
@@ -74,7 +76,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                 stage.setScene(menuIntermedioParaElegirFormulario.getScene());
                 break;
             case "Guardar Envase":
-                String nombre = vistaEnvase.textField.getText();
+                //String nombre = vistaEnvase.textField.getText();
                 ModeloEnvase modelo = new ModeloEnvase("A", "B", "C", 1);
                 modelo.insert();
                 break;

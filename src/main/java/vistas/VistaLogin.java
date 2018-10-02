@@ -1,34 +1,43 @@
 package vistas;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class VistaLogin extends VistaPadre {
+    Label labelUsuario;
+    Label labelContrasena;
+    TextField txUsuario;
+    TextField txContrasena;
+    Button btnIngresar;
 
-    public TextField usuario_campo;
-    public TextField contrasena_campo;
-    public Button btnIngresar;
-    Label usuario;
-    Label contrasena;
 
     public VistaLogin() {
         super();
-        usuario = new Label("Usuario");
-        contrasena = new Label("Contraseña");
-        usuario_campo = new TextField();
-        contrasena_campo = new TextField();
+        labelUsuario = new Label("Usuario");
+        labelContrasena = new Label("Contraseña");
+        txUsuario = new TextField();
+        txContrasena = new TextField();
         btnIngresar = new Button("Ingresar");
     }
 
-    public Scene getScene() {
-        return scene;
+    public TextField getTxUsuario() {
+        return txUsuario;
+    }
+
+    public TextField getTxContrasena() {
+        return txContrasena;
+    }
+
+    public Button getBtnIngresar() {
+        return btnIngresar;
     }
 
     public void config() {
-        contenido.getChildren().addAll(usuario, contrasena, usuario_campo, contrasena_campo, btnIngresar);
-        contenedor.getChildren().add(contenido);
+        contenido.getChildren().addAll(labelUsuario, txUsuario, labelContrasena, txContrasena, btnIngresar);
+        contenido.setSpacing(5);
     }
 
 }

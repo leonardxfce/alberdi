@@ -1,5 +1,6 @@
 package vistas;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,15 +17,12 @@ public class VistaMenu extends VistaPadre {
 
     public VistaMenu() {
         super();
-        btnEnvase = new Button("Formulario Envase");
-        btnTapas = new Button("Formulario Tapa");
+        btnEnvase = new Button("Cargar Envase");
+        btnTapas = new Button("Cargar Tapa");
         btnCerrarSesion = new Button("Cerrar Sesion");
         titulo = new Label("-----");
     }
 
-    public Scene getScene() {
-        return this.scene;
-    }
 
     public Button getBtnEnvase() {
         return btnEnvase;
@@ -40,7 +38,8 @@ public class VistaMenu extends VistaPadre {
 
     public void config() {
         contenido.getChildren().addAll(titulo, getBtnEnvase(), getBtnTapas(), getBtnCerrarSesion());
-        contenedor.getChildren().add(contenido);
+        contenido.setAlignment(Pos.CENTER);
+        contenido.setSpacing(5);
     }
 
 }
