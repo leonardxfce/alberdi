@@ -11,67 +11,67 @@ import javafx.scene.layout.VBox;
 
 public class VistaEnvase extends VistaPadre {
 
-    public TextField textField;
-    public TextField textCap;
-    public TextField textCant;
-    public TextField textEstado;
-    Button aceptar;
-    Button cancelar;
-    Label labelNom;
-    Label labelCap;
-    Label labelCant;
-    Label labelEstado;
-    Label labelProv;
-    TextField textProv;
-    VBox labels;
-    VBox texts;
-    HBox botones;
-    HBox labelTexts;
+    private TextField textNombre;
+    private TextField textTipo;
+    private TextField textCap;
+    private Label labelNom;
+    private Label labelTipo;
+    private Label labelCap;
+    private Button btnGuardarEv;
+    private Button btnCancelar;
+    HBox bxNombre;
+    HBox bxTipo;
+    HBox bxCap;
+    HBox bxButton;
 
     public VistaEnvase() {
         super();
         labelNom = new Label("Nombre");
+        labelTipo = new Label("Tipo");
         labelCap = new Label("Capacidad");
-        labelCant = new Label("Cantidad");
-        labelEstado = new Label("Estado");
-        labelProv = new Label("Proveedor");
-        textField = new TextField();
+
+        textNombre = new TextField();
+        textTipo = new TextField();
         textCap = new TextField();
-        textCant = new TextField();
-        textEstado = new TextField();
-        textProv = new TextField();
-        aceptar = new Button("Guardar Envase");
-        cancelar = new Button("Cancelar");
-        labels = new VBox(10);
-        texts = new VBox(3);
-        botones = new HBox();
-        labelTexts = new HBox();
-        margenes = new Insets(20, 20, 20, 20);
+
+        btnGuardarEv = new Button("Guardar Envase");
+        btnCancelar = new Button("Cancelar");
+
+        bxNombre = new HBox(5);
+        bxTipo = new HBox(5);
+        bxCap = new HBox(5);
+        bxButton = new HBox(5);
+
+
     }
 
-    public Scene getScene() {
-        return this.scene;
+    public TextField getTextNombre() {
+        return textNombre;
     }
 
-    public Button getAceptar() {
-        return aceptar;
+    public TextField getTextTipo() {
+        return textTipo;
     }
 
-    public Button getCancelar() {
-        return cancelar;
+    public TextField getTextCap() {
+        return textCap;
+    }
+
+    public Button getBtnGuardarEv() {
+        return btnGuardarEv;
+    }
+
+    public Button getBtnCancelar() {
+        return btnCancelar;
     }
 
     public void config() {
-        labelTexts.setAlignment(Pos.CENTER);
-        botones.setAlignment(Pos.CENTER);
-        labels.setAlignment(Pos.TOP_LEFT);
-        texts.setAlignment(Pos.TOP_LEFT);
-        labels.getChildren().addAll(labelNom, labelCap, labelCant, labelEstado, labelProv);
-        texts.getChildren().addAll(textField, textCap, textCant, textEstado, textProv, getCancelar());
-        botones.getChildren().addAll(getAceptar(), getCancelar());
-        labelTexts.getChildren().addAll(labels, texts);
-        contenido.getChildren().addAll(labelTexts, botones);
-        contenedor.getChildren().add(contenido);
+        bxNombre.getChildren().addAll(labelNom,textNombre);
+        bxTipo.getChildren().addAll(labelTipo,textTipo);
+        bxCap.getChildren().addAll(labelCap,textCap);
+        bxButton.getChildren().addAll(btnGuardarEv,btnCancelar);
+        bxButton.setAlignment(Pos.CENTER);
+        contenido.getChildren().addAll(bxNombre,bxTipo,bxCap,bxButton);
+        contenido.setSpacing(5);
     }
-
 }
