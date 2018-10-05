@@ -16,7 +16,7 @@ public class ModeloLoginTest {
 
     public ModeloLoginTest() {
     }
-
+       
     @BeforeClass
     public static void setUpClass() {
     }
@@ -43,7 +43,20 @@ public class ModeloLoginTest {
         ModeloLogin instance = new ModeloLogin("LISA", "1234");
         String result = instance.seleccionar();
         assertEquals("LISA", result);
+    } 
+    @Test
+    public void testExistencia(){
+        System.out.println("existe, o no existe?");
+        ModeloLogin instance = new ModeloLogin("Lauta","2221");
+        boolean result = instance.comprobarExistencia("Lauta",2221);
+        assertEquals(false,result);
     }
-
+    @Test
+    public void testExistencia2(){
+        System.out.println("no existe mepa");
+        ModeloLogin instance = new ModeloLogin("LISA","1234");
+        boolean result = instance.comprobarExistencia("LISA",1234);
+        assertEquals(true,result);
+    }
 
 }
