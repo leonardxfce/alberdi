@@ -21,16 +21,16 @@ public class ModeloEnvase {
     int id;
     String nombre;
     String tipo;
-    String material;
-    int capacidad;
+    int volumen;
+    String descripcion;
     String url;
 
 
-    public ModeloEnvase(String nombre, String tipo, String material, int capacidad) {
+    public ModeloEnvase(String nombre, String tipo,int volumen,String descripcion) {
         this.nombre = nombre;
         this.tipo = tipo;
-        this.material = material;
-        this.capacidad = capacidad;
+        this.volumen = volumen;
+        this.descripcion = descripcion;
         this.url = "jdbc:sqlite:sample.db";
     }
 
@@ -39,8 +39,8 @@ public class ModeloEnvase {
         try {
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
-            System.out.println("insert into envase values(1,'" + nombre + "', '" + tipo + "', '" + material + "', '" + capacidad + "')");
-            statement.executeUpdate("insert into envase values(1,'" + nombre + "', '" + tipo + "', '" + material + "',' " + capacidad + "')");
+            System.out.println("insert into envase values(1,'" + nombre + "', '" + tipo + "', '" + volumen + "', '" + descripcion + "')");
+            statement.executeUpdate("insert into envase values(1,'" + nombre + "', '" + tipo + "', '" + volumen + "',' " + descripcion + "')");
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
@@ -64,19 +64,19 @@ public class ModeloEnvase {
         this.tipo = tipo;
     }
 
-    public String getMaterial() {
-        return material;
+    public int getVolumen() {
+        return volumen;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
+    public void setVolumen(int volumen) {
+        this.volumen = volumen;
     }
 
-    public int getCapacidad() {
-        return capacidad;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
