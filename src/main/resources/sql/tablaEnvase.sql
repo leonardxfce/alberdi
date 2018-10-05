@@ -2,8 +2,8 @@ CREATE TABLE ENVASE (
 ID integer PRIMARY KEY,
 NOMBRE text,
 TIPO text,
-MATERIAL text,
-CAPACIDAD int
+VOLUMEN int,
+DESCRIPCION text
 );
 
 

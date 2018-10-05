@@ -76,8 +76,12 @@ public class Controlador implements EventHandler<ActionEvent> {
                 stage.setScene(menuIntermedioParaElegirFormulario.getScene());
                 break;
             case "Guardar Envase":
-                //String nombre = vistaEnvase.textField.getText();
-                ModeloEnvase modelo = new ModeloEnvase("A", "B", "C", 1);
+                //String nombre = vistaEnvase.textNombre.getText();
+                //String tipo = vistaEnvase.textTipo.getText();
+                //int volumen = vistaEnvase.text
+                ModeloEnvase modelo;
+                
+                modelo = new ModeloEnvase("A", "B", 1, "C");
                 modelo.insert();
                 break;
 
