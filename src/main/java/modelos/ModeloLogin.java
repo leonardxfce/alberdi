@@ -25,10 +25,10 @@ public class ModeloLogin {
     public ModeloLogin(String usuario, String password) {
         this.usuario = usuario;
         this.password = password;
-        this.url = "jdbc:postgresql://pellefant.db.elephantsql.com:5432/prafqulb";
+        this.url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
         try {
 
-            connection = DriverManager.getConnection(url, "prafqulb", "M-dsT1RJ6AM7h17OM2PppJ2-Z5TPIQTc");
+            connection = DriverManager.getConnection(url, "sql10259965", "Ej1IRP2Jsk");
             statement = connection.createStatement();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -38,7 +38,7 @@ public class ModeloLogin {
 
     public boolean comprobarExistencia(String usuario, int password) {
         try {
-            ResultSet rs = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND CONTRASENA = '" + password + "';");
+            ResultSet rs = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
             return rs.next();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,7 +49,7 @@ public class ModeloLogin {
     public String seleccionar() {
         try {
 
-            rs = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND CONTRASENA = '" + password + "';");
+            rs = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
             rs.next();
             return rs.getString("USUARIO");
         } catch (SQLException ex) {
@@ -60,7 +60,7 @@ public class ModeloLogin {
 
     public void insertar() {
         try {
-            statement.executeUpdate("insert into USUARIOS values( 2,'" + usuario + "'," + password + ");");
+            statement.executeUpdate("INSERT INTO `USUARIOS`(`id`, `usuario`, `password`) VALUES (null,'" + usuario + "'," + password + ")");
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
