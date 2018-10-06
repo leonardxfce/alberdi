@@ -9,7 +9,9 @@ import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * @author caro_
@@ -23,24 +25,49 @@ public class ModeloEnvase {
     String tipo;
     int volumen;
     String descripcion;
-    String url;
-
-
-    public ModeloEnvase(String nombre, String tipo,int volumen,String descripcion) {
+    String url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
+    
+    /*public ModeloEnvase(String nombre, String tipo, int volumen, String descripcion) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.volumen = volumen;
         this.descripcion = descripcion;
         this.url = "jdbc:sqlite:sample.db";
+    }*/
+    public boolean repetido(ArrayList<String> miAl) {
+        String nombre = miAl.get(0);
+        String tipo = miAl.get(1);
+        String volumen = miAl.get(2);
+        String descripcion = miAl.get(3);
+        boolean bandera = false;
+        try {
+             connection = DriverManager.getConnection(url,"sql10259965", "Ej1IRP2Jsk");
+            statement = connection.createStatement();
+            String SQL =""
+                    + "SELECT COUNT(*) as contar  FROM "
+                    + "ENVASE WHERE "
+                    + " NOMBRE='" + nombre
+                    + "' AND TIPO = '" + tipo
+                    + "' AND VOLUMEN ='" + volumen
+                    + "' AND DESCRIPCION = '" + descripcion + "'";
+            ResultSet rs = statement.executeQuery(SQL);
+            rs.next();
+            int cuenta = rs.getInt("contar");
+            bandera = cuenta >= 1;
+
+        } catch (Exception e) {
+
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+        }
+        return bandera;
     }
 
-
-    public void insert() {
+    public void guardarEnvaseNuevo(ArrayList<String> miAl) {
         try {
-            connection = DriverManager.getConnection(url);
+            connection = DriverManager.getConnection(url,"sql10259965", "Ej1IRP2Jsk");
             statement = connection.createStatement();
-            System.out.println("insert into envase values(1,'" + nombre + "', '" + tipo + "', '" + volumen + "', '" + descripcion + "')");
-            statement.executeUpdate("insert into envase values(1,'" + nombre + "', '" + tipo + "', '" + volumen + "',' " + descripcion + "')");
+            statement.executeUpdate("insert into ENVASE values(1,'" + miAl.get(0) + "', '" + miAl.get(1) + "', '" + miAl.get(2) + "',' " + miAl.get(3) + "')");
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
