@@ -38,25 +38,29 @@ public class ModeloLoginTest {
      */
     @Test
     public void testSeleccionar() {
-        System.out.println("seleccionar");
-
         ModeloLogin instance = new ModeloLogin("LISA", "1234");
         String result = instance.seleccionar();
         assertEquals("LISA", result);
     } 
     @Test
     public void testExistencia(){
-        System.out.println("existe, o no existe?");
-        ModeloLogin instance = new ModeloLogin("Lauta","2221");
-        boolean result = instance.comprobarExistencia("Lauta",2221);
+        ModeloLogin instance = new ModeloLogin("leo","2221");
+        boolean result = instance.comprobarExistencia("leo",2221);
         assertEquals(false,result);
     }
     @Test
     public void testExistencia2(){
-        System.out.println("no existe mepa");
         ModeloLogin instance = new ModeloLogin("LISA","1234");
         boolean result = instance.comprobarExistencia("LISA",1234);
         assertEquals(true,result);
     }
+    @Test
+    public void testinsert() {
+        ModeloLogin instance = new ModeloLogin("JUANES", "2610");
+        instance.insertar();
+        boolean result = instance.comprobarExistencia("JUANES",2610);
+        assertEquals(true,result);
+    }
+    
 
 }
