@@ -34,7 +34,7 @@ public class ControladorTest extends ApplicationTest {
         clickOn("Ingresar");
         clickOn("Cargar Envase");
         verifyThat(".button", hasText("Guardar"));
-        clickOn("Guardar");
+        //clickOn("Guardar");
     }
 
 
