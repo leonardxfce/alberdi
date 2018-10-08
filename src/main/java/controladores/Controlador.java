@@ -5,42 +5,55 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import modelos.ModeloEnvase;
+import modelos.ModeloLogin;
 import org.apache.log4j.Logger;
 import vistas.VistaLogin;
 import vistas.VistaEnvase;
 import vistas.VistaTapa;
 import vistas.VistaMenu;
 
+import java.util.ArrayList;
+
 public class Controlador implements EventHandler<ActionEvent> {
 
-    VistaEnvase vistaEnvase;
-    VistaLogin vistaLogin;
     Logger logger;
     Stage stage;
+    //Vistas
     VistaTapa vistaTapa;
-    VistaMenu menuIntermedioParaElegirFormulario;
+    VistaMenu vistaMenu;
+    VistaEnvase vistaEnvase;
+    VistaLogin vistaLogin;
+    //Modelos
+    ModeloEnvase modeloEnvase;
+    ModeloLogin modeloLogin;
 
     public Controlador(Stage primaryStage) {
         logger = Logger.getLogger(Controlador.class);
         stage = primaryStage;
+        //Instancias de Vistas
         vistaEnvase = new VistaEnvase();
         vistaLogin = new VistaLogin();
         vistaTapa = new VistaTapa();
-        menuIntermedioParaElegirFormulario = new VistaMenu();
+        vistaMenu = new VistaMenu();
+        //Intancias de Modelos
+        //modeloEnvase=new ModeloEnvase();
+        //modeloLogin=new ModeloLogin();
+        //Configuracion de las Vistas
         vistaEnvase.config();
         vistaLogin.config();
         vistaTapa.config();
-        menuIntermedioParaElegirFormulario.config();
+        vistaMenu.config();
+        //Activacion de Botones de las Vistas
         vistaLogin.getBtnIngresar().setOnAction(this);
-        menuIntermedioParaElegirFormulario.getBtnEnvase().setOnAction(this);
-        menuIntermedioParaElegirFormulario.getBtnTapas().setOnAction(this);
-        menuIntermedioParaElegirFormulario.getBtnCerrarSesion().setOnAction(this);
+        vistaMenu.getBtnEnvase().setOnAction(this);
+        vistaMenu.getBtnTapas().setOnAction(this);
+        vistaMenu.getBtnCerrarSesion().setOnAction(this);
         vistaEnvase.getBtnGuardarEv().setOnAction(this);
         vistaEnvase.getBtnCancelar().setOnAction(this);
         vistaTapa.getBtnAceptar().setOnAction(this);
         vistaTapa.getBtnCancelar().setOnAction(this);
 
-        stage.setTitle("Formulario Envase");
+        stage.setTitle("Sistema Alberdi");
         stage.setScene(vistaLogin.getScene());
         stage.setResizable(false);
         stage.show();
@@ -49,40 +62,50 @@ public class Controlador implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
         Button botonSeleccionado = (Button) event.getSource();
-        String dato = event.getClass().toString();
-
-        String textoDelBoton = botonSeleccionado.getText();
-        switch (textoDelBoton) {
-            case "Ingresar":
-                //   String usuario = vistaLogin.usuario_campo.getText();
-                // String contrasena = vistaLogin.contrasena_campo.getText();
-                // ModeloLogin mL = new ModeloLogin(usuario,contrasena);
-                //mL.insertar();
-                stage.setScene(menuIntermedioParaElegirFormulario.getScene());
+        String botonID = botonSeleccionado.getId();
+        switch (botonID) {
+            case "login_ingresar":
+                ArrayList<String> atributosLogin=new ArrayList<>();
+                atributosLogin.add(vistaLogin.getTxUsuario().getText());
+                atributosLogin.add(vistaLogin.getTxContrasena().getText());
+                //modeloLogin.confirmar(atributosLogin);
+                stage.setScene(vistaMenu.getScene());
                 break;
-            case "Cerrar Sesion":
-                stage.setScene(vistaLogin.getScene());
-                break;
-            case "Cargar Envase":
+            case "menu_envase":
                 stage.setScene(vistaEnvase.getScene());
                 break;
-            case "Cargar Tapa":
+            case "menu_tapa":
                 stage.setScene(vistaTapa.getScene());
                 break;
-            case "Aceptar":
-                stage.setScene(menuIntermedioParaElegirFormulario.getScene());
+            case "menu_cerrarSesion":
+                stage.setScene(vistaLogin.getScene());
                 break;
-            case "Cancelar":
-                stage.setScene(menuIntermedioParaElegirFormulario.getScene());
+            case "envase_guardar":
+                ArrayList<String> atributosEnvase = new ArrayList<>();
+                atributosEnvase.add(vistaEnvase.getTextNombre().getText());
+                atributosEnvase.add(vistaEnvase.getTextTipo().getText());
+                atributosEnvase.add(vistaEnvase.getTextVol().getText());
+                atributosEnvase.add(vistaEnvase.getTextDescrip().getText());
+                System.out.println(atributosEnvase);
+                //modeloEnvase.repetido(atributosEnvase);
+                vistaEnvase.getTextNombre().clear();
+                vistaEnvase.getTextTipo().clear();
+                vistaEnvase.getTextVol().clear();
+                vistaEnvase.getTextDescrip().clear();
                 break;
-            case "Guardar Envase":
-                //String nombre = vistaEnvase.textNombre.getText();
-                //String tipo = vistaEnvase.textTipo.getText();
-                //int volumen = vistaEnvase.text
-                ModeloEnvase modelo;
-                
-                modelo = new ModeloEnvase("A", "B", 1, "C");
-                modelo.insert();
+            case "envase_cancelar":
+                stage.setScene(vistaMenu.getScene());
+                break;
+            case "tapa_guardar":
+                ArrayList<String> atributosTapa = new ArrayList<>();
+                atributosTapa.add(vistaTapa.getTxTipo().getText());
+                atributosTapa.add(vistaTapa.getTxDescripcion().getText());
+               // modeloTapa.repetido(atributosTapa);
+                vistaTapa.getTxTipo().clear();
+                vistaTapa.getTxDescripcion().clear();
+                break;
+            case "tapa_cancelar":
+                stage.setScene(vistaMenu.getScene());
                 break;
 
         }

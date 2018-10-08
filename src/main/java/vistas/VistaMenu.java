@@ -10,10 +10,10 @@ import javafx.scene.control.Label;
  */
 public class VistaMenu extends VistaPadre {
 
-    Button btnEnvase;
-    Button btnTapas;
-    Button btnCerrarSesion;
-    Label titulo;
+    private Button btnEnvase;
+    private Button btnTapas;
+    private Button btnCerrarSesion;
+    private Label titulo;
 
     public VistaMenu() {
         super();
@@ -37,9 +37,15 @@ public class VistaMenu extends VistaPadre {
     }
 
     public void config() {
-        contenido.getChildren().addAll(titulo, getBtnEnvase(), getBtnTapas(), getBtnCerrarSesion());
+        //IDs
+        btnEnvase.setId("menu_envase");
+        btnTapas.setId("menu_tapa");
+        btnCerrarSesion.setId("menu_cerrarSesion");
+        //Controles
+        contenido.getChildren().addAll(titulo, btnEnvase, btnTapas, btnCerrarSesion);
         contenido.setAlignment(Pos.CENTER);
         contenido.setSpacing(5);
+        contenido.setMinSize(200, 200);
     }
 
 }
