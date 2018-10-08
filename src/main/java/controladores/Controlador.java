@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import modelos.ModeloEnvase;
 import modelos.ModeloLogin;
-import org.apache.log4j.Logger;
 import vistas.VistaLogin;
 import vistas.VistaEnvase;
 import vistas.VistaTapa;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 
 public class Controlador implements EventHandler<ActionEvent> {
 
-    Logger logger;
     Stage stage;
     //Vistas
     VistaTapa vistaTapa;
@@ -28,7 +26,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     ModeloLogin modeloLogin;
 
     public Controlador(Stage primaryStage) {
-        logger = Logger.getLogger(Controlador.class);
+
         stage = primaryStage;
         //Instancias de Vistas
         vistaEnvase = new VistaEnvase();
