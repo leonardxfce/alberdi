@@ -7,11 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class VistaLogin extends VistaPadre {
-    Label labelUsuario;
-    Label labelContrasena;
-    TextField txUsuario;
-    TextField txContrasena;
-    Button btnIngresar;
+    private Label labelUsuario;
+    private Label labelContrasena;
+    private TextField txUsuario;
+    private TextField txContrasena;
+    private Button btnIngresar;
 
 
     public VistaLogin() {
@@ -36,6 +36,9 @@ public class VistaLogin extends VistaPadre {
     }
 
     public void config() {
+        //IDs
+        btnIngresar.setId("login_ingresar");
+        //Controles
         contenido.getChildren().addAll(labelUsuario, txUsuario, labelContrasena, txContrasena, btnIngresar);
         contenido.setSpacing(5);
     }

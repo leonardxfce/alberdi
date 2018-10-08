@@ -13,65 +13,66 @@ public class VistaEnvase extends VistaPadre {
 
     private TextField textNombre;
     private TextField textTipo;
-    private TextField textCap;
+    private TextField textVol;
+    private TextField textDescrip;
     private Label labelNom;
     private Label labelTipo;
-    private Label labelCap;
+    private Label labelVol;
+    private Label labelDescrip;
     private Button btnGuardarEv;
     private Button btnCancelar;
-    HBox bxNombre;
-    HBox bxTipo;
-    HBox bxCap;
-    HBox bxButton;
+    private HBox bxNombre;
+    private HBox bxTipo;
+    private HBox bxVol;
+    private HBox bxDescrip;
+    private HBox bxButton;
 
     public VistaEnvase() {
         super();
         labelNom = new Label("Nombre");
         labelTipo = new Label("Tipo");
-        labelCap = new Label("Capacidad");
+        labelVol = new Label("Volumen");
+        labelDescrip = new Label("Descripción");
 
         textNombre = new TextField();
         textTipo = new TextField();
-        textCap = new TextField();
+        textVol = new TextField();
+        textDescrip = new TextField();
 
-        btnGuardarEv = new Button("Guardar Envase");
+        btnGuardarEv = new Button("Guardar");
         btnCancelar = new Button("Cancelar");
 
         bxNombre = new HBox(5);
         bxTipo = new HBox(5);
-        bxCap = new HBox(5);
+        bxVol = new HBox(5);
+        bxDescrip = new HBox(5);
         bxButton = new HBox(5);
-
-
     }
+    //Getters
+    public TextField getTextNombre() { return textNombre; }
 
-    public TextField getTextNombre() {
-        return textNombre;
-    }
+    public TextField getTextTipo() { return textTipo; }
 
-    public TextField getTextTipo() {
-        return textTipo;
-    }
+    public TextField getTextVol() { return textVol; }
 
-    public TextField getTextCap() {
-        return textCap;
-    }
+    public TextField getTextDescrip() { return textDescrip; }
 
-    public Button getBtnGuardarEv() {
-        return btnGuardarEv;
-    }
+    public Button getBtnGuardarEv() { return btnGuardarEv; }
 
-    public Button getBtnCancelar() {
-        return btnCancelar;
-    }
+    public Button getBtnCancelar() { return btnCancelar; }
 
     public void config() {
-        bxNombre.getChildren().addAll(labelNom,textNombre);
-        bxTipo.getChildren().addAll(labelTipo,textTipo);
-        bxCap.getChildren().addAll(labelCap,textCap);
-        bxButton.getChildren().addAll(btnGuardarEv,btnCancelar);
+        //ID
+        btnGuardarEv.setId("envase_guardar");
+        btnCancelar.setId("envase_cancelar");
+        //Controles
+        bxNombre.getChildren().addAll(labelNom, textNombre);
+        bxTipo.getChildren().addAll(labelTipo, textTipo);
+        bxVol.getChildren().addAll(labelVol, textVol);
+        bxDescrip.getChildren().addAll(labelDescrip, textDescrip);
+        bxButton.getChildren().addAll(btnGuardarEv, btnCancelar);
         bxButton.setAlignment(Pos.CENTER);
-        contenido.getChildren().addAll(bxNombre,bxTipo,bxCap,bxButton);
+        contenido.getChildren().addAll(bxNombre, bxTipo, bxVol, bxDescrip, bxButton);
         contenido.setSpacing(5);
     }
 }

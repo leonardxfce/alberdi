@@ -16,8 +16,25 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_se_hace_clic() {
+        verifyThat(".button", hasText("Ingresar"));
+        sleep(1000);
         clickOn(".button");
+        sleep(1000);
         verifyThat(".button", hasText("Cargar Envase"));
+        sleep(1000);
+        clickOn("Cargar Tapa");
+        sleep(1000);
+        verifyThat(".button", hasText("Aceptar"));
+        sleep(1000);
+        clickOn("Cancelar");
+    }
+
+    @Test
+    public void test_click_GuardarEnvase(){
+        clickOn("Ingresar");
+        clickOn("Cargar Envase");
+        verifyThat(".button", hasText("Guardar"));
+        clickOn("Guardar");
     }
 
 
