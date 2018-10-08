@@ -68,6 +68,7 @@ public class ModeloLogin {
 
     public void eliminar() {
         try {
+            //solo para eliminar un user
             statement.executeUpdate("DELETE * FROM `USUARIOS`(`id`, `usuario`, `password`) VALUES (null,'" + usuario + "'," + password + ")");
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
