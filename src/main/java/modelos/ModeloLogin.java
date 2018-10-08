@@ -20,7 +20,7 @@ public class ModeloLogin {
     String url;
     Connection connection;
     Statement statement;
-    ResultSet rs;
+    ResultSet contenidoDeRespuesta;
 
     public ModeloLogin(String usuario, String password) {
         this.usuario = usuario;
@@ -38,8 +38,8 @@ public class ModeloLogin {
 
     public boolean comprobarExistencia(String usuario, int password) {
         try {
-            ResultSet rs = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
-            return rs.next();
+            ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
+            return contenidoDeRespuesta.next();
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,9 +49,9 @@ public class ModeloLogin {
     public String seleccionar() {
         try {
 
-            rs = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
-            rs.next();
-            return rs.getString("USUARIO");
+            contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
+            contenidoDeRespuesta.next();
+            return contenidoDeRespuesta.getString("USUARIO");
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,7 +67,11 @@ public class ModeloLogin {
     }
 
     public void eliminar() {
-
+        try {
+            statement.executeUpdate("DELETE * FROM `USUARIOS`(`id`, `usuario`, `password`) VALUES (null,'" + usuario + "'," + password + ")");
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void modificar() {
