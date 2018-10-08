@@ -25,15 +25,18 @@ public class ModeloEnvase {
     String tipo;
     int volumen;
     String descripcion;
-    String url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
+    String url ;
     
-    /*public ModeloEnvase(String nombre, String tipo, int volumen, String descripcion) {
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.volumen = volumen;
-        this.descripcion = descripcion;
-        this.url = "jdbc:sqlite:sample.db";
-    }*/
+    public ModeloEnvase() {
+      this.url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
+      try {
+            connection = DriverManager.getConnection(url,"sql10259965", "Ej1IRP2Jsk");
+            statement = connection.createStatement();
+        }catch(Exception e){
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+        }
+    }
     public boolean repetido(ArrayList<String> miAl) {
         String nombre = miAl.get(0);
         String tipo = miAl.get(1);
@@ -41,8 +44,6 @@ public class ModeloEnvase {
         String descripcion = miAl.get(3);
         boolean bandera = false;
         try {
-             connection = DriverManager.getConnection(url,"sql10259965", "Ej1IRP2Jsk");
-            statement = connection.createStatement();
             String SQL =""
                     + "SELECT COUNT(*) as contar  FROM "
                     + "ENVASE WHERE "
@@ -65,9 +66,7 @@ public class ModeloEnvase {
 
     public void guardarEnvaseNuevo(ArrayList<String> miAl) {
         try {
-            connection = DriverManager.getConnection(url,"sql10259965", "Ej1IRP2Jsk");
-            statement = connection.createStatement();
-            statement.executeUpdate("insert into ENVASE values(1,'" + miAl.get(0) + "', '" + miAl.get(1) + "', '" + miAl.get(2) + "',' " + miAl.get(3) + "')");
+            statement.executeUpdate("insert into ENVASE values("+null+",'" + miAl.get(0) + "', '" + miAl.get(1) + "', '" + miAl.get(2) + "',' " + miAl.get(3) + "')");
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
