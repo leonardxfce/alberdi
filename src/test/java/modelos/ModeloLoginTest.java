@@ -55,9 +55,16 @@ public class ModeloLoginTest {
         assertEquals(true,result);
     }
     @Test
-    public void testinsert() {
+    public void testInsert() {
         ModeloLogin instance = new ModeloLogin("JUANES", "2610");
         instance.insertar();
+        boolean result = instance.comprobarExistencia("JUANES",2610);
+        assertEquals(true,result);
+    }
+    @Test
+    public void testEliminar() {
+        ModeloLogin instance = new ModeloLogin("JUANES", "2610");
+        instance.eliminar();
         boolean result = instance.comprobarExistencia("JUANES",2610);
         assertEquals(true,result);
     }
