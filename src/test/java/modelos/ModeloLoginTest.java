@@ -66,7 +66,7 @@ public class ModeloLoginTest {
         boolean result = instance.comprobarExistencia(atributosLogin);
         assertEquals(true, result);
     }
-
+/**
     @Test
     public void testInsert() {
         ArrayList<String> atributosLogin = new ArrayList<>();
@@ -86,4 +86,6 @@ public class ModeloLoginTest {
         assertEquals(true,result);
     }
     **/
+**/
+
 }
