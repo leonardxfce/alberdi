@@ -67,6 +67,7 @@ public class ModeloLogin {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    //eldavidmodificoesto
 
     public void eliminar() {
         try {
