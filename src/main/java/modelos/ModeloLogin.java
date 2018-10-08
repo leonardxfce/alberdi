@@ -6,6 +6,7 @@
 package modelos;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,9 +23,8 @@ public class ModeloLogin {
     Statement statement;
     ResultSet contenidoDeRespuesta;
 
-    public ModeloLogin(String usuario, String password) {
-        this.usuario = usuario;
-        this.password = password;
+    public ModeloLogin() {
+
         this.url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
         try {
 
@@ -36,7 +36,9 @@ public class ModeloLogin {
 
     }
 
-    public boolean comprobarExistencia(String usuario, int password) {
+    public boolean comprobarExistencia(ArrayList<String> ArrUsuario) {
+        usuario = ArrUsuario.get(0);
+        password = ArrUsuario.get(1);
         try {
             ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
             return contenidoDeRespuesta.next();
@@ -46,7 +48,7 @@ public class ModeloLogin {
         return false;
     }
 
-    public String seleccionar() {
+    public String seleccionar(String usuario, String password) {
         try {
 
             contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
@@ -60,7 +62,7 @@ public class ModeloLogin {
 
     public void insertar() {
         try {
-            statement.executeUpdate("INSERT INTO `USUARIOS`(`id`, `usuario`, `password`) VALUES (null,'" + usuario + "'," + password + ")");
+            statement.executeUpdate("INSERT INTO `USUARIOS`(`id`, `usuario`, `password`) VALUES (elinull,'" + usuario + "'," + password + ")");
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,9 +75,5 @@ public class ModeloLogin {
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public void modificar() {
-
     }
 }
