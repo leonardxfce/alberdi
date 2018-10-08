@@ -34,7 +34,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaTapa = new VistaTapa();
         vistaMenu = new VistaMenu();
         //Intancias de Modelos
-        //modeloEnvase=new ModeloEnvase();
+        modeloEnvase=new ModeloEnvase();
         //modeloLogin=new ModeloLogin();
         //Configuracion de las Vistas
         vistaEnvase.config();
@@ -85,7 +85,9 @@ public class Controlador implements EventHandler<ActionEvent> {
                 atributosEnvase.add(vistaEnvase.getTextVol().getText());
                 atributosEnvase.add(vistaEnvase.getTextDescrip().getText());
                 System.out.println(atributosEnvase);
-                //modeloEnvase.repetido(atributosEnvase);
+                if(!modeloEnvase.repetido(atributosEnvase)){
+                    modeloEnvase.guardarEnvaseNuevo(atributosEnvase);
+                }
                 vistaEnvase.getTextNombre().clear();
                 vistaEnvase.getTextTipo().clear();
                 vistaEnvase.getTextVol().clear();
