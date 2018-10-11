@@ -12,6 +12,7 @@ import vistas.VistaTapa;
 import vistas.VistaMenu;
 
 import java.util.ArrayList;
+import vistas.VentanaPopUp;
 
 public class Controlador implements EventHandler<ActionEvent> {
 
@@ -34,7 +35,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaTapa = new VistaTapa();
         vistaMenu = new VistaMenu();
         //Intancias de Modelos
-        modeloEnvase=new ModeloEnvase();
+        modeloEnvase = new ModeloEnvase();
         //modeloLogin=new ModeloLogin();
         //Configuracion de las Vistas
         vistaEnvase.config();
@@ -63,7 +64,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         String botonID = botonSeleccionado.getId();
         switch (botonID) {
             case "login_ingresar":
-                ArrayList<String> atributosLogin=new ArrayList<>();
+                ArrayList<String> atributosLogin = new ArrayList<>();
                 atributosLogin.add(vistaLogin.getTxUsuario().getText());
                 atributosLogin.add(vistaLogin.getTxContrasena().getText());
                 //modeloLogin.confirmar(atributosLogin);
@@ -85,8 +86,11 @@ public class Controlador implements EventHandler<ActionEvent> {
                 atributosEnvase.add(vistaEnvase.getTextVol().getText());
                 atributosEnvase.add(vistaEnvase.getTextDescrip().getText());
                 System.out.println(atributosEnvase);
-                if(!modeloEnvase.repetido(atributosEnvase)){
+                if (!modeloEnvase.repetido(atributosEnvase)) {
                     modeloEnvase.guardarEnvaseNuevo(atributosEnvase);
+                    VentanaPopUp.display("Se guardaron los datos.");
+                } else {
+                    VentanaPopUp.display("Los datos estan repetidos.");
                 }
                 vistaEnvase.getTextNombre().clear();
                 vistaEnvase.getTextTipo().clear();
@@ -100,7 +104,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                 ArrayList<String> atributosTapa = new ArrayList<>();
                 atributosTapa.add(vistaTapa.getTxTipo().getText());
                 atributosTapa.add(vistaTapa.getTxDescripcion().getText());
-               // modeloTapa.repetido(atributosTapa);
+                // modeloTapa.repetido(atributosTapa);
                 vistaTapa.getTxTipo().clear();
                 vistaTapa.getTxDescripcion().clear();
                 break;

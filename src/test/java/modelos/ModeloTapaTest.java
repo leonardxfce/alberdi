@@ -5,6 +5,7 @@
  */
 package modelos;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,6 +39,28 @@ public class ModeloTapaTest {
     }
 
     /**
+     * Test of insert method, of class ModeloTapa.
+     */
+    @Test
+    public void testInsert() {
+        System.out.println("insert");
+
+        ArrayList<String> miAl = new ArrayList<String>();
+        miAl.add("106");
+        miAl.add("corona");
+        int dato = 1;
+
+        ModeloTapa instance = new ModeloTapa();
+        instance.insert(miAl);
+
+        String result = instance.select(dato);
+        String expResult = miAl.get(0);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of select method, of class ModeloTapa.
      */
     @Test
@@ -45,15 +68,11 @@ public class ModeloTapaTest {
         System.out.println("select");
 
         int dato = 1;
-        int id = 1;
-        String nombre = "tapas";
-        String descripcion = "esta es la decripcion";
-        String url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
 
-        ModeloTapa instance = new ModeloTapa(id, nombre, descripcion, url);
+        ModeloTapa instance = new ModeloTapa();
         String result = instance.select(dato);
 
-        String expResult = "tapas";
+        String expResult = "106";
 
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -61,22 +80,42 @@ public class ModeloTapaTest {
     }
 
     /**
-     * Test of insert method, of class ModeloTapa.
+     * Test of repetido method, of class ModeloTapa.
      */
     @Test
-    public void testInsert() {
-        System.out.println("insert");
+    public void testRepetido1() {
+        System.out.println("repetido");
 
-        int id = 1;
-        String nombre = "tapas";
-        String descripcion = "esta es la decripcion";
-        String url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
+        ArrayList<String> miAl = new ArrayList<String>();
+        miAl.add("106");
+        miAl.add("corona");
 
-        ModeloTapa instance = new ModeloTapa(id, nombre, descripcion, url);
-        instance.insert();
+        ModeloTapa instance = new ModeloTapa();
 
-        String result = instance.select(id);
-        String expResult = nombre;
+        boolean expResult = true;
+        boolean result = instance.repetido(miAl);
+
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of repetido method, of class ModeloTapa.
+     */
+    @Test
+    public void testRepetido2() {
+        System.out.println("repetido");
+
+        ArrayList<String> miAl = new ArrayList<String>();
+        miAl.add("105");
+        miAl.add("corona");
+
+        ModeloTapa instance = new ModeloTapa();
+
+        boolean expResult = false;
+        boolean result = instance.repetido(miAl);
+
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

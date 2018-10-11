@@ -27,15 +27,25 @@ public class ControladorTest extends ApplicationTest {
         verifyThat(".button", hasText("Aceptar"));
         sleep(1000);
         clickOn("Cancelar");
+        verifyThat(".button", hasText("Cargar Envase"));
     }
 
     @Test
-    public void test_click_GuardarEnvase(){
+    public void test_click_GuardarEnvase() {
         clickOn("Ingresar");
         clickOn("Cargar Envase");
         verifyThat(".button", hasText("Guardar"));
         //clickOn("Guardar");
     }
 
+    @Test
+    public void test_click_GuardarEnvase_Popup() {
+        clickOn("Ingresar");
+        clickOn("Cargar Envase");
+        clickOn("Guardar");
+        clickOn("OK");
+        verifyThat(".button", hasText("Guardar"));
+        //clickOn("Guardar");
+    }
 
 }
