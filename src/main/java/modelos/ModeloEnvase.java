@@ -40,7 +40,7 @@ public class ModeloEnvase {
     public boolean repetido(ArrayList<String> miAl) {
         String nombre = miAl.get(0);
         String tipo = miAl.get(1);
-        String volumen = miAl.get(2);
+        int volumen = Integer.parseInt(miAl.get(2));
         String descripcion = miAl.get(3);
         boolean bandera = false;
         try {
@@ -49,8 +49,8 @@ public class ModeloEnvase {
                     + "ENVASE WHERE "
                     + " NOMBRE='" + nombre
                     + "' AND TIPO = '" + tipo
-                    + "' AND VOLUMEN ='" + volumen
-                    + "' AND DESCRIPCION = '" + descripcion + "'";
+                    + "' AND VOLUMEN =" + volumen
+                    + " AND DESCRIPCION = '" + descripcion + "';";
             ResultSet rs = statement.executeQuery(SQL);
             rs.next();
             int cuenta = rs.getInt("contar");
@@ -66,7 +66,7 @@ public class ModeloEnvase {
 
     public void guardarEnvaseNuevo(ArrayList<String> miAl) {
         try {
-            statement.executeUpdate("insert into ENVASE values("+null+",'" + miAl.get(0) + "', '" + miAl.get(1) + "', '" + miAl.get(2) + "',' " + miAl.get(3) + "')");
+            statement.executeUpdate("insert into ENVASE values("+null+",'" + miAl.get(0) + "', '" + miAl.get(1) + "', '" + miAl.get(2) + "','" + miAl.get(3) + "');");
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());

@@ -1,4 +1,4 @@
-package controladores;
+package controladores; 
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -81,10 +81,10 @@ public class Controlador implements EventHandler<ActionEvent> {
                 break;
             case "envase_guardar":
                 ArrayList<String> atributosEnvase = new ArrayList<>();
-                atributosEnvase.add(vistaEnvase.getTextNombre().getText());
-                atributosEnvase.add(vistaEnvase.getTextTipo().getText());
+                atributosEnvase.add(vistaEnvase.getTextNombre().getText().trim().toUpperCase());
+                atributosEnvase.add(vistaEnvase.getTextTipo().getText().trim().toUpperCase());
                 atributosEnvase.add(vistaEnvase.getTextVol().getText());
-                atributosEnvase.add(vistaEnvase.getTextDescrip().getText());
+                atributosEnvase.add(vistaEnvase.getTextDescrip().getText().trim().toUpperCase());
                 System.out.println(atributosEnvase);
                 if (!modeloEnvase.repetido(atributosEnvase)) {
                     modeloEnvase.guardarEnvaseNuevo(atributosEnvase);
