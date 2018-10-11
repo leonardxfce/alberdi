@@ -40,7 +40,7 @@ public class VistaEnvase extends VistaPadre {
         textDescrip = new TextField();
 
         btnGuardarEv = new Button("Guardar");
-        btnCancelar = new Button("Cancelar");
+        btnCancelar = new Button("Volver al menu");
 
         bxNombre = new HBox(5);
         bxTipo = new HBox(5);
