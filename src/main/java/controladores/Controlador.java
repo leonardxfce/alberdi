@@ -10,6 +10,7 @@ import vistas.VistaLogin;
 import vistas.VistaEnvase;
 import vistas.VistaTapa;
 import vistas.VistaMenu;
+import vistas.VentanaPopUp;
 
 import java.util.ArrayList;
 
@@ -87,7 +88,11 @@ public class Controlador implements EventHandler<ActionEvent> {
                 System.out.println(atributosEnvase);
                 if(!modeloEnvase.repetido(atributosEnvase)){
                     modeloEnvase.guardarEnvaseNuevo(atributosEnvase);
+                    VentanaPopUp.display("Se guardaron los datos.");
+                }else{
+                    VentanaPopUp.display("Los datos estan repetidos.");
                 }
+                
                 vistaEnvase.getTextNombre().clear();
                 vistaEnvase.getTextTipo().clear();
                 vistaEnvase.getTextVol().clear();
