@@ -61,9 +61,9 @@ public class ModeloEnvaseTest {
     public void testRepetido2() {
         System.out.println("repetido");
         ArrayList<String> miAl = new ArrayList<String>();
-        miAl.add("frasco");
+        miAl.add("bote");
         miAl.add("corona");
-        miAl.add("10");
+        miAl.add("250");
         miAl.add("vidrio");
         ModeloEnvase instance = new ModeloEnvase();
         boolean expResult = true;
