@@ -68,7 +68,7 @@ public class ModeloLoginTest {
     }
 /**
     @Test
-    public void testinsert() {
+    public void testInsert() {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add("JUANES");
         atributosLogin.add("2610");
@@ -77,5 +77,15 @@ public class ModeloLoginTest {
         boolean result = instance.comprobarExistencia(atributosLogin);
         assertEquals(true, result);
     }
+  /**
+    @Test
+    public void testEliminar() {
+        ModeloLogin instance = new ModeloLogin("JUANES", "2610");
+        instance.eliminar();
+        boolean result = instance.comprobarExistencia("JUANES",2610);
+        assertEquals(true,result);
+    }
+    **/
 **/
+
 }
