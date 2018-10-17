@@ -5,7 +5,11 @@
  */
 package modelos;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
@@ -14,6 +18,10 @@ import static org.junit.Assert.assertEquals;
  * @author lauta
  */
 public class ModeloLoginTest {
+
+    private Connection connection;
+    private String url = "jdbc:sqlite:sample.db";
+    private Statement statement;
 
     public ModeloLoginTest() {
     }
@@ -28,6 +36,29 @@ public class ModeloLoginTest {
 
     @Before
     public void setUp() {
+        try {
+            connection = DriverManager.getConnection(url);
+            statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE if not exists USUARIOS (\n"
+                    + "ID integer PRIMARY KEY,\n"
+                    + "USUARIO text,\n"
+                    + "PASSWORD text\n"
+                    + ");");
+            statement.executeUpdate("CREATE TABLE if not exists ENVASE (\n"
+                    + "ID integer PRIMARY KEY,\n"
+                    + "NOMBRE text,\n"
+                    + "TIPO text,\n"
+                    + "VOLUMEN int,\n"
+                    + "DESCRIPCION text\n"
+                    + ");");
+            statement.executeUpdate("CREATE TABLE if not exists TAPA (\n"
+                    + "ID integer PRIMARY KEY,\n"
+                    + "NOMBRE text,\n"
+                    + "DESCRIPCION text\n"
+                    + ");");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @After
@@ -38,44 +69,23 @@ public class ModeloLoginTest {
      * Test of seleccionar method, of class ModeloLogin.
      */
     @Test
-    public void testSeleccionar() {
-        ArrayList<String> atributosLogin = new ArrayList<>();
-        atributosLogin.add("LISA");
-        atributosLogin.add("1234");
-        ModeloLogin instance = new ModeloLogin();
-        String result = instance.seleccionar("LISA","1234");
-        assertEquals("LISA", result);
-    }
-
-    @Test
     public void testExistencia() {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add("leo");
         atributosLogin.add("2221");
-        ModeloLogin instance = new ModeloLogin();
+        ModeloLogin instance = new ModeloLogin("leo", "2221");
         boolean result = instance.comprobarExistencia(atributosLogin);
         assertEquals(false, result);
     }
 
-    @Test
-    public void testExistencia2() {
-        ArrayList<String> atributosLogin = new ArrayList<>();
-        atributosLogin.add("LISA");
-        atributosLogin.add("1234");
-        ModeloLogin instance = new ModeloLogin();
-        boolean result = instance.comprobarExistencia(atributosLogin);
-        assertEquals(true, result);
-    }
-/**
-    @Test
     public void testinsert() {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add("JUANES");
         atributosLogin.add("2610");
-        ModeloLogin instance = new ModeloLogin();
+        ModeloLogin instance = new ModeloLogin("JUANES", "2610");
         instance.insertar();
         boolean result = instance.comprobarExistencia(atributosLogin);
         assertEquals(true, result);
     }
-**/
+
 }
