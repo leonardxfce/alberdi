@@ -18,22 +18,22 @@ import static org.junit.Assert.*;
  * @author caro_
  */
 public class ModeloEnvaseTest {
-    
+
     public ModeloEnvaseTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -66,12 +66,14 @@ public class ModeloEnvaseTest {
         miAl.add("250");
         miAl.add("vidrio");
         ModeloEnvase instance = new ModeloEnvase();
-        boolean expResult = true;
+        boolean expResult = false;
+        instance.guardarEnvaseNuevo(miAl);
         boolean result = instance.repetido(miAl);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
+
     /**
      * Test of guardarEnvaseNuevo method, of class ModeloEnvase.
      */
@@ -89,5 +91,4 @@ public class ModeloEnvaseTest {
         //fail("The test case is a prototype.");
     }
 
-    
 }

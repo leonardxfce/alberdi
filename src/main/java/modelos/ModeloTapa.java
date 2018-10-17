@@ -27,12 +27,12 @@ public class ModeloTapa {
 
     //constructores
     public ModeloTapa() {
-        this.url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
+        this.url = "jdbc:sqlite:sample.db";
         try {
-            connection = DriverManager.getConnection(url, "sql10259965", "Ej1IRP2Jsk");
+            connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -41,10 +41,11 @@ public class ModeloTapa {
         String retorno = "";
         try {
             rs = statement.executeQuery("SELECT * FROM TAPA WHERE ID = " + dato + ";");
+
             rs.next();
             retorno = rs.getString("NOMBRE");
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return retorno;
     }
@@ -56,8 +57,9 @@ public class ModeloTapa {
         try {
             statement.executeUpdate("INSERT INTO TAPA (ID, NOMBRE, DESCRIPCION) VALUES (" + null + ", '"
                     + nombre + "', '" + descripcion + "');");
+            statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -72,16 +74,16 @@ public class ModeloTapa {
                     + " NOMBRE='" + nombre
                     + "' AND DESCRIPCION = '" + descripcion + "';";
             ResultSet rs = statement.executeQuery(SQL);
+
             rs.next();
             int cuenta = rs.getInt("contar");
-            if (cuenta >= 1){
+            if (cuenta >= 1) {
                 bandera = true;
             }
             //bandera = cuenta >= 1;
 
         } catch (Exception e) {
-            org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(ModeloEnvase.class);
-            logger.error(e.getMessage());
+            System.out.println(e.getMessage());
         }
         return bandera;
     }
