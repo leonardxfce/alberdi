@@ -23,15 +23,16 @@ public class ModeloLogin {
     Statement statement;
     ResultSet contenidoDeRespuesta;
 
-    public ModeloLogin() {
-
-        this.url = "jdbc:mysql://sql10.freemysqlhosting.net/sql10259965";
+    public ModeloLogin(String usuario, String password) {
+        this.usuario = usuario;
+        this.password = password;
+        this.url = "jdbc:sqlite:sample.db";
         try {
 
-            connection = DriverManager.getConnection(url, "sql10259965", "Ej1IRP2Jsk");
+            connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
 
     }
@@ -43,7 +44,7 @@ public class ModeloLogin {
             ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
             return contenidoDeRespuesta.next();
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return false;
     }
@@ -53,18 +54,20 @@ public class ModeloLogin {
 
             contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
             contenidoDeRespuesta.next();
+            statement.close();
             return contenidoDeRespuesta.getString("USUARIO");
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return null;
     }
 
     public void insertar() {
         try {
-            statement.executeUpdate("INSERT INTO `USUARIOS`(`id`, `usuario`, `password`) VALUES (elinull,'" + usuario + "'," + password + ")");
+            statement.executeUpdate("INSERT INTO USUARIOS(ID, USUARIO, PASSWORD) VALUES (null,'" + usuario + "','" + password + "')");
+            statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
     //eldavidmodificoesto
@@ -72,7 +75,10 @@ public class ModeloLogin {
     public void eliminar() {
         try {
             //solo para eliminar un user
-            statement.executeUpdate("DELETE * FROM `USUARIOS`(`id`, `usuario`, `password`) VALUES (null,'" + usuario + "'," + password + ")");
+            statement.executeUpdate("DELETE * FROM `USUARIOS`(`ID`, `USUARIO`, `PASSWORD`) VALUES (null,'" + usuario + "'," + password + ")");
+
+            statement.close();
+
         } catch (SQLException ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
