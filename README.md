@@ -1,4 +1,4 @@
-# alberdi
+# Proyecto Alberdi
 
 Aplicacion JavaFX de Inventario para la fabrica Escuela J.B. Alberdi
 
