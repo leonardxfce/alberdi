@@ -1,0 +1,1 @@
+INSERT INTO USUARIOS VALUES(null,'admin','247');
