@@ -6,22 +6,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class VistaTapa extends VistaPadre {
-    Label labelTipo;
-    Label labelDescripcion;
-    TextField txTipo;
-    TextField txDescripcion;
-    Button btnAceptar;
-    Button btnCancelar;
+    private Label labelTipo;
+    private Label labelDescripcion;
+    private TextField txTipo;
+    private TextField txDescripcion;
+    private Button btnAceptar;
+    private Button btnCancelar;
 
-    HBox bxTipo;
-    HBox bxDescripcion;
+    VBox bxLabel;
+    VBox bxTextField;
+    HBox bxEdicion;
     HBox bxBotones;
 
     public VistaTapa() {
         super();
-        labelTipo = new Label("Tipo");
+        labelTipo = new Label("Nombre");
         labelDescripcion = new Label("Descripción");
 
         txTipo = new TextField();
@@ -30,14 +32,19 @@ public class VistaTapa extends VistaPadre {
         btnAceptar = new Button("Aceptar");
         btnCancelar = new Button("Cancelar");
 
-        bxTipo = new HBox(5);
-        bxDescripcion = new HBox(5);
+        bxLabel = new VBox(13);
+        bxTextField = new VBox(5);
+        bxEdicion = new HBox(8);
         bxBotones = new HBox(5);
     }
 
-    public TextField getTxTipo() { return txTipo; }
+    public TextField getTxTipo() {
+        return txTipo;
+    }
 
-    public TextField getTxDescripcion() { return txDescripcion; }
+    public TextField getTxDescripcion() {
+        return txDescripcion;
+    }
 
     public Button getBtnAceptar() {
         return btnAceptar;
@@ -51,11 +58,14 @@ public class VistaTapa extends VistaPadre {
         //IDs
         btnAceptar.setId("tapa_guardar");
         btnCancelar.setId("tapa_cancelar");
-        bxTipo.getChildren().addAll(labelTipo, txTipo);
-        bxDescripcion.getChildren().addAll(labelDescripcion, txDescripcion);
+        //controles
+        bxLabel.getChildren().addAll(labelTipo, labelDescripcion);
+        bxLabel.setAlignment(Pos.CENTER_RIGHT);
+        bxTextField.getChildren().addAll(txTipo, txDescripcion);
+        bxEdicion.getChildren().addAll(bxLabel, bxTextField);
         bxBotones.getChildren().addAll(btnAceptar, btnCancelar);
         bxBotones.setAlignment(Pos.CENTER);
-        contenido.getChildren().addAll(bxTipo, bxDescripcion, bxBotones);
+        contenido.getChildren().addAll(bxEdicion, bxBotones);
         contenido.setSpacing(5);
     }
 

@@ -21,10 +21,9 @@ public class VistaEnvase extends VistaPadre {
     private Label labelDescrip;
     private Button btnGuardarEv;
     private Button btnCancelar;
-    private HBox bxNombre;
-    private HBox bxTipo;
-    private HBox bxVol;
-    private HBox bxDescrip;
+    private VBox bxLabel;
+    private VBox bxTextField;
+    private HBox edicion;
     private HBox bxButton;
 
     public VistaEnvase() {
@@ -42,10 +41,9 @@ public class VistaEnvase extends VistaPadre {
         btnGuardarEv = new Button("Guardar");
         btnCancelar = new Button("Cancelar");
 
-        bxNombre = new HBox(5);
-        bxTipo = new HBox(5);
-        bxVol = new HBox(5);
-        bxDescrip = new HBox(5);
+        bxLabel = new VBox(13);
+        bxTextField = new VBox(5);
+        edicion=new HBox(8);
         bxButton = new HBox(5);
     }
     //Getters
@@ -66,13 +64,13 @@ public class VistaEnvase extends VistaPadre {
         btnGuardarEv.setId("envase_guardar");
         btnCancelar.setId("envase_cancelar");
         //Controles
-        bxNombre.getChildren().addAll(labelNom, textNombre);
-        bxTipo.getChildren().addAll(labelTipo, textTipo);
-        bxVol.getChildren().addAll(labelVol, textVol);
-        bxDescrip.getChildren().addAll(labelDescrip, textDescrip);
+        bxLabel.getChildren().addAll(labelNom, labelTipo,labelVol,labelDescrip);
+        bxLabel.setAlignment(Pos.CENTER_RIGHT);
+        bxTextField.getChildren().addAll(textNombre, textTipo, textVol,textDescrip);
+        edicion.getChildren().addAll(bxLabel,bxTextField);
         bxButton.getChildren().addAll(btnGuardarEv, btnCancelar);
         bxButton.setAlignment(Pos.CENTER);
-        contenido.getChildren().addAll(bxNombre, bxTipo, bxVol, bxDescrip, bxButton);
+        contenido.getChildren().addAll(edicion, bxButton);
         contenido.setSpacing(5);
     }
 }
