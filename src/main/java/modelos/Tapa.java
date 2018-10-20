@@ -1,6 +1,7 @@
 package modelos;
 
 public class Tapa {
+    private int idTapa;
     private String nombre;
     private String descripcion;
 
@@ -24,4 +25,8 @@ public class Tapa {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public int getIdTapa() { return this.idTapa; }
+
+    public void setIdTapa(int idTapa) { this.idTapa = idTapa; }
 }

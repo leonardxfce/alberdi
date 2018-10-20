@@ -5,14 +5,15 @@
  */
 package modelos;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
 /**
  *
@@ -32,7 +33,8 @@ public class ModeloTapa {
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(ex.getMessage());
         }
     }
 
@@ -41,11 +43,13 @@ public class ModeloTapa {
         String retorno = "";
         try {
             rs = statement.executeQuery("SELECT * FROM TAPA WHERE ID = " + dato + ";");
-
             rs.next();
             retorno = rs.getString("NOMBRE");
+            statement.close();
+            rs.close();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(ex.getMessage());
         }
         return retorno;
     }
@@ -59,7 +63,8 @@ public class ModeloTapa {
                     + nombre + "', '" + descripcion + "');");
             statement.close();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(ex.getMessage());
         }
     }
 
@@ -68,25 +73,44 @@ public class ModeloTapa {
         String descripcion = miAl.get(1);
         boolean bandera = false;
         try {
-            String SQL = ""
+            String sql = ""
                     + "SELECT COUNT(*) as contar  FROM "
                     + "TAPA WHERE "
                     + " NOMBRE='" + nombre
                     + "' AND DESCRIPCION = '" + descripcion + "';";
-            ResultSet rs = statement.executeQuery(SQL);
+            rs = statement.executeQuery(sql);
 
             rs.next();
             int cuenta = rs.getInt("contar");
             if (cuenta >= 1) {
                 bandera = true;
             }
-            //bandera = cuenta >= 1;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            statement.close();
+            rs.close();
+        } catch (SQLException ex) {
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(ex.getMessage());
         }
         return bandera;
     }
+
+    public List darTodasLasTapas() {
+        ArrayList<Tapa> listadoTapas = new ArrayList<>();
+        try {
+            rs = statement.executeQuery("SELECT * FROM TAPA");
+            while (rs.next()) {
+                Tapa tapa = new Tapa(rs.getString("nombre"), rs.getString("descripcion"));
+                listadoTapas.add(tapa);
+            }
+            statement.close();
+            rs.close();
+        } catch (SQLException ex) {
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(ex.getMessage());
+        }
+        return listadoTapas;
+    }
+
 
     //setters && getters
     public String getUrl() {
