@@ -5,7 +5,8 @@
  */
 package modelos;
 
-import java.util.ArrayList;
+import java.util.List;
+import modelos.Tapa;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,39 +45,24 @@ public class ModeloTapaTest {
     @Test
     public void testInsert() {
         System.out.println("insert");
-        
-        ArrayList<String> miAl = new ArrayList<String>();
-        miAl.add("106");
-        miAl.add("corona");
-        int dato = 1;
-        
+        Tapa tapa = new Tapa("corona","106");
         ModeloTapa instance = new ModeloTapa();
-        instance.insert(miAl);
-        
-        String result = instance.select(dato);
-        String expResult = miAl.get(0);
-        assertEquals(expResult, result);
+        instance.insert(tapa);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
 
     /**
-     * Test of select method, of class ModeloTapa.
+     * Test of DarTodosLosEnvases  method, of class ModeloTapa.
      */
     @Test
-    public void testSelect() {
-        System.out.println("select");
-        
-        int dato = 1;
-        
+    public void testDarTodosLosEnvases() {
+        System.out.println("DarTodosLosEnvases");
+        Tapa tapa = new Tapa("100","axial");
         ModeloTapa instance = new ModeloTapa();
-        String result = instance.select(dato);
-        
-        String expResult = "106";
-        
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        instance.insert(tapa);
+        List lista = instance.darTodosLosEnvases();
+        assertEquals(false,lista.isEmpty());
     }
 
     /**
@@ -85,17 +71,11 @@ public class ModeloTapaTest {
     @Test
     public void testRepetido1() {
         System.out.println("repetido");
-        
-        ArrayList<String> miAl = new ArrayList<String>();
-        miAl.add("106");
-        miAl.add("corona");
-        
+        Tapa tapa = new Tapa("106","corona"); 
         ModeloTapa instance = new ModeloTapa();
-        instance.insert(miAl);
-        
+        instance.insert(tapa);
         boolean expResult = true;
-        boolean result = instance.repetido(miAl);
-        
+        boolean result = instance.repetido(tapa);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -107,16 +87,10 @@ public class ModeloTapaTest {
     @Test
     public void testRepetido2() {
         System.out.println("repetido");
-        
-        ArrayList<String> miAl = new ArrayList<String>();
-        miAl.add("105");
-        miAl.add("corona");
-        
+        Tapa tapa = new Tapa("105","corona"); 
         ModeloTapa instance = new ModeloTapa();
-        
         boolean expResult = false;
-        boolean result = instance.repetido(miAl);
-        
+        boolean result = instance.repetido(tapa);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
