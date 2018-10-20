@@ -12,6 +12,7 @@ import vistas.VistaTapa;
 import vistas.VistaMenu;
 
 import java.util.ArrayList;
+import java.util.List;
 import modelos.Envase;
 import vistas.VentanaPopUp;
 import vistas.VistaListadoEnvases;
@@ -84,7 +85,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                 stage.setScene(vistaLogin.getScene());
                 break;
             case "listar_envase":
-                ArrayList envases;
+                List envases;
                 envases = modeloEnvase.darTodosLosEnvases();
                 vistaListadoEnvases = new VistaListadoEnvases(envases);
                 stage.setScene(vistaListadoEnvases.getScene());
