@@ -84,6 +84,7 @@ public class ModeloEnvase {
                 Envase envase = new Envase(rs.getString("nombre"),rs.getString("tipo"),rs.getInt("Volumen"),rs.getString("descripcion"));
                 misEnvases.add(envase);
             }
+            statement.close();
         }catch(Exception e){
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
