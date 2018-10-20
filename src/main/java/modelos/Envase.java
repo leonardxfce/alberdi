@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelos;
 
-/**
- *
- * @author caro_
- */
+
 public class Envase {
     
     private int id;
@@ -18,7 +11,6 @@ public class Envase {
     private String descripcion;
 
     public Envase(String nombre, String tipo, int volumen, String descripcion) {
-        //this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
         this.volumen = volumen;

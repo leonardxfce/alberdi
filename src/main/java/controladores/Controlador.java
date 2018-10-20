@@ -84,9 +84,9 @@ public class Controlador implements EventHandler<ActionEvent> {
                 stage.setScene(vistaLogin.getScene());
                 break;
             case "listar_envase":
-                ArrayList Envases;
-                Envases = modeloEnvase.darTodosLosEnvases();
-                vistaListadoEnvases = new VistaListadoEnvases(Envases);
+                ArrayList envases;
+                envases = modeloEnvase.darTodosLosEnvases();
+                vistaListadoEnvases = new VistaListadoEnvases(envases);
                 stage.setScene(vistaListadoEnvases.getScene());
                 break;
             case "envase_guardar":
