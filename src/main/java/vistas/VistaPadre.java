@@ -21,4 +21,5 @@ public class VistaPadre {
     public Scene getScene() {
         return scene;
     }
+    
 }

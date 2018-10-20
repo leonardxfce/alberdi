@@ -12,7 +12,9 @@ import vistas.VistaTapa;
 import vistas.VistaMenu;
 
 import java.util.ArrayList;
+import modelos.Envase;
 import vistas.VentanaPopUp;
+import vistas.VistaListadoEnvases;
 
 public class Controlador implements EventHandler<ActionEvent> {
 
@@ -25,6 +27,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     //Modelos
     ModeloEnvase modeloEnvase;
     ModeloLogin modeloLogin;
+    VistaListadoEnvases vistaListadoEnvases;
 
     public Controlador(Stage primaryStage) {
 
@@ -34,6 +37,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaLogin = new VistaLogin();
         vistaTapa = new VistaTapa();
         vistaMenu = new VistaMenu();
+
         //Intancias de Modelos
         modeloEnvase = new ModeloEnvase();
         //modeloLogin=new ModeloLogin();
@@ -79,15 +83,24 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "menu_cerrarSesion":
                 stage.setScene(vistaLogin.getScene());
                 break;
+            case "listar_envase":
+                ArrayList Envases;
+                Envases = modeloEnvase.darTodosLosEnvases();
+                vistaListadoEnvases = new VistaListadoEnvases(Envases);
+                stage.setScene(vistaListadoEnvases.getScene());
+                break;
             case "envase_guardar":
-                ArrayList<String> atributosEnvase = new ArrayList<>();
-                atributosEnvase.add(vistaEnvase.getTextNombre().getText());
-                atributosEnvase.add(vistaEnvase.getTextTipo().getText());
-                atributosEnvase.add(vistaEnvase.getTextVol().getText());
-                atributosEnvase.add(vistaEnvase.getTextDescrip().getText());
-                System.out.println(atributosEnvase);
-                if (!modeloEnvase.repetido(atributosEnvase)) {
-                    modeloEnvase.guardarEnvaseNuevo(atributosEnvase);
+                Envase envase = new Envase();
+                envase.setNombre(vistaEnvase.getTextNombre().getText().toUpperCase());
+                envase.setTipo(vistaEnvase.getTextTipo().getText().toUpperCase());
+                if(vistaEnvase.getTextVol().getText().equals("")){
+                    envase.setVolumen(0);
+                }else{
+                    envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText()));
+                }
+                envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
+                if (!modeloEnvase.repetido(envase)) {
+                    modeloEnvase.guardarEnvaseNuevo(envase);
                     VentanaPopUp.display("Se guardaron los datos.");
                 } else {
                     VentanaPopUp.display("Los datos estan repetidos.");

@@ -20,11 +20,6 @@ public class ModeloEnvase {
 
     Connection connection;
     Statement statement;
-    int id;
-    String nombre;
-    String tipo;
-    int volumen;
-    String descripcion;
     String url = "jdbc:sqlite:sample.db";
 
     public ModeloEnvase() {
@@ -38,22 +33,20 @@ public class ModeloEnvase {
         }
     }
 
-    public boolean repetido(ArrayList<String> miAl) {
-        String nombre = miAl.get(0);
-        String tipo = miAl.get(1);
-        String volumen = miAl.get(2);
-        String descripcion = miAl.get(3);
+    public boolean repetido(Envase miAl) {
+        String nombre = miAl.getNombre();
+        String tipo = miAl.getTipo();
+        int volumen = miAl.getVolumen();
+        String descripcion = miAl.getDescripcion();
         boolean bandera = false;
         try {
-            connection = DriverManager.getConnection(url);
-            statement = connection.createStatement();
             String SQL = ""
                     + "SELECT COUNT(*) as contar  FROM "
                     + "ENVASE WHERE "
                     + " NOMBRE='" + nombre
                     + "' AND TIPO = '" + tipo
-                    + "' AND VOLUMEN ='" + volumen
-                    + "' AND DESCRIPCION = '" + descripcion + "'";
+                    + "' AND VOLUMEN =" + volumen
+                    + " AND DESCRIPCION = '" + descripcion + "';";
             ResultSet rs = statement.executeQuery(SQL);
             rs.next();
             int cuenta = rs.getInt("contar");
@@ -67,11 +60,13 @@ public class ModeloEnvase {
         return bandera;
     }
 
-    public void guardarEnvaseNuevo(ArrayList<String> miAl) {
+    public void guardarEnvaseNuevo(Envase miAl) {
         try {
-            connection = DriverManager.getConnection(url);
-            statement = connection.createStatement();
-            statement.executeUpdate("insert into ENVASE values(NULL,'" + miAl.get(0) + "', '" + miAl.get(1) + "', '" + miAl.get(2) + "',' " + miAl.get(3) + "')");
+            statement.executeUpdate("insert into ENVASE values(NULL,'"
+                    + miAl.getNombre() + "', '"
+                    + miAl.getTipo() + "',"
+                    + miAl.getVolumen() + ",'"
+                    + miAl.getDescripcion() + "');");
             statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
@@ -79,36 +74,21 @@ public class ModeloEnvase {
         }
     }
 
-    //setters y getters
-    public String getNombre() {
-        return nombre;
+    public ArrayList<Envase> darTodosLosEnvases() {
+        ArrayList<Envase> misEnvases = new ArrayList<>();
+        String SQL = "SELECT * FROM ENVASE;";
+        try{
+            ResultSet rs = statement.executeQuery(SQL);
+            rs.next();
+            while(rs.next()){
+                Envase envase = new Envase(rs.getString("nombre"),rs.getString("tipo"),rs.getInt("Volumen"),rs.getString("descripcion"));
+                misEnvases.add(envase);
+            }
+        }catch(Exception e){
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+        }
+        return misEnvases;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public int getVolumen() {
-        return volumen;
-    }
-
-    public void setVolumen(int volumen) {
-        this.volumen = volumen;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 }

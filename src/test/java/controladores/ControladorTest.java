@@ -17,15 +17,10 @@ public class ControladorTest extends ApplicationTest {
     @Test
     public void test_se_hace_clic() {
         verifyThat(".button", hasText("Ingresar"));
-        sleep(1000);
         clickOn(".button");
-        sleep(1000);
         verifyThat(".button", hasText("Cargar Envase"));
-        sleep(1000);
         clickOn("Cargar Tapa");
-        sleep(1000);
         verifyThat(".button", hasText("Aceptar"));
-        sleep(1000);
         clickOn("Cancelar");
         verifyThat(".button", hasText("Cargar Envase"));
     }
@@ -35,7 +30,6 @@ public class ControladorTest extends ApplicationTest {
         clickOn("Ingresar");
         clickOn("Cargar Envase");
         verifyThat(".button", hasText("Guardar"));
-        //clickOn("Guardar");
     }
 
     @Test
@@ -45,7 +39,6 @@ public class ControladorTest extends ApplicationTest {
         clickOn("Guardar");
         clickOn("OK");
         verifyThat(".button", hasText("Guardar"));
-        //clickOn("Guardar");
     }
 
 }
