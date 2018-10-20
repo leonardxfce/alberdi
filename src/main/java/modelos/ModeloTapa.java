@@ -37,7 +37,6 @@ public class ModeloTapa {
             logger.error(ex.getMessage());
         }
     }
-
     //insert
     public void insert(Tapa tapa) {
         String nombre = tapa.getNombre();
