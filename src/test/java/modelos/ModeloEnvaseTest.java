@@ -44,11 +44,11 @@ public class ModeloEnvaseTest {
     @Test
     public void testRepetido() {
         System.out.println("repetido");
-        ArrayList<String> miAl = new ArrayList<String>();
-        miAl.add("frasco");
-        miAl.add("amanecer");
-        miAl.add("10");
-        miAl.add("vidrio");
+        Envase miAl = new Envase();
+        miAl.setNombre("frasco");
+        miAl.setTipo("amanecer");
+        miAl.setVolumen(10);
+        miAl.setDescripcion("vidrio");
         ModeloEnvase instance = new ModeloEnvase();
         boolean expResult = false;
         boolean result = instance.repetido(miAl);
@@ -60,14 +60,14 @@ public class ModeloEnvaseTest {
     @Test
     public void testRepetido2() {
         System.out.println("repetido");
-        ArrayList<String> miAl = new ArrayList<String>();
-        miAl.add("bote");
-        miAl.add("corona");
-        miAl.add("250");
-        miAl.add("vidrio");
+        
+        Envase miAl = new Envase();
+        miAl.setNombre("bote");
+        miAl.setTipo("corona");
+        miAl.setVolumen(250);
+        miAl.setDescripcion("vidrio");
         ModeloEnvase instance = new ModeloEnvase();
         boolean expResult = false;
-        instance.guardarEnvaseNuevo(miAl);
         boolean result = instance.repetido(miAl);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -80,15 +80,28 @@ public class ModeloEnvaseTest {
     @Test
     public void testGuardarEnvaseNuevo() {
         System.out.println("guardarEnvaseNuevo");
-        ArrayList<String> miAl = new ArrayList<String>();
-        miAl.add("bote");
-        miAl.add("corona");
-        miAl.add("250");
-        miAl.add("vidrio");
+        Envase miAl = new Envase();
+        miAl.setNombre("bote");
+        miAl.setTipo("corona");
+        miAl.setVolumen(150);
+        miAl.setDescripcion("vidrio");
         ModeloEnvase instance = new ModeloEnvase();
         instance.guardarEnvaseNuevo(miAl);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
+    }
+    @Test
+    public void testDarTodosLosEnvases() {
+        System.out.println("DarTodosLosEnvases");
+        Envase miAl = new Envase();
+        miAl.setNombre("bote");
+        miAl.setTipo("corona");
+        miAl.setVolumen(150);
+        miAl.setDescripcion("vidrio");
+        ModeloEnvase instance = new ModeloEnvase();
+        instance.guardarEnvaseNuevo(miAl);
+        ArrayList andrea = instance.darTodosLosEnvases();
+        assertEquals(andrea.isEmpty(),false);
     }
 
 }
