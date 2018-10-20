@@ -79,11 +79,11 @@ public class ModeloEnvase {
         String SQL = "SELECT * FROM ENVASE;";
         try{
             ResultSet rs = statement.executeQuery(SQL);
-            rs.next();
             while(rs.next()){
                 Envase envase = new Envase(rs.getString("nombre"),rs.getString("tipo"),rs.getInt("Volumen"),rs.getString("descripcion"));
                 misEnvases.add(envase);
             }
+            statement.close();
         }catch(Exception e){
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
