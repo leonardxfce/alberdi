@@ -6,6 +6,7 @@
 package modelos;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -100,7 +101,7 @@ public class ModeloEnvaseTest {
         miAl.setDescripcion("vidrio");
         ModeloEnvase instance = new ModeloEnvase();
         instance.guardarEnvaseNuevo(miAl);
-        ArrayList andrea = instance.darTodosLosEnvases();
+        List andrea = instance.darTodosLosEnvases();
         assertEquals(false,andrea.isEmpty());
     }
 
