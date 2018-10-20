@@ -74,14 +74,12 @@ public class ModeloTapa {
                     + " NOMBRE='" + nombre
                     + "' AND DESCRIPCION = '" + descripcion + "';";
             ResultSet rs = statement.executeQuery(SQL);
-
             rs.next();
             int cuenta = rs.getInt("contar");
             if (cuenta >= 1) {
                 bandera = true;
             }
-            //bandera = cuenta >= 1;
-
+            statement.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
