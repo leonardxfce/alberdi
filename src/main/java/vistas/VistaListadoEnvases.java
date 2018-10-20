@@ -1,6 +1,7 @@
 package vistas;
 
 import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -10,7 +11,7 @@ public class VistaListadoEnvases extends VistaListadoPadre {
 
     private TableView miTabla;
 
-    public VistaListadoEnvases(ArrayList envases) {
+    public VistaListadoEnvases(List envases) {
         super();
         ObservableList miLista = FXCollections.observableArrayList(envases);
         TableColumn column1 = crearColumnas("nombre");//Se envía el nombre del atributo.
