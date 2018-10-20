@@ -51,13 +51,13 @@ public class ModeloTapa {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(ex.getMessage());
         }
-        return retorno;
+        return misTapas;
     }
 
     //insert
-    public void insert(ArrayList<String> miAl) {
-        String nombre = miAl.get(0);
-        String descripcion = miAl.get(1);
+    public void insert(Tapa tapa) {
+        String nombre = tapa.getNombre();
+        String descripcion = tapa.getDescripcion();
         try {
             statement.executeUpdate("INSERT INTO TAPA (ID, NOMBRE, DESCRIPCION) VALUES (" + null + ", '"
                     + nombre + "', '" + descripcion + "');");
@@ -68,9 +68,9 @@ public class ModeloTapa {
         }
     }
 
-    public boolean repetido(ArrayList<String> miAl) {
-        String nombre = miAl.get(0);
-        String descripcion = miAl.get(1);
+    public boolean repetido(Tapa tapa) {
+        String nombre = tapa.getNombre();
+        String descripcion = tapa.getDescripcion();
         boolean bandera = false;
         try {
             String sql = ""
