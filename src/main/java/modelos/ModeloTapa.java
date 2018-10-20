@@ -44,6 +44,7 @@ public class ModeloTapa {
 
             rs.next();
             retorno = rs.getString("NOMBRE");
+            statement.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }

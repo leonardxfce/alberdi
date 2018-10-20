@@ -56,6 +56,7 @@ public class ModeloLoginTest {
                     + "NOMBRE text,\n"
                     + "DESCRIPCION text\n"
                     + ");");
+            statement.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

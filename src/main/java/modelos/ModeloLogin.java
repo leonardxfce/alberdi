@@ -42,6 +42,7 @@ public class ModeloLogin {
         password = ArrUsuario.get(1);
         try {
             ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
+            statement.close();
             return contenidoDeRespuesta.next();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
