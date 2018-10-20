@@ -12,7 +12,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author caro_
@@ -40,6 +39,7 @@ public class ModeloEnvase {
         int volumen = miAl.getVolumen();
         String descripcion = miAl.getDescripcion();
         boolean bandera = false;
+        ResultSet rs;
         try {
             String sql = ""
                     + "SELECT COUNT(*) as contar  FROM "
@@ -48,7 +48,7 @@ public class ModeloEnvase {
                     + "' AND TIPO = '" + tipo
                     + "' AND VOLUMEN =" + volumen
                     + " AND DESCRIPCION = '" + descripcion + "';";
-            ResultSet rs = statement.executeQuery(sql);
+            rs = statement.executeQuery(sql);
             rs.next();
             int cuenta = rs.getInt("contar");
             bandera = cuenta >= 1;
@@ -76,11 +76,12 @@ public class ModeloEnvase {
         }
     }
 
-    public List darTodosLosEnvases() {
+    public ArrayList<Envase> darTodosLosEnvases() {
         ArrayList<Envase> misEnvases = new ArrayList<>();
         String sql = "SELECT * FROM ENVASE;";
+        ResultSet rs;
         try{
-            ResultSet rs = statement.executeQuery(sql);
+            rs = statement.executeQuery(sql);
             while(rs.next()){
                 Envase envase = new Envase(rs.getString("nombre"),rs.getString("tipo"),rs.getInt("Volumen"),rs.getString("descripcion"));
                 misEnvases.add(envase);
