@@ -29,8 +29,7 @@ public class VentanaPopUp {
         
         bntOk.setOnAction(e -> {
             popup.close();
-        }
-        );
+        });
 
         HBox HLayout1 = new HBox(20);
         HBox HLayout2 = new HBox(20);
