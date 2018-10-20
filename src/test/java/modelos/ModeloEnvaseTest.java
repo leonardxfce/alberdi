@@ -101,7 +101,7 @@ public class ModeloEnvaseTest {
         ModeloEnvase instance = new ModeloEnvase();
         instance.guardarEnvaseNuevo(miAl);
         ArrayList andrea = instance.darTodosLosEnvases();
-        assertEquals(andrea.isEmpty(),false);
+        assertEquals(false,andrea.isEmpty());
     }
 
 }
