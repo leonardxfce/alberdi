@@ -51,8 +51,6 @@ public class ModeloEnvase {
             rs.next();
             int cuenta = rs.getInt("contar");
             bandera = cuenta >= 1;
-            rs.close();
-            statement.close();
         } catch (Exception e) {
 
             Logger logger = Logger.getLogger(ModeloEnvase.class);
