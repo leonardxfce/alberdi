@@ -38,22 +38,6 @@ public class ModeloTapa {
         }
     }
 
-    //select
-    public String select(int dato) {
-        String retorno = "";
-        try {
-            rs = statement.executeQuery("SELECT * FROM TAPA WHERE ID = " + dato + ";");
-            rs.next();
-            retorno = rs.getString("NOMBRE");
-            statement.close();
-            rs.close();
-        } catch (SQLException ex) {
-            Logger logger = Logger.getLogger(ModeloEnvase.class);
-            logger.error(ex.getMessage());
-        }
-        return misTapas;
-    }
-
     //insert
     public void insert(Tapa tapa) {
         String nombre = tapa.getNombre();
@@ -94,6 +78,7 @@ public class ModeloTapa {
         return bandera;
     }
 
+    //select de todos los datos, copiado a modeloEnvase(creditos a quien corresponda )
     public List darTodasLasTapas() {
         ArrayList<Tapa> listadoTapas = new ArrayList<>();
         try {
