@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import modelos.Tapa;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,41 +33,44 @@ public class ModeloTapa {
         try {
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    //select
-    public String select(int dato) {
-        String retorno = "";
-        try {
-            rs = statement.executeQuery("SELECT * FROM TAPA WHERE ID = " + dato + ";");
-
-            rs.next();
-            retorno = rs.getString("NOMBRE");
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+    //select, credios a quien corresponda.
+    public List darTodosLosEnvases() {
+        ArrayList<Tapa> misTapas = new ArrayList<>();
+        String sql = "SELECT * FROM TAPA;";
+        try (ResultSet rs = statement.executeQuery(sql)) {
+            while (rs.next()) {
+                Tapa tapa = new Tapa(rs.getString("nombre"), rs.getString("descripcion"));
+                misTapas.add(tapa);
+            }
+        } catch (Exception e) {
+            org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return retorno;
+        return misTapas;
     }
 
     //insert
-    public void insert(ArrayList<String> miAl) {
-        String nombre = miAl.get(0);
-        String descripcion = miAl.get(1);
+    public void insert(Tapa tapa) {
+        String nombre = tapa.getNombre();
+        String descripcion = tapa.getDescripcion();
         try {
             statement.executeUpdate("INSERT INTO TAPA (ID, NOMBRE, DESCRIPCION) VALUES (" + null + ", '"
                     + nombre + "', '" + descripcion + "');");
             statement.close();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    public boolean repetido(ArrayList<String> miAl) {
-        String nombre = miAl.get(0);
-        String descripcion = miAl.get(1);
+    public boolean repetido(Tapa tapa) {
+        String nombre = tapa.getNombre();
+        String descripcion = tapa.getDescripcion();
         boolean bandera = false;
         try {
             String SQL = ""
@@ -74,14 +79,11 @@ public class ModeloTapa {
                     + " NOMBRE='" + nombre
                     + "' AND DESCRIPCION = '" + descripcion + "';";
             ResultSet rs = statement.executeQuery(SQL);
-
             rs.next();
             int cuenta = rs.getInt("contar");
             if (cuenta >= 1) {
                 bandera = true;
             }
-            //bandera = cuenta >= 1;
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

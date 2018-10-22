@@ -14,6 +14,8 @@ import vistas.VistaMenu;
 import java.util.ArrayList;
 import java.util.List;
 import modelos.Envase;
+import modelos.ModeloTapa;
+import modelos.Tapa;
 import vistas.VentanaPopUp;
 import vistas.VistaListadoEnvases;
 
@@ -27,6 +29,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     VistaLogin vistaLogin;
     //Modelos
     ModeloEnvase modeloEnvase;
+    ModeloTapa modeloTapa;
     ModeloLogin modeloLogin;
     VistaListadoEnvases vistaListadoEnvases;
 
@@ -41,6 +44,7 @@ public class Controlador implements EventHandler<ActionEvent> {
 
         //Intancias de Modelos
         modeloEnvase = new ModeloEnvase();
+        modeloTapa = new ModeloTapa();
         //modeloLogin=new ModeloLogin();
         //Configuracion de las Vistas
         vistaEnvase.config();
@@ -94,9 +98,9 @@ public class Controlador implements EventHandler<ActionEvent> {
                 Envase envase = new Envase();
                 envase.setNombre(vistaEnvase.getTextNombre().getText().toUpperCase());
                 envase.setTipo(vistaEnvase.getTextTipo().getText().toUpperCase());
-                if(vistaEnvase.getTextVol().getText().equals("")){
+                if (vistaEnvase.getTextVol().getText().equals("")) {
                     envase.setVolumen(0);
-                }else{
+                } else {
                     envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText()));
                 }
                 envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
@@ -115,19 +119,33 @@ public class Controlador implements EventHandler<ActionEvent> {
                 stage.setScene(vistaMenu.getScene());
                 break;
             case "tapa_guardar":
-                ArrayList<String> atributosTapa = new ArrayList<>();
-                atributosTapa.add(vistaTapa.getTxTipo().getText());
-                atributosTapa.add(vistaTapa.getTxDescripcion().getText());
-                // modeloTapa.repetido(atributosTapa);
-                vistaTapa.getTxTipo().clear();
-                vistaTapa.getTxDescripcion().clear();
+                TapaGuardar();
                 break;
             case "tapa_cancelar":
-                stage.setScene(vistaMenu.getScene());
+                TapaCancelar();
                 break;
 
         }
 
     }
 
+    public void TapaGuardar() {
+        Tapa tapa = new Tapa(vistaTapa.getTxTipo().getText(), vistaTapa.getTxDescripcion().getText());
+        if (modeloTapa.repetido(tapa)) {
+            VentanaPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
+        } else {
+            try {
+                modeloTapa.insert(tapa);
+                VentanaPopUp.display("Los datos se han cargado correctamente.");
+                vistaTapa.getTxTipo().clear();
+                vistaTapa.getTxDescripcion().clear();
+            } catch (Exception e) {
+                VentanaPopUp.display("Ups, ocurrio un error.");
+            }
+        }
+    }
+    
+    public void TapaCancelar() {
+        stage.setScene(vistaMenu.getScene());
+    }
 }
