@@ -61,7 +61,7 @@ public class ModeloTapaTest {
         Tapa tapa = new Tapa("100","axial");
         ModeloTapa instance = new ModeloTapa();
         instance.insert(tapa);
-        List lista = instance.darTodosLosEnvases();
+        List lista = instance.darTodasLasTapas();
         assertEquals(false,lista.isEmpty());
     }
 
