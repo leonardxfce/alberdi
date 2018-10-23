@@ -73,63 +73,92 @@ public class Controlador implements EventHandler<ActionEvent> {
         String botonID = botonSeleccionado.getId();
         switch (botonID) {
             case "login_ingresar":
-                ArrayList<String> atributosLogin = new ArrayList<>();
-                atributosLogin.add(vistaLogin.getTxUsuario().getText());
-                atributosLogin.add(vistaLogin.getTxContrasena().getText());
-                //modeloLogin.confirmar(atributosLogin);
-                stage.setScene(vistaMenu.getScene());
+                loginIngresar();
                 break;
             case "menu_envase":
-                stage.setScene(vistaEnvase.getScene());
+                menuEnvase();
                 break;
             case "menu_tapa":
-                stage.setScene(vistaTapa.getScene());
+                menuTapa();
                 break;
             case "menu_cerrarSesion":
-                stage.setScene(vistaLogin.getScene());
+                menuCerrarSesion();
                 break;
             case "listar_envase":
-                List envases;
-                envases = modeloEnvase.darTodosLosEnvases();
-                vistaListadoEnvases = new VistaListadoEnvases(envases);
-                stage.setScene(vistaListadoEnvases.getScene());
+                listarEnvases();
                 break;
             case "envase_guardar":
-                Envase envase = new Envase();
-                envase.setNombre(vistaEnvase.getTextNombre().getText().toUpperCase());
-                envase.setTipo(vistaEnvase.getTextTipo().getText().toUpperCase());
-                if (vistaEnvase.getTextVol().getText().equals("")) {
-                    envase.setVolumen(0);
-                } else {
-                    envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText()));
-                }
-                envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
-                if (!modeloEnvase.repetido(envase)) {
-                    modeloEnvase.guardarEnvaseNuevo(envase);
-                    VentanaPopUp.display("Se guardaron los datos.");
-                } else {
-                    VentanaPopUp.display("Los datos estan repetidos.");
-                }
-                vistaEnvase.getTextNombre().clear();
-                vistaEnvase.getTextTipo().clear();
-                vistaEnvase.getTextVol().clear();
-                vistaEnvase.getTextDescrip().clear();
+                envaseGuardar();
                 break;
             case "envase_cancelar":
-                stage.setScene(vistaMenu.getScene());
+                envaseCancelar();
                 break;
             case "tapa_guardar":
-                TapaGuardar();
+                tapaGuardar();
                 break;
             case "tapa_cancelar":
-                TapaCancelar();
+                tapaCancelar();
                 break;
 
         }
 
     }
 
-    public void TapaGuardar() {
+    public void loginIngresar() {
+        ArrayList<String> atributosLogin = new ArrayList<>();
+        atributosLogin.add(vistaLogin.getTxUsuario().getText());
+        atributosLogin.add(vistaLogin.getTxContrasena().getText());
+        //modeloLogin.confirmar(atributosLogin);
+        stage.setScene(vistaMenu.getScene());
+
+    }
+
+    public void menuEnvase() {
+        stage.setScene(vistaEnvase.getScene());
+    }
+
+    public void menuTapa() {
+        stage.setScene(vistaTapa.getScene());
+    }
+
+    public void menuCerrarSesion() {
+        stage.setScene(vistaLogin.getScene());
+    }
+
+    public void listarEnvases() {
+        List envases;
+        envases = modeloEnvase.darTodosLosEnvases();
+        vistaListadoEnvases = new VistaListadoEnvases(envases);
+        stage.setScene(vistaListadoEnvases.getScene());
+    }
+
+    public void envaseGuardar() {
+        Envase envase = new Envase();
+        envase.setNombre(vistaEnvase.getTextNombre().getText().toUpperCase());
+        envase.setTipo(vistaEnvase.getTextTipo().getText().toUpperCase());
+        if (vistaEnvase.getTextVol().getText().equals("")) {
+            envase.setVolumen(0);
+        } else {
+            envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText()));
+        }
+        envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
+        if (!modeloEnvase.repetido(envase)) {
+            modeloEnvase.guardarEnvaseNuevo(envase);
+            VentanaPopUp.display("Se guardaron los datos.");
+        } else {
+            VentanaPopUp.display("Los datos estan repetidos.");
+        }
+        vistaEnvase.getTextNombre().clear();
+        vistaEnvase.getTextTipo().clear();
+        vistaEnvase.getTextVol().clear();
+        vistaEnvase.getTextDescrip().clear();
+    }
+
+    public void envaseCancelar() {
+        stage.setScene(vistaMenu.getScene());
+    }
+
+    public void tapaGuardar() {
         Tapa tapa = new Tapa(vistaTapa.getTxTipo().getText(), vistaTapa.getTxDescripcion().getText());
         if (modeloTapa.repetido(tapa)) {
             VentanaPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
@@ -141,7 +170,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         }
     }
 
-    public void TapaCancelar() {
+    public void tapaCancelar() {
         stage.setScene(vistaMenu.getScene());
     }
 }
