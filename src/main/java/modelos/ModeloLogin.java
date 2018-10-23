@@ -13,28 +13,17 @@ import java.util.logging.Logger;
 /**
  * @author lauta
  */
-public class ModeloLogin {
+public class ModeloLogin extends ModeloPadre {
 
     int id;
     String usuario;
     String password;
-    String url;
-    Connection connection;
-    Statement statement;
     ResultSet contenidoDeRespuesta;
 
     public ModeloLogin(String usuario, String password) {
+        super();
         this.usuario = usuario;
-        this.password = password;
-        this.url = "jdbc:sqlite:sample.db";
-        try {
-
-            connection = DriverManager.getConnection(url);
-            statement = connection.createStatement();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-
+        this.password = password;        
     }
 
     public boolean comprobarExistencia(ArrayList<String> ArrUsuario) {
