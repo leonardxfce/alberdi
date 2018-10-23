@@ -7,11 +7,8 @@ package modelos;
 
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,23 +16,12 @@ import java.util.List;
  *
  * @author SantiagoGuirado
  */
-public class ModeloTapa {
+public class ModeloTapa extends ModeloPadre {
 
-    Connection connection;
-    Statement statement;
     ResultSet rs;
-    private String url;
 
-    //constructores
     public ModeloTapa() {
-        this.url = "jdbc:sqlite:sample.db";
-        try {
-            connection = DriverManager.getConnection(url);
-            statement = connection.createStatement();
-        } catch (SQLException ex) {
-            Logger logger = Logger.getLogger(ModeloEnvase.class);
-            logger.error(ex.getMessage());
-        }
+        super();
     }
     //insert
     public void insert(Tapa tapa) {
@@ -62,7 +48,6 @@ public class ModeloTapa {
                     + " NOMBRE='" + nombre
                     + "' AND DESCRIPCION = '" + descripcion + "';";
             rs = statement.executeQuery(sql);
-
             rs.next();
             int cuenta = rs.getInt("contar");
             if (cuenta >= 1) {
@@ -94,7 +79,6 @@ public class ModeloTapa {
         }
         return listadoTapas;
     }
-
 
     //setters && getters
     public String getUrl() {

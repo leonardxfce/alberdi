@@ -6,32 +6,17 @@
 package modelos;
 
 import org.apache.log4j.Logger;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author caro_
  */
-public class ModeloEnvase {
-
-    Connection connection;
-    Statement statement;
-    String url = "jdbc:sqlite:sample.db";
+public class ModeloEnvase extends ModeloPadre {
 
     public ModeloEnvase() {
-
-        try {
-            connection = DriverManager.getConnection(url);
-            statement = connection.createStatement();
-        } catch (Exception e) {
-            Logger logger = Logger.getLogger(ModeloEnvase.class);
-            logger.error(e.getMessage());
-        }
+        super();
     }
 
     public boolean repetido(Envase miAl) {
@@ -41,18 +26,17 @@ public class ModeloEnvase {
         String descripcion = miAl.getDescripcion();
         boolean bandera = false;
         String sql = ""
-                    + "SELECT COUNT(*) as contar  FROM "
-                    + "ENVASE WHERE "
-                    + " NOMBRE='" + nombre
-                    + "' AND TIPO = '" + tipo
-                    + "' AND VOLUMEN =" + volumen
-                    + " AND DESCRIPCION = '" + descripcion + "';";
-        try( ResultSet rs = statement.executeQuery(sql);) { //Esto hace que el statement se cierre solo
+                + "SELECT COUNT(*) as contar  FROM "
+                + "ENVASE WHERE "
+                + " NOMBRE='" + nombre
+                + "' AND TIPO = '" + tipo
+                + "' AND VOLUMEN =" + volumen
+                + " AND DESCRIPCION = '" + descripcion + "';";
+        try (ResultSet rs = statement.executeQuery(sql);) { //Esto hace que el statement se cierre solo
             rs.next();
             int cuenta = rs.getInt("contar");
             bandera = cuenta >= 1;
         } catch (Exception e) {
-
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
         }
@@ -76,12 +60,13 @@ public class ModeloEnvase {
     public List darTodosLosEnvases() {
         ArrayList<Envase> misEnvases = new ArrayList<>();
         String sql = "SELECT * FROM ENVASE;";
-        try(ResultSet rs = statement.executeQuery(sql)){
-            while(rs.next()){
-                Envase envase = new Envase(rs.getString("nombre"),rs.getString("tipo"),rs.getInt("Volumen"),rs.getString("descripcion"));
+        try (ResultSet rs = statement.executeQuery(sql)) {
+            while (rs.next()) {
+                Envase envase = new Envase(rs.getString("nombre"), rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
                 misEnvases.add(envase);
             }
-        }catch(Exception e){
+            
+        } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
         }
