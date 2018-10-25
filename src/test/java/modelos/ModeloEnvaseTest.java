@@ -5,8 +5,9 @@
  */
 package modelos;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,10 +39,6 @@ public class ModeloEnvaseTest {
     @After
     public void tearDown() {
     }
-
-    /**
-     * Test of repetido method, of class ModeloEnvase.
-     */
     @Test
     public void testRepetido() {
         System.out.println("repetido");
@@ -54,8 +51,6 @@ public class ModeloEnvaseTest {
         boolean expResult = false;
         boolean result = instance.repetido(miAl);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     @Test
@@ -71,13 +66,8 @@ public class ModeloEnvaseTest {
         boolean expResult = false;
         boolean result = instance.repetido(miAl);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of guardarEnvaseNuevo method, of class ModeloEnvase.
-     */
     @Test
     public void testGuardarEnvaseNuevo() {
         System.out.println("guardarEnvaseNuevo");
@@ -88,8 +78,6 @@ public class ModeloEnvaseTest {
         miAl.setDescripcion("vidrio");
         ModeloEnvase instance = new ModeloEnvase();
         instance.guardarEnvaseNuevo(miAl);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
     @Test
     public void testDarTodosLosEnvases() {
@@ -103,6 +91,23 @@ public class ModeloEnvaseTest {
         instance.guardarEnvaseNuevo(miAl);
         List andrea = instance.darTodosLosEnvases();
         assertEquals(false,andrea.isEmpty());
+    }
+    @Test
+    public void testDarUnEnvase(){
+        int uno = 1;
+        ModeloEnvase instance = new ModeloEnvase();
+        Envase env = instance.darUno(uno);
+        assertTrue(env instanceof Envase);
+    }
+    @Test
+    public void testModificarEnvase(){
+        int uno = 1;
+        ModeloEnvase instance = new ModeloEnvase();
+        Envase env = instance.darUno(uno);
+        env.setNombre("bote1");
+        instance.modificarEnvase(env);
+        Envase env2 = instance.darUno(uno);
+        assertNotEquals(env,env2);
     }
 
 }
