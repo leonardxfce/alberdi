@@ -2,7 +2,6 @@ package vistas;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class VistaPadre {

@@ -41,4 +41,22 @@ public class ControladorTest extends ApplicationTest {
         verifyThat(".button", hasText("Guardar"));
     }
 
+    @Test
+    public void test_click_GuardarTapa_Popup() {
+        clickOn("Ingresar");
+        clickOn("Cargar Tapa");
+        clickOn("Aceptar");
+        clickOn("OK");
+        verifyThat(".button", hasText("Aceptar"));
+    }
+
+    @Test
+    public void test_click_listados (){
+        clickOn("Ingresar");
+        clickOn("Ver Listado de Envases");
+        clickOn("Cancelar");
+        clickOn("Ver Listado de Tapas");
+        clickOn("Cancelar");
+    }
+
 }
