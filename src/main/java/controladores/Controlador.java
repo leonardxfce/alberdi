@@ -73,6 +73,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                 break;
             case "menu_envase":
                 menuEnvase();
+
                 break;
             case "menu_tapa":
                 menuTapa();
@@ -179,5 +180,12 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void tapaCancelar() {
         stage.setScene(vistaMenu.getScene());
+    }
+    public void configurarForm(int id){
+        //Acá deberíamos conectarnos a la base de datos
+        modeloEnvase.darUno(id);
+        Envase env = new Envase();
+        vistaEnvase.prepararFormulario(env);
+        stage.setScene(vistaEnvase.getScene());
     }
 }

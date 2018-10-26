@@ -62,15 +62,48 @@ public class ModeloEnvase extends ModeloPadre {
         String sql = "SELECT * FROM ENVASE;";
         try (ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
-                Envase envase = new Envase(rs.getString("nombre"), rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
+                Envase envase = new Envase(rs.getInt("id"), rs.getString("nombre"),
+                        rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
                 misEnvases.add(envase);
             }
-            
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
         }
         return misEnvases;
+    }
+
+    public void modificarEnvase(Envase miAl) {
+        int id = miAl.getId();
+        String nombre = miAl.getNombre();
+        String tipo = miAl.getTipo();
+        int volumen = miAl.getVolumen();
+        String descripcion = miAl.getDescripcion();
+        String sql = ""
+                + "UPDATE ENVASE SET "
+                + " NOMBRE='" + nombre
+                + "' AND TIPO = '" + tipo
+                + "' AND VOLUMEN =" + volumen
+                + " AND DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";";
+        try {
+            statement.executeUpdate(sql);
+        } catch (Exception e) {
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+        }
+    }
+
+    public Envase darUno(int id) {
+        String sql = "SELECT * FROM ENVASE WHERE ID= " + id + ";";
+        Envase envase = null;
+        try (ResultSet rs = statement.executeQuery(sql)) {
+            rs.next();
+            envase= new Envase(rs.getInt("id"), rs.getString("nombre"), rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
+        } catch (Exception e) {
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+        }
+        return envase;
     }
 
 }

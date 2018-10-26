@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import modelos.Envase;
 
 public class VistaEnvase extends VistaPadre {
 
@@ -70,5 +71,11 @@ public class VistaEnvase extends VistaPadre {
         bxButton.setAlignment(Pos.CENTER);
         contenido.getChildren().addAll(edicion, bxButton);
         contenido.setSpacing(5);
+    }
+    public void prepararFormulario(Envase env){
+        textNombre.setText(env.getNombre());
+        textTipo.setText(env.getTipo());
+        textVol.setText(Integer.toString(env.getVolumen()));
+        textDescrip.setText(env.getDescripcion());
     }
 }

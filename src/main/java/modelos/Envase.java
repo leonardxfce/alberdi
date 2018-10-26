@@ -10,7 +10,8 @@ public class Envase {
     private int volumen;
     private String descripcion;
 
-    public Envase(String nombre, String tipo, int volumen, String descripcion) {
+    public Envase(int id,String nombre, String tipo, int volumen, String descripcion) {
+        this.id = id;
         this.nombre = nombre;
         this.tipo = tipo;
         this.volumen = volumen;
