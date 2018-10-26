@@ -20,7 +20,7 @@ public class VistaListadoEnvases extends VistaListadoPadre {
         TableColumn column4 = crearColumnas("descripcion");
         miTabla = new TableView(miLista);
         miTabla.getColumns().addAll(column0,column1,column2,column3,column4);
-        contenido.getChildren().add(miTabla);
+        contenido.getChildren().addAll(miTabla,getBtnCerrarTabla());
     }
     
 

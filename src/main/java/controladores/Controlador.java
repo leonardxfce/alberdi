@@ -4,20 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import modelos.ModeloEnvase;
-import modelos.ModeloLogin;
-import vistas.VistaLogin;
-import vistas.VistaEnvase;
-import vistas.VistaTapa;
-import vistas.VistaMenu;
+import modelos.*;
+import vistas.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import modelos.Envase;
-import modelos.ModeloTapa;
-import modelos.Tapa;
-import vistas.VentanaPopUp;
-import vistas.VistaListadoEnvases;
 
 public class Controlador implements EventHandler<ActionEvent> {
 
@@ -29,9 +20,10 @@ public class Controlador implements EventHandler<ActionEvent> {
     VistaLogin vistaLogin;
     //Modelos
     ModeloEnvase modeloEnvase;
-    ModeloTapa modeloTapa;
     ModeloLogin modeloLogin;
+    ModeloTapa modeloTapa;
     VistaListadoEnvases vistaListadoEnvases;
+    VistaListadoTapas vistaListadoTapas;
 
     public Controlador(Stage primaryStage) {
 
@@ -42,24 +34,28 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaTapa = new VistaTapa();
         vistaMenu = new VistaMenu();
 
+
         //Intancias de Modelos
         modeloEnvase = new ModeloEnvase();
-        modeloTapa = new ModeloTapa();
-        //modeloLogin=new ModeloLogin();
+        modeloTapa=new ModeloTapa();
         //Configuracion de las Vistas
         vistaEnvase.config();
         vistaLogin.config();
         vistaTapa.config();
         vistaMenu.config();
-        //Activacion de Botones de las Vistas
+        //Alta de Botones de las Vistas
         vistaLogin.getBtnIngresar().setOnAction(this);
         vistaMenu.getBtnEnvase().setOnAction(this);
         vistaMenu.getBtnTapas().setOnAction(this);
+        vistaMenu.getBtnListadoEnvases().setOnAction(this);
+        vistaMenu.getBtnListadoTapas().setOnAction(this);
         vistaMenu.getBtnCerrarSesion().setOnAction(this);
         vistaEnvase.getBtnGuardarEv().setOnAction(this);
         vistaEnvase.getBtnCancelar().setOnAction(this);
         vistaTapa.getBtnAceptar().setOnAction(this);
         vistaTapa.getBtnCancelar().setOnAction(this);
+
+
 
         stage.setTitle("Sistema Alberdi");
         stage.setScene(vistaLogin.getScene());
@@ -85,8 +81,15 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "menu_cerrarSesion":
                 menuCerrarSesion();
                 break;
-            case "listar_envase":
+            case "menu_listarEnvases":
                 listarEnvases();
+                break;
+            case "menu_listarTapas":
+                List tapas;
+                tapas = modeloTapa.darTodasLasTapas();
+                vistaListadoTapas=new VistaListadoTapas(tapas);
+                vistaListadoTapas.getBtnCerrarTabla().setOnAction(this);
+                stage.setScene(vistaListadoTapas.getScene());
                 break;
             case "envase_guardar":
                 envaseGuardar();
@@ -100,6 +103,8 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "tapa_cancelar":
                 tapaCancelar();
                 break;
+            case "volver_menu":
+                stage.setScene(vistaMenu.getScene());
 
         }
 
@@ -130,7 +135,9 @@ public class Controlador implements EventHandler<ActionEvent> {
         List envases;
         envases = modeloEnvase.darTodosLosEnvases();
         vistaListadoEnvases = new VistaListadoEnvases(envases);
+        vistaListadoEnvases.getBtnCerrarTabla().setOnAction(this);
         stage.setScene(vistaListadoEnvases.getScene());
+
     }
 
     public void envaseGuardar() {
