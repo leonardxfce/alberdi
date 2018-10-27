@@ -9,6 +9,12 @@ import vistas.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import modelos.Envase;
+import modelos.ModeloTapa;
+import modelos.Tapa;
+import vistas.VentanaPopUp;
+import vistas.VistaListadoEnvases;
 
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -45,7 +51,8 @@ public class Controlador implements EventHandler<ActionEvent> {
 
         //Intancias de Modelos
         modeloEnvase = new ModeloEnvase();
-        modeloTapa=new ModeloTapa();
+        modeloTapa = new ModeloTapa();
+        modeloLogin=new ModeloLogin();
         //Configuracion de las Vistas
         vistaEnvase.config();
         vistaLogin.config();
@@ -126,8 +133,14 @@ public class Controlador implements EventHandler<ActionEvent> {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add(vistaLogin.getTxUsuario().getText());
         atributosLogin.add(vistaLogin.getTxContrasena().getText());
-        //modeloLogin.confirmar(atributosLogin);
-        stage.setScene(vistaMenu.getScene());
+        
+        boolean resultado = modeloLogin.comprobarExistencia(atributosLogin);
+        if(resultado){
+            stage.setScene(vistaMenu.getScene());
+        }else{
+            JOptionPane.showMessageDialog(null, "El Usuario ingresado no existe", "Error de petición", JOptionPane.ERROR_MESSAGE);;
+        }
+        
 
     }
 

@@ -56,6 +56,8 @@ public class ModeloLoginTest {
                     + "NOMBRE text,\n"
                     + "DESCRIPCION text\n"
                     + ");");
+            statement.executeUpdate("INSERT if not exists into USUARIOS values(1,'lautaro','12345')");
+            statement.executeUpdate("INSERT if not exists into USUARIOS values(2,'marcelo','123')");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

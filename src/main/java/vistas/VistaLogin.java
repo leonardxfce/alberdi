@@ -17,7 +17,9 @@ public class VistaLogin extends VistaPadre {
     public VistaLogin() {
         super();
         labelUsuario = new Label("Usuario");
+        labelUsuario.setId("user");
         labelContrasena = new Label("Contraseña");
+        labelContrasena.setId("pass");
         txUsuario = new TextField();
         txContrasena = new TextField();
         btnIngresar = new Button("Ingresar");

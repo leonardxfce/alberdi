@@ -1,5 +1,7 @@
 package controladores;
 
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
@@ -16,6 +18,8 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_se_hace_clic() {
+        write("marcelo").push(KeyCode.TAB);
+        write("123").push(KeyCode.ENTER);
         verifyThat(".button", hasText("Ingresar"));
         clickOn(".button");
         verifyThat(".button", hasText("Cargar Envase"));
@@ -27,6 +31,8 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_click_GuardarEnvase() {
+        write("marcelo").push(KeyCode.TAB);
+        write("123").push(KeyCode.ENTER);
         clickOn("Ingresar");
         clickOn("Cargar Envase");
         verifyThat(".button", hasText("Guardar"));
@@ -34,6 +40,8 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_click_GuardarEnvase_Popup() {
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.ENTER);
         clickOn("Ingresar");
         clickOn("Cargar Envase");
         clickOn("Guardar");
@@ -43,6 +51,8 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_click_GuardarTapa_Popup() {
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.ENTER);
         clickOn("Ingresar");
         clickOn("Cargar Tapa");
         clickOn("Aceptar");
@@ -52,6 +62,8 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_click_listados (){
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.ENTER);
         clickOn("Ingresar");
         clickOn("Ver Listado de Envases");
         clickOn("Cancelar");
