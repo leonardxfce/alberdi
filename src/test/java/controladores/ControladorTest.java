@@ -18,6 +18,7 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_se_hace_clic() {
+        System.out.println("CARGAR ENVASE");
         write("marcelo").push(KeyCode.TAB);
         write("123").push(KeyCode.ENTER);
         verifyThat(".button", hasText("Ingresar"));
@@ -31,6 +32,7 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_click_GuardarEnvase() {
+        System.out.println("GUARDAR ");
         write("marcelo").push(KeyCode.TAB);
         write("123").push(KeyCode.ENTER);
         clickOn("Ingresar");
@@ -40,6 +42,7 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_click_GuardarEnvase_Popup() {
+        System.out.println("POPOUT");
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
         clickOn("Ingresar");
@@ -51,6 +54,7 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_click_GuardarTapa_Popup() {
+        System.out.println("POPOUT 2");
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
         clickOn("Ingresar");
@@ -62,6 +66,7 @@ public class ControladorTest extends ApplicationTest {
 
     @Test
     public void test_click_listados (){
+        System.out.println("LISTADOS");
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
         clickOn("Ingresar");

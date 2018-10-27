@@ -94,6 +94,7 @@ public class ModeloEnvaseTest {
     }
     @Test
     public void testDarUnEnvase(){
+        System.out.println("DAR ENVASE");
         int uno = 1;
         ModeloEnvase instance = new ModeloEnvase();
         Envase env = instance.darUno(uno);
@@ -101,6 +102,7 @@ public class ModeloEnvaseTest {
     }
     @Test
     public void testModificarEnvase(){
+        System.out.println("MODIFICAR");
         int uno = 1;
         ModeloEnvase instance = new ModeloEnvase();
         Envase env = instance.darUno(uno);
