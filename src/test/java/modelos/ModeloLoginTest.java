@@ -44,6 +44,7 @@ public class ModeloLoginTest {
                     + "USUARIO text,\n"
                     + "PASSWORD text\n"
                     + ");");
+            statement.close();
             statement.executeUpdate("CREATE TABLE if not exists ENVASE (\n"
                     + "ID integer PRIMARY KEY,\n"
                     + "NOMBRE text,\n"
@@ -51,13 +52,17 @@ public class ModeloLoginTest {
                     + "VOLUMEN int,\n"
                     + "DESCRIPCION text\n"
                     + ");");
+            statement.close();
             statement.executeUpdate("CREATE TABLE if not exists TAPA (\n"
                     + "ID integer PRIMARY KEY,\n"
                     + "NOMBRE text,\n"
                     + "DESCRIPCION text\n"
                     + ");");
+            statement.close();
             statement.executeUpdate("INSERT if not exists into USUARIOS values(1,'lautaro','12345')");
+            statement.close();
             statement.executeUpdate("INSERT if not exists into USUARIOS values(2,'marcelo','123')");
+            statement.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
