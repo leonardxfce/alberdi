@@ -6,29 +6,44 @@
 package controladores;
 
 import javax.swing.JOptionPane;
-import modelos.Tapa;
 
 
 public class Validador {
+
     String cadena;
     String cadena2;
-    
-    
-    
-    public Validador(String Nombre, String Descripcion){
-        cadena=Nombre;
-        cadena2=Descripcion;
-        
-        if(cadena.equals("")){
-            JOptionPane.showMessageDialog(null, "Para continuar con el Registro LLene los campos solicitados");
-        }
-        
-        if (cadena2.equals ("")){
-            JOptionPane.showMessageDialog(null, "Para continuar con el Registro LLene los campos solicitados");
-        
-        }
-}
+    String cadena3;
+    String cadena4;
+    int cadena5;
+    String cadena6;
 
-   
+    public boolean validarTapa(String Nombre, String Descripcion) {
+        cadena = Nombre;
+        cadena2 = Descripcion;
+        boolean validar;
+       
+        if (cadena.equals("") || cadena2.equals("")) {
+            validar = false;
+        }else{
+            validar= true;
+        }
+        return validar;
+    }
+
+    public boolean validarEnvase(String nombre, String tipo, int volumen, String descripcion) {
+        cadena3 = nombre;
+        cadena4 = tipo;
+        cadena5 = volumen;
+        cadena6 = descripcion;
+        boolean validar;
+
+        if (cadena3.equals("") || cadena4.equals("") || "".equals(cadena5) || cadena6.equals("")) {
+            validar=false;
+        }else{
+            validar=true;
+        }
+        return validar;
+    }
     
+
 }
