@@ -26,7 +26,12 @@ public class ModeloLogin extends ModeloPadre {
         this.password = password;        
     }
 
+    public ModeloLogin() {
+    }
+
+
     public boolean comprobarExistencia(ArrayList<String> ArrUsuario) {
+        
         usuario = ArrUsuario.get(0);
         password = ArrUsuario.get(1);
         try {
