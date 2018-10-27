@@ -19,9 +19,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class ModeloLoginTest {
 
-    private Connection connection;
-    private String url = "jdbc:sqlite:sample.db";
-    private Statement statement;
 
     public ModeloLoginTest() {
     }
@@ -36,36 +33,7 @@ public class ModeloLoginTest {
 
     @Before
     public void setUp() {
-        try {
-            connection = DriverManager.getConnection(url);
-            statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE if not exists USUARIOS (\n"
-                    + "ID integer PRIMARY KEY,\n"
-                    + "USUARIO text,\n"
-                    + "PASSWORD text\n"
-                    + ");");
-            statement.close();
-            statement.executeUpdate("CREATE TABLE if not exists ENVASE (\n"
-                    + "ID integer PRIMARY KEY,\n"
-                    + "NOMBRE text,\n"
-                    + "TIPO text,\n"
-                    + "VOLUMEN int,\n"
-                    + "DESCRIPCION text\n"
-                    + ");");
-            statement.close();
-            statement.executeUpdate("CREATE TABLE if not exists TAPA (\n"
-                    + "ID integer PRIMARY KEY,\n"
-                    + "NOMBRE text,\n"
-                    + "DESCRIPCION text\n"
-                    + ");");
-            statement.close();
-            statement.executeUpdate("INSERT if not exists into USUARIOS values(1,'lautaro','12345')");
-            statement.close();
-            statement.executeUpdate("INSERT if not exists into USUARIOS values(2,'marcelo','123')");
-            statement.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        
     }
 
     @After
@@ -77,6 +45,7 @@ public class ModeloLoginTest {
      */
     @Test
     public void testExistencia() {
+        System.out.println("EXISTENCIA");
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add("leo");
         atributosLogin.add("2221");
@@ -86,6 +55,7 @@ public class ModeloLoginTest {
     }
 
     public void testinsert() {
+        System.out.println("INSERTAR");
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add("JUANES");
         atributosLogin.add("2610");
