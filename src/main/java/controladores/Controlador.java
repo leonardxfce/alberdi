@@ -150,12 +150,18 @@ public class Controlador implements EventHandler<ActionEvent> {
             envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText()));
         }
         envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
-        if (!modeloEnvase.repetido(envase)) {
-            modeloEnvase.guardarEnvaseNuevo(envase);
-            VentanaPopUp.display("Se guardaron los datos.");
+        boolean validar = false;
+        if (validar == false) {
+            VentanaPopUp.display("Los campos se encuentran vacíos");
         } else {
-            VentanaPopUp.display("Los datos estan repetidos.");
+            if (!modeloEnvase.repetido(envase)) {
+                modeloEnvase.guardarEnvaseNuevo(envase);
+                VentanaPopUp.display("Se guardaron los datos.");
+            } else {
+                VentanaPopUp.display("Los datos estan repetidos.");
+            }
         }
+
         vistaEnvase.getTextNombre().clear();
         vistaEnvase.getTextTipo().clear();
         vistaEnvase.getTextVol().clear();
@@ -168,14 +174,20 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void tapaGuardar() {
         Tapa tapa = new Tapa(vistaTapa.getTxTipo().getText(), vistaTapa.getTxDescripcion().getText());
-        if (modeloTapa.repetido(tapa)) {
-            VentanaPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
+        boolean validar = false;
+        if (validar == false) {
+            VentanaPopUp.display("Los campos se encuentran vacios");
         } else {
-            modeloTapa.insert(tapa);
-            VentanaPopUp.display("Los datos se han cargado correctamente.");
-            vistaTapa.getTxTipo().clear();
-            vistaTapa.getTxDescripcion().clear();
+            if (modeloTapa.repetido(tapa)) {
+                VentanaPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
+            } else {
+                modeloTapa.insert(tapa);
+                VentanaPopUp.display("Los datos se han cargado correctamente.");
+                vistaTapa.getTxTipo().clear();
+                vistaTapa.getTxDescripcion().clear();
+            }
         }
+
     }
 
     public void tapaCancelar() {
