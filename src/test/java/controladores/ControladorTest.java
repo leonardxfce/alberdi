@@ -1,6 +1,5 @@
 package controladores;
 
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Test;
@@ -8,12 +7,14 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
+import principal.Configurar;
 
 public class ControladorTest extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) {
-        new Controlador(primaryStage);
+        new Configurar();
+        new Controlador(primaryStage);  
     }
 
     @Test
@@ -74,6 +75,7 @@ public class ControladorTest extends ApplicationTest {
         clickOn("Cancelar");
         clickOn("Ver Listado de Tapas");
         clickOn("Cancelar");
+        clickOn("Cerrar Sesion");
     }
 
 }

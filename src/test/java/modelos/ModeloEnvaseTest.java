@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import principal.Configurar;
 
 /**
  *
@@ -26,6 +27,7 @@ public class ModeloEnvaseTest {
 
     @BeforeClass
     public static void setUpClass() {
+        new Configurar();
     }
 
     @AfterClass
