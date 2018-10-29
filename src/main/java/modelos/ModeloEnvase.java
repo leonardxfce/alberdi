@@ -82,9 +82,9 @@ public class ModeloEnvase extends ModeloPadre {
         String sql = ""
                 + "UPDATE ENVASE SET "
                 + " NOMBRE='" + nombre
-                + "' AND TIPO = '" + tipo
-                + "' AND VOLUMEN =" + volumen
-                + " AND DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";";
+                + "', TIPO = '" + tipo
+                + "', VOLUMEN =" + volumen
+                + ", DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";";
         try {
             statement.executeUpdate(sql);
         } catch (Exception e) {

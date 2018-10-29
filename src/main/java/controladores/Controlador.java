@@ -10,6 +10,14 @@ import vistas.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import modelos.Envase;
+import modelos.ModeloTapa;
+import modelos.Tapa;
+import vistas.VentanaPopUp;
+import vistas.VistaListadoEnvases;
+
 public class Controlador implements EventHandler<ActionEvent> {
 
     Stage stage;
@@ -52,11 +60,12 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu.getBtnCerrarSesion().setOnAction(this);
         vistaEnvase.getBtnGuardarEv().setOnAction(this);
         vistaEnvase.getBtnCancelar().setOnAction(this);
+        vistaEnvase.getBtnModificar().setOnAction(this);
         vistaTapa.getBtnAceptar().setOnAction(this);
         vistaTapa.getBtnCancelar().setOnAction(this);
 
 
-
+        
         stage.setTitle("Sistema Alberdi");
         stage.setScene(vistaLogin.getScene());
         stage.setResizable(false);
@@ -83,6 +92,9 @@ public class Controlador implements EventHandler<ActionEvent> {
                 break;
             case "menu_listarEnvases":
                 listarEnvases();
+                break;
+            case "envase_modificar":
+                modificarEnv();
                 break;
             case "menu_listarTapas":
                 List tapas;
@@ -120,6 +132,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     }
 
     public void menuEnvase() {
+        vistaEnvase.mostrarBotones();
         stage.setScene(vistaEnvase.getScene());
     }
 
@@ -135,6 +148,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         List envases;
         envases = modeloEnvase.darTodosLosEnvases();
         vistaListadoEnvases = new VistaListadoEnvases(envases);
+        modificarTabla();
         vistaListadoEnvases.getBtnCerrarTabla().setOnAction(this);
         stage.setScene(vistaListadoEnvases.getScene());
 
@@ -193,11 +207,51 @@ public class Controlador implements EventHandler<ActionEvent> {
     public void tapaCancelar() {
         stage.setScene(vistaMenu.getScene());
     }
-    public void configurarForm(int id){
+
+    public void configurarForm(int id) {
         //Acá deberíamos conectarnos a la base de datos
         modeloEnvase.darUno(id);
         Envase env = new Envase();
         vistaEnvase.prepararFormulario(env);
         stage.setScene(vistaEnvase.getScene());
+    }
+    public void modificarEnv(){
+        Envase envase = new Envase();
+        envase.setId(Integer.parseInt(vistaEnvase.getTextId().getText()));
+        envase.setNombre(vistaEnvase.getTextNombre().getText().toUpperCase());
+        envase.setTipo(vistaEnvase.getTextTipo().getText().toUpperCase());
+        if (vistaEnvase.getTextVol().getText().equals("")) {
+            envase.setVolumen(0);
+        } else {
+            envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText()));
+        }
+        envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
+        if (!modeloEnvase.repetido(envase)) {
+            modeloEnvase.modificarEnvase(envase);
+            VentanaPopUp.display("Se modificaron los datos.");
+            stage.setScene(vistaMenu.getScene());
+        } else {
+            VentanaPopUp.display("Los datos estan repetidos.");
+        }
+    }
+    public void modificarTabla() {
+        vistaListadoEnvases.getTableView().setRowFactory(e -> {
+            TableRow row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    TableView.TableViewSelectionModel<Envase> sm = vistaListadoEnvases.getTableView().getSelectionModel();
+                    int indice = sm.getSelectedIndex();
+                    Integer id = new Integer(vistaListadoEnvases.getColumn0().getCellObservableValue(indice).getValue().toString());
+                    String nombre = vistaListadoEnvases.getColumn1().getCellObservableValue(indice).getValue().toString().trim();
+                    String tipo = vistaListadoEnvases.getColumn2().getCellObservableValue(indice).getValue().toString().trim();
+                    Integer volumen = new Integer(vistaListadoEnvases.getColumn3().getCellObservableValue(indice).getValue().toString());
+                    String descripcion = vistaListadoEnvases.getColumn4().getCellObservableValue(indice).getValue().toString().trim();
+                    Envase env = new Envase(id,nombre,tipo,volumen,descripcion);
+                    vistaEnvase.prepararFormulario(env);
+                    stage.setScene(vistaEnvase.getScene());
+                }
+            });
+            return row;
+        });
     }
 }
