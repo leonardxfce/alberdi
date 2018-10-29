@@ -36,6 +36,7 @@ public class ModeloEnvase extends ModeloPadre {
             rs.next();
             int cuenta = rs.getInt("contar");
             bandera = cuenta >= 1;
+            statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
@@ -66,6 +67,7 @@ public class ModeloEnvase extends ModeloPadre {
                         rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
                 misEnvases.add(envase);
             }
+            statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
@@ -87,6 +89,7 @@ public class ModeloEnvase extends ModeloPadre {
                 + ", DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";";
         try {
             statement.executeUpdate(sql);
+            statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
@@ -99,6 +102,7 @@ public class ModeloEnvase extends ModeloPadre {
         try (ResultSet rs = statement.executeQuery(sql)) {
             rs.next();
             envase= new Envase(rs.getInt("id"), rs.getString("nombre"), rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
+            statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());

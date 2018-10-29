@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
+import principal.Configurar;
 
 /**
  * @author lauta
@@ -25,6 +26,7 @@ public class ModeloLoginTest {
 
     @BeforeClass
     public static void setUpClass() {
+        new Configurar();
     }
 
     @AfterClass

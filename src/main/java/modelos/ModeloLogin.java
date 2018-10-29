@@ -36,7 +36,9 @@ public class ModeloLogin extends ModeloPadre {
         password = ArrUsuario.get(1);
         try {
             ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
-            return contenidoDeRespuesta.next();
+            boolean result = contenidoDeRespuesta.next();
+            statement.close();
+            return result;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
