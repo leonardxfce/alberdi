@@ -46,7 +46,6 @@ public class ModeloTapaTest {
      */
     @Test
     public void testInsert() {
-        System.out.println("insert");
         Tapa tapa = new Tapa("corona","106");
         ModeloTapa instance = new ModeloTapa();
         instance.insert(tapa);
@@ -59,7 +58,6 @@ public class ModeloTapaTest {
      */
     @Test
     public void testDarTodosLosEnvases() {
-        System.out.println("DarTodosLosEnvases");
         Tapa tapa = new Tapa("100","axial");
         ModeloTapa instance = new ModeloTapa();
         instance.insert(tapa);
@@ -72,7 +70,6 @@ public class ModeloTapaTest {
      */
     @Test
     public void testRepetido1() {
-        System.out.println("repetido");
         Tapa tapa = new Tapa("106","corona"); 
         ModeloTapa instance = new ModeloTapa();
         instance.insert(tapa);
@@ -88,7 +85,6 @@ public class ModeloTapaTest {
      */
     @Test
     public void testRepetido2() {
-        System.out.println("repetido");
         Tapa tapa = new Tapa("105","corona"); 
         ModeloTapa instance = new ModeloTapa();
         boolean expResult = false;

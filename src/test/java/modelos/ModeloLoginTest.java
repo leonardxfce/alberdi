@@ -47,7 +47,6 @@ public class ModeloLoginTest {
      */
     @Test
     public void testExistencia() {
-        System.out.println("EXISTENCIA");
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add("leo");
         atributosLogin.add("2221");
@@ -57,7 +56,6 @@ public class ModeloLoginTest {
     }
 
     public void testinsert() {
-        System.out.println("INSERTAR");
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add("JUANES");
         atributosLogin.add("2610");
