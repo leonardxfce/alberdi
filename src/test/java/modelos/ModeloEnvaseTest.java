@@ -43,7 +43,6 @@ public class ModeloEnvaseTest {
     }
     @Test
     public void testRepetido() {
-        System.out.println("repetido");
         Envase miAl = new Envase();
         miAl.setNombre("frasco");
         miAl.setTipo("amanecer");
@@ -57,8 +56,6 @@ public class ModeloEnvaseTest {
 
     @Test
     public void testRepetido2() {
-        System.out.println("repetido");
-        
         Envase miAl = new Envase();
         miAl.setNombre("bote");
         miAl.setTipo("corona");
@@ -72,7 +69,6 @@ public class ModeloEnvaseTest {
 
     @Test
     public void testGuardarEnvaseNuevo() {
-        System.out.println("guardarEnvaseNuevo");
         Envase miAl = new Envase();
         miAl.setNombre("bote");
         miAl.setTipo("corona");
@@ -83,7 +79,6 @@ public class ModeloEnvaseTest {
     }
     @Test
     public void testDarTodosLosEnvases() {
-        System.out.println("DarTodosLosEnvases");
         Envase miAl = new Envase();
         miAl.setNombre("bote");
         miAl.setTipo("corona");
@@ -96,7 +91,6 @@ public class ModeloEnvaseTest {
     }
     @Test
     public void testDarUnEnvase(){
-        System.out.println("DAR ENVASE");
         int uno = 1;
         ModeloEnvase instance = new ModeloEnvase();
         Envase env = instance.darUno(uno);
@@ -104,7 +98,6 @@ public class ModeloEnvaseTest {
     }
     @Test
     public void testModificarEnvase(){
-        System.out.println("MODIFICAR");
         int uno = 1;
         ModeloEnvase instance = new ModeloEnvase();
         Envase env = instance.darUno(uno);
