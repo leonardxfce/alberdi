@@ -15,6 +15,7 @@ public class VistaPadre {
         scene = new Scene(contenido);
         margenes = new Insets(20, 20, 20, 20);
         contenido.setPadding(margenes);
+        
     }
 
     public Scene getScene() {

@@ -9,12 +9,10 @@ import vistas.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javax.swing.JOptionPane;
-import modelos.Envase;
-import modelos.ModeloTapa;
-import modelos.Tapa;
-import vistas.VentanaPopUp;
-import vistas.VistaListadoEnvases;
 
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -42,6 +40,15 @@ public class Controlador implements EventHandler<ActionEvent> {
     public Controlador(Stage primaryStage) {
 
         stage = primaryStage;
+        primaryStage.setOnCloseRequest(evt -> {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Está seguro que desea salir?", ButtonType.YES, ButtonType.NO);
+    ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
+
+    if (ButtonType.NO.equals(result)) {
+      // no choice or no clicked -> don't close
+      evt.consume();
+    }
+  });
         //Instancias de Vistas
         vistaEnvase = new VistaEnvase();
         vistaLogin = new VistaLogin();
