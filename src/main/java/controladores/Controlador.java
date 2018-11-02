@@ -33,6 +33,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     VistaMenu vistaMenu;
     VistaEnvase vistaEnvase;
     VistaLogin vistaLogin;
+    prueba p;
     //Modelos
     ModeloEnvase modeloEnvase;
     ModeloLogin modeloLogin;

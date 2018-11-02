@@ -8,7 +8,7 @@
  * Created: 11/10/2018
  */
 CREATE TABLE TAPA (
-ID integer AUTO_INCREMENT PRIMARY KEY,
+ID integer  PRIMARY KEY,
 NOMBRE text,
 DESCRIPCION text
 );
