@@ -12,6 +12,7 @@ import java.util.List;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+
 import javax.swing.JOptionPane;
 
 import javafx.scene.control.TableRow;
@@ -21,6 +22,8 @@ import modelos.ModeloTapa;
 import modelos.Tapa;
 import vistas.VentanaPopUp;
 import vistas.VistaListadoEnvases;
+
+import static vistas.VentanaPopUp.*;
 
 public class Controlador implements EventHandler<ActionEvent> {
 
@@ -36,19 +39,21 @@ public class Controlador implements EventHandler<ActionEvent> {
     ModeloTapa modeloTapa;
     VistaListadoEnvases vistaListadoEnvases;
     VistaListadoTapas vistaListadoTapas;
+    VentanaPopUp msjPopUp;
 
     public Controlador(Stage primaryStage) {
 
         stage = primaryStage;
-        primaryStage.setOnCloseRequest(evt -> {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Está seguro que desea salir?", ButtonType.YES, ButtonType.NO);
-    ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
 
-    if (ButtonType.NO.equals(result)) {
-      // no choice or no clicked -> don't close
-      evt.consume();
-    }
-  });
+        primaryStage.setOnCloseRequest(evt -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Está seguro que desea salir?", ButtonType.YES, ButtonType.NO);
+            ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
+
+            if (ButtonType.NO.equals(result)) {
+                // no choice or no clicked -> don't close
+                evt.consume();
+            }
+        });
         //Instancias de Vistas
         vistaEnvase = new VistaEnvase();
         vistaLogin = new VistaLogin();
@@ -56,10 +61,11 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu = new VistaMenu();
 
 
+
         //Intancias de Modelos
         modeloEnvase = new ModeloEnvase();
         modeloTapa = new ModeloTapa();
-        modeloLogin=new ModeloLogin();
+        modeloLogin = new ModeloLogin();
         //Configuracion de las Vistas
         vistaEnvase.config();
         vistaLogin.config();
@@ -79,11 +85,12 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaTapa.getBtnCancelar().setOnAction(this);
 
 
-        
         stage.setTitle("Sistema Alberdi");
         stage.setScene(vistaLogin.getScene());
         stage.setResizable(false);
         stage.show();
+
+        msjPopUp = new VentanaPopUp();
     }
 
     @Override
@@ -113,7 +120,7 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "menu_listarTapas":
                 List tapas;
                 tapas = modeloTapa.darTodasLasTapas();
-                vistaListadoTapas=new VistaListadoTapas(tapas);
+                vistaListadoTapas = new VistaListadoTapas(tapas);
                 vistaListadoTapas.getBtnCerrarTabla().setOnAction(this);
                 stage.setScene(vistaListadoTapas.getScene());
                 break;
@@ -140,14 +147,15 @@ public class Controlador implements EventHandler<ActionEvent> {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add(vistaLogin.getTxUsuario().getText());
         atributosLogin.add(vistaLogin.getTxContrasena().getText());
-        
+
         boolean resultado = modeloLogin.comprobarExistencia(atributosLogin);
-        if(resultado){
+        if (resultado) {
             stage.setScene(vistaMenu.getScene());
-        }else{
-            JOptionPane.showMessageDialog(null, "El Usuario ingresado no existe", "Error de petición", JOptionPane.ERROR_MESSAGE);;
+        } else {
+            JOptionPane.showMessageDialog(null, "El Usuario ingresado no existe", "Error de petición", JOptionPane.ERROR_MESSAGE);
+            ;
         }
-        
+
 
     }
 
@@ -178,6 +186,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         Envase envase = new Envase();
         envase.setNombre(vistaEnvase.getTextNombre().getText().toUpperCase());
         envase.setTipo(vistaEnvase.getTextTipo().getText().toUpperCase());
+
         if (vistaEnvase.getTextVol().getText().equals("")) {
             envase.setVolumen(0);
         } else {
@@ -186,13 +195,13 @@ public class Controlador implements EventHandler<ActionEvent> {
         envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
         boolean validar = false;
         if (validar == false) {
-            VentanaPopUp.display("Los campos se encuentran vacíos");
+            msjPopUp.display("Los campos se encuentran vacíos");
         } else {
             if (!modeloEnvase.repetido(envase)) {
                 modeloEnvase.guardarEnvaseNuevo(envase);
-                VentanaPopUp.display("Se guardaron los datos.");
+                msjPopUp.display("Se guardaron los datos.");
             } else {
-                VentanaPopUp.display("Los datos estan repetidos.");
+                msjPopUp.display("Los datos estan repetidos.");
             }
         }
 
@@ -208,15 +217,16 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void tapaGuardar() {
         Tapa tapa = new Tapa(vistaTapa.getTxTipo().getText(), vistaTapa.getTxDescripcion().getText());
+
         boolean validar = false;
         if (validar == false) {
-            VentanaPopUp.display("Los campos se encuentran vacios");
+            msjPopUp.display("Los campos se encuentran vacios");
         } else {
             if (modeloTapa.repetido(tapa)) {
-                VentanaPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
+                msjPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
             } else {
                 modeloTapa.insert(tapa);
-                VentanaPopUp.display("Los datos se han cargado correctamente.");
+                msjPopUp.display("Los datos se han cargado correctamente.");
                 vistaTapa.getTxTipo().clear();
                 vistaTapa.getTxDescripcion().clear();
             }
@@ -235,7 +245,8 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaEnvase.prepararFormulario(env);
         stage.setScene(vistaEnvase.getScene());
     }
-    public void modificarEnv(){
+
+    public void modificarEnv() {
         Envase envase = new Envase();
         envase.setId(Integer.parseInt(vistaEnvase.getTextId().getText()));
         envase.setNombre(vistaEnvase.getTextNombre().getText().toUpperCase());
@@ -248,12 +259,13 @@ public class Controlador implements EventHandler<ActionEvent> {
         envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
         if (!modeloEnvase.repetido(envase)) {
             modeloEnvase.modificarEnvase(envase);
-            VentanaPopUp.display("Se modificaron los datos.");
+            msjPopUp.display("Se modificaron los datos.");
             stage.setScene(vistaMenu.getScene());
         } else {
-            VentanaPopUp.display("Los datos estan repetidos.");
+            msjPopUp.display("Los datos estan repetidos.");
         }
     }
+
     public void modificarTabla() {
         vistaListadoEnvases.getTableView().setRowFactory(e -> {
             TableRow row = new TableRow<>();
@@ -266,7 +278,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                     String tipo = vistaListadoEnvases.getColumn2().getCellObservableValue(indice).getValue().toString().trim();
                     Integer volumen = new Integer(vistaListadoEnvases.getColumn3().getCellObservableValue(indice).getValue().toString());
                     String descripcion = vistaListadoEnvases.getColumn4().getCellObservableValue(indice).getValue().toString().trim();
-                    Envase env = new Envase(id,nombre,tipo,volumen,descripcion);
+                    Envase env = new Envase(id, nombre, tipo, volumen, descripcion);
                     vistaEnvase.prepararFormulario(env);
                     stage.setScene(vistaEnvase.getScene());
                 }
