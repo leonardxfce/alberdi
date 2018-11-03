@@ -18,35 +18,36 @@ import javafx.stage.Stage;
  *
  * @author SantiagoGuirado
  */
-public class VentanaPopUp {
+public class VentanaPopUp extends VistaPadre {
     
-    public static void display(String dato) {
+    public void display(String dato) {
         Stage popup = new Stage();
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.setTitle("Mensaje");
         Label label1 = new Label(dato);
         Button bntOk = new Button("OK");
         
-        bntOk.setOnAction(e -> {
-            popup.close();
-        }
-        );
+        bntOk.setOnAction(e -> popup.close());
 
-        HBox HLayout1 = new HBox(20);
-        HBox HLayout2 = new HBox(20);
-        VBox VLayout1 = new VBox(10);
+        HBox hBox = new HBox(20);
+        HBox hBox1 = new HBox(20);
+        VBox vBox = new VBox(10);
         
-        HLayout1.getChildren().addAll(label1);
-        HLayout1.setAlignment(Pos.CENTER);
+        hBox.getChildren().addAll(label1);
+        hBox.setAlignment(Pos.CENTER);
         
-        HLayout2.getChildren().addAll(bntOk);
-        HLayout2.setAlignment(Pos.CENTER);
+        hBox1.getChildren().addAll(bntOk);
+        hBox1.setAlignment(Pos.CENTER);
+
+        vBox.getChildren().addAll(hBox, hBox1);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(5);
+        vBox.setMinSize(200, 100);
+        vBox.setPadding(margenes);
         
-        VLayout1.getChildren().addAll(HLayout1, HLayout2);
-        VLayout1.setAlignment(Pos.CENTER);
-        
-        Scene scene = new Scene(VLayout1);
+        Scene scene = new Scene(vBox);
         popup.setScene(scene);
+        popup.setResizable(false);
         popup.showAndWait();
     }
     
