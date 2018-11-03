@@ -20,10 +20,8 @@ import javafx.scene.control.TableView;
 import modelos.Envase;
 import modelos.ModeloTapa;
 import modelos.Tapa;
-import vistas.VentanaPopUp;
 import vistas.VistaListadoEnvases;
 
-import static vistas.VentanaPopUp.*;
 
 public class Controlador implements EventHandler<ActionEvent> {
 
@@ -40,6 +38,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     VistaListadoEnvases vistaListadoEnvases;
     VistaListadoTapas vistaListadoTapas;
     VentanaPopUp msjPopUp;
+    Validador validador;
 
     public Controlador(Stage primaryStage) {
 
@@ -60,6 +59,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaTapa = new VistaTapa();
         vistaMenu = new VistaMenu();
 
+        validador = new Validador();
 
 
         //Intancias de Modelos
@@ -83,7 +83,6 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaEnvase.getBtnModificar().setOnAction(this);
         vistaTapa.getBtnAceptar().setOnAction(this);
         vistaTapa.getBtnCancelar().setOnAction(this);
-
 
         stage.setTitle("Sistema Alberdi");
         stage.setScene(vistaLogin.getScene());
@@ -153,7 +152,6 @@ public class Controlador implements EventHandler<ActionEvent> {
             stage.setScene(vistaMenu.getScene());
         } else {
             JOptionPane.showMessageDialog(null, "El Usuario ingresado no existe", "Error de petición", JOptionPane.ERROR_MESSAGE);
-            ;
         }
 
 
@@ -193,15 +191,20 @@ public class Controlador implements EventHandler<ActionEvent> {
             envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText()));
         }
         envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase());
-        boolean validar = false;
-        if (validar == false) {
+        boolean validar = validador.validarEnvase(envase.getNombre(), envase.getTipo(), envase.getVolumen(), envase.getDescripcion());
+        boolean validarLetras = validador.validarLetrasEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
+        if (!validar) {
             msjPopUp.display("Los campos se encuentran vacíos");
         } else {
-            if (!modeloEnvase.repetido(envase)) {
-                modeloEnvase.guardarEnvaseNuevo(envase);
-                msjPopUp.display("Se guardaron los datos.");
+            if (!validarLetras) {
+                msjPopUp.display("Los campos deben ser completados sólo con letras");
             } else {
-                msjPopUp.display("Los datos estan repetidos.");
+                if (!modeloEnvase.repetido(envase)) {
+                    modeloEnvase.guardarEnvaseNuevo(envase);
+                    msjPopUp.display("Se guardaron los datos.");
+                } else {
+                    msjPopUp.display("Los datos estan repetidos.");
+                }
             }
         }
 
@@ -217,21 +220,24 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void tapaGuardar() {
         Tapa tapa = new Tapa(vistaTapa.getTxTipo().getText(), vistaTapa.getTxDescripcion().getText());
-
-        boolean validar = false;
-        if (validar == false) {
+        boolean validar = validador.validarTapa(tapa.getNombre(), tapa.getDescripcion());
+        boolean validarLetras = validador.validarLetrasTapa(tapa.getNombre(), tapa.getDescripcion());
+        if (!validar) {
             msjPopUp.display("Los campos se encuentran vacios");
         } else {
-            if (modeloTapa.repetido(tapa)) {
-                msjPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
+            if (!validarLetras) {
+                msjPopUp.display("Los campos deben ser completados sólo con letras");
             } else {
-                modeloTapa.insert(tapa);
-                msjPopUp.display("Los datos se han cargado correctamente.");
-                vistaTapa.getTxTipo().clear();
-                vistaTapa.getTxDescripcion().clear();
+                if (modeloTapa.repetido(tapa)) {
+                    msjPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
+                } else {
+                    modeloTapa.insert(tapa);
+                    msjPopUp.display("Los datos se han cargado correctamente.");
+                    vistaTapa.getTxTipo().clear();
+                    vistaTapa.getTxDescripcion().clear();
+                }
             }
         }
-
     }
 
     public void tapaCancelar() {
