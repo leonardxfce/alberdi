@@ -93,5 +93,23 @@ public class ModeloTapaTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
+    @Test
+    public void testDarUnEnvase(){
+        int uno = 1;
+        ModeloTapa instance = new ModeloTapa();
+        Tapa tapa = instance.darUno(uno);
+        assertTrue(tapa instanceof Tapa);
+    }
+    @Test
+    public void testModificarEnvase(){
+        int uno = 1;
+        ModeloTapa instance = new ModeloTapa();
+        Tapa tapa = instance.darUno(uno);
+        tapa.setNombre("tapita");
+        instance.modificarTapa(tapa);
+        Tapa tapa2 = instance.darUno(uno);
+        assertNotEquals(tapa,tapa2);
+    }
+
     
 }

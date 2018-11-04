@@ -62,14 +62,12 @@ public class Validador {
         return validar;
     }
 
-    public boolean validarLetrasTapa(String nombre, String descripcion){
-        cadena = nombre;
+    public boolean validarLetrasTapa(String descripcion){
         cadena2 = descripcion;
         boolean validar = false;
         Pattern pat = Pattern.compile("[0-9]");
-        Matcher mat = pat.matcher(cadena);
         Matcher mat1 = pat.matcher(cadena2);
-        if(!mat.find()&&!mat1.find()){
+        if(!mat1.find()){
             validar = true;
         }
         return validar;

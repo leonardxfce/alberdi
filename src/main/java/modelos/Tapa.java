@@ -10,6 +10,15 @@ public class Tapa {
         this.descripcion = descripcion;
     }
 
+    public Tapa() {
+    }
+    
+    public Tapa(int idTapa, String nombre,String descripcion){
+        this.idTapa = idTapa;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
     public String getNombre() {
         return nombre;
     }
