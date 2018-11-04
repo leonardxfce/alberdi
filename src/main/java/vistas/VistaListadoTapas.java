@@ -9,16 +9,30 @@ import java.util.List;
 public class VistaListadoTapas extends VistaListadoPadre {
 
     private TableView tablaTapas;
-
+    private TableColumn column0;
+    private TableColumn column1;
+    private TableColumn column2;
+    
     public VistaListadoTapas (List tapas){
         super();
         ObservableList miLista = FXCollections.observableArrayList(tapas);
-        TableColumn column1 = crearColumnas("nombre");//Se envía el nombre del atributo.
-        TableColumn column2 = crearColumnas("descripcion");
+        column0 = crearColumnas("idTapa");
+        column1 = crearColumnas("nombre");//Se envía el nombre del atributo.
+        column2 = crearColumnas("descripcion");
         tablaTapas = new TableView(miLista);
-        tablaTapas.getColumns().addAll(column1,column2);
+        tablaTapas.getColumns().addAll(column0,column1,column2);
 
         contenido.getChildren().addAll(tablaTapas,getBtnCerrarTabla());
+    }
+
+    public TableColumn getColumn0() {return column0;}
+
+    public TableColumn getColumn1() {return column1;}
+
+    public TableColumn getColumn2() {return column2;}
+
+    public TableView getTableView() {
+        return tablaTapas;
     }
 
 

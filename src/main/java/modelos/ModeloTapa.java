@@ -28,7 +28,7 @@ public class ModeloTapa extends ModeloPadre {
         String nombre = tapa.getNombre();
         String descripcion = tapa.getDescripcion();
         try {
-            statement.executeUpdate("INSERT INTO TAPA (ID, NOMBRE, DESCRIPCION) VALUES (" + null + ", '"
+            statement.executeUpdate("INSERT INTO TAPA (ID, NOMBRE, DESCRIPCION) VALUES (NULL, '"
                     + nombre + "', '" + descripcion + "');");
             statement.close();
         } catch (SQLException ex) {
@@ -61,6 +61,23 @@ public class ModeloTapa extends ModeloPadre {
         }
         return bandera;
     }
+    
+     public void modificarTapa(Tapa miAl) {
+        int id = miAl.getIdTapa();
+        String nombre = miAl.getNombre();
+        String descripcion = miAl.getDescripcion();
+        String sql = ""
+                + "UPDATE TAPA SET "
+                + " NOMBRE='" + nombre
+                + "',DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";";
+        try {
+            statement.executeUpdate(sql);
+            statement.close();
+        } catch (Exception e) {
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+        }
+    }
 
     //select de todos los datos, copiado a modeloEnvase(creditos a quien corresponda )
     public List darTodasLasTapas() {
@@ -68,7 +85,7 @@ public class ModeloTapa extends ModeloPadre {
         try {
             rs = statement.executeQuery("SELECT * FROM TAPA");
             while (rs.next()) {
-                Tapa tapa = new Tapa(rs.getString("nombre"), rs.getString("descripcion"));
+                Tapa tapa = new Tapa(rs.getInt("ID"),rs.getString("nombre"), rs.getString("descripcion"));
                 listadoTapas.add(tapa);
             }
             statement.close();
@@ -80,6 +97,19 @@ public class ModeloTapa extends ModeloPadre {
         return listadoTapas;
     }
 
+    public Tapa darUno(int id) {
+        String sql = "SELECT * FROM TAPA WHERE ID= " + id + ";";
+        Tapa tapa = null;
+        try (ResultSet rss = statement.executeQuery(sql)) {
+            rss.next();
+            tapa = new Tapa(rss.getInt("id"), rss.getString("nombre"),rss.getString("descripcion"));
+            statement.close();
+        } catch (Exception e) {
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+        }
+        return tapa;
+    }
     //setters && getters
     public String getUrl() {
         return url;
