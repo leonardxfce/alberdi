@@ -1,5 +1,6 @@
 package controladores;
 
+import utilidades.Validador;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ import javafx.scene.control.TableView;
 import modelos.Envase;
 import modelos.ModeloTapa;
 import modelos.Tapa;
+import utilidades.Exportar;
 import vistas.VistaListadoEnvases;
 
 
@@ -39,6 +41,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     VistaListadoTapas vistaListadoTapas;
     VentanaPopUp msjPopUp;
     Validador validador;
+    Exportar exportar;
 
     public Controlador(Stage primaryStage) {
 
@@ -60,7 +63,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu = new VistaMenu();
 
         validador = new Validador();
-
+        exportar = new Exportar();
 
         //Intancias de Modelos
         modeloEnvase = new ModeloEnvase();
@@ -84,6 +87,8 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaTapa.getBtnAceptar().setOnAction(this);
         vistaTapa.getBtnCancelar().setOnAction(this);
         vistaTapa.getBtnModificar().setOnAction(this);
+        
+        vistaMenu.getBtnExportar().setOnAction(this);
 
         stage.setTitle("Sistema Alberdi");
         stage.setScene(vistaLogin.getScene());
@@ -113,6 +118,9 @@ public class Controlador implements EventHandler<ActionEvent> {
                 break;
             case "menu_listarEnvases":
                 listarEnvases();
+                break;
+            case "exportar_dato":
+                exportar.exportarDatos();
                 break;
             case "envase_modificar":
                 modificarEnv();
@@ -201,7 +209,7 @@ public class Controlador implements EventHandler<ActionEvent> {
             envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText().trim()));
         }
         envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase().trim());
-        boolean validar = validador.validarEnvase(envase.getNombre(), envase.getTipo(), envase.getVolumen(), envase.getDescripcion());
+        boolean validar = validador.validarEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
         boolean validarLetras = validador.validarLetrasEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
         if (!validar) {
             msjPopUp.display("Los campos se encuentran vacíos");
@@ -271,7 +279,7 @@ public class Controlador implements EventHandler<ActionEvent> {
             envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText().trim()));
         }
         envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase().trim());
-        boolean validar = validador.validarEnvase(envase.getNombre(), envase.getTipo(), envase.getVolumen(), envase.getDescripcion());
+        boolean validar = validador.validarEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
         boolean validarLetras = validador.validarLetrasEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
         if (!validar) {
             msjPopUp.display("Los campos se encuentran vacíos");

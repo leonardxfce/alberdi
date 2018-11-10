@@ -5,6 +5,7 @@
  */
 package controladores;
 
+import utilidades.Validador;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,11 +60,10 @@ public class ValidadorTest {
         System.out.println("validarEnvase");
         String nombre = "";
         String tipo = "";
-        int volumen = 0;
         String descripcion = "";
         Validador instance = new Validador();
         boolean expResult = false;
-        boolean result = instance.validarEnvase(nombre, tipo, volumen, descripcion);
+        boolean result = instance.validarEnvase(nombre, tipo, descripcion);
         assertEquals(expResult, result);
     }
 
