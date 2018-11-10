@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controladores;
+package utilidades;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
-
 
 public class Validador {
 
@@ -32,14 +30,13 @@ public class Validador {
         return validar;
     }
 
-    public boolean validarEnvase(String nombre, String tipo, int volumen, String descripcion) {
+    public boolean validarEnvase(String nombre, String tipo, String descripcion) {
         cadena3 = nombre;
         cadena4 = tipo;
-        cadena5 = volumen;
         cadena6 = descripcion;
         boolean validar;
 
-        if (cadena3.equals("") || cadena4.equals("") || "".equals(cadena5) || cadena6.equals("")) {
+        if (cadena3.equals("") || cadena4.equals("") || cadena6.equals("")) {
             validar=false;
         }else{
             validar=true;
