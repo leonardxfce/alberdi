@@ -169,6 +169,8 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void menuCerrarSesion() {
         stage.setScene(vistaLogin.getScene());
+        vistaLogin.getTxUsuario().clear();
+        vistaLogin.getTxContrasena().clear();
     }
 
     public void listarEnvases() {
@@ -224,6 +226,10 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void envaseCancelar() {
         stage.setScene(vistaMenu.getScene());
+        vistaEnvase.getTextNombre().clear();
+        vistaEnvase.getTextTipo().clear();
+        vistaEnvase.getTextVol().clear();
+        vistaEnvase.getTextDescrip().clear();
     }
 
     public void tapaGuardar() {
@@ -250,6 +256,8 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void tapaCancelar() {
         stage.setScene(vistaMenu.getScene());
+        vistaTapa.getTxTipo().clear();
+        vistaTapa.getTxDescripcion().clear();
     }
 
     public void modificarEnv() {
@@ -280,6 +288,10 @@ public class Controlador implements EventHandler<ActionEvent> {
                 }
             }
         }
+        vistaEnvase.getTextNombre().clear();
+        vistaEnvase.getTextTipo().clear();
+        vistaEnvase.getTextVol().clear();
+        vistaEnvase.getTextDescrip().clear();
 
     }
 
@@ -326,6 +338,8 @@ public class Controlador implements EventHandler<ActionEvent> {
                 }
             }
         }
+        vistaTapa.getTxTipo().clear();
+        vistaTapa.getTxDescripcion().clear();
     }
 
     public void modificarTablaTapa() {
