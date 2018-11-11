@@ -72,5 +72,16 @@ public class ControladorTest extends ApplicationTest {
         clickOn("Cancelar");
         clickOn("Cerrar Sesion");
     }
+    
+    @Test
+    public void test_click_cambioFuente (){
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.ENTER);
+        clickOn("Ingresar");
+        clickOn("Ajustar Fuente");
+        write("13");
+        clickOn("Cambiar Fuente");
+        clickOn("Cerrar Sesion");
+    }
 
 }

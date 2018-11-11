@@ -3,6 +3,7 @@ package vistas;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 
 /**
  * @author SantiagoLisa
@@ -15,6 +16,7 @@ public class VistaMenu extends VistaPadre {
     private Button btnListadoEnvases;
     private Button btnListadoTapas;
     private Button btnExportar;
+    private Button btnAjustarFuente;
     private Label titulo;
 
     public VistaMenu() {
@@ -24,6 +26,7 @@ public class VistaMenu extends VistaPadre {
         btnListadoEnvases=new Button("Ver Listado de Envases");
         btnListadoTapas=new Button("Ver Listado de Tapas");
         btnExportar = new Button("Exportar");
+        btnAjustarFuente = new Button("Ajustar Fuente");
         btnCerrarSesion = new Button("Cerrar Sesion");
         titulo = new Label("-----");
     }
@@ -45,9 +48,21 @@ public class VistaMenu extends VistaPadre {
         return btnCerrarSesion;
     }
 
-    public Button getBtnListadoEnvases() { return btnListadoEnvases; }
+    public Button getBtnListadoEnvases() {
+        return btnListadoEnvases;
+    }
 
-    public Button getBtnListadoTapas() { return btnListadoTapas; }
+    public Button getBtnListadoTapas() {
+        return btnListadoTapas;
+    }
+
+    public Button getBtnAjustarFuente() {
+        return btnAjustarFuente;
+    }
+
+    public void setBtnAjustarFuente(Button btnAjustarFuente) {
+        this.btnAjustarFuente = btnAjustarFuente;
+    }
 
     public void config() {
         //IDs
@@ -56,12 +71,26 @@ public class VistaMenu extends VistaPadre {
         btnExportar.setId("exportar_dato");
         btnListadoEnvases.setId("menu_listarEnvases");
         btnListadoTapas.setId("menu_listarTapas");
+        btnAjustarFuente.setId("menu_ajustarFuente");
         btnCerrarSesion.setId("menu_cerrarSesion");
         //Controles
-        contenido.getChildren().addAll(titulo, btnEnvase, btnTapas, btnListadoEnvases,btnListadoTapas,btnExportar, btnCerrarSesion);
+        contenido.getChildren().addAll(titulo, btnEnvase, btnTapas, btnListadoEnvases, btnListadoTapas, btnExportar, btnAjustarFuente, btnCerrarSesion);
         contenido.setAlignment(Pos.CENTER);
         contenido.setSpacing(5);
         contenido.setMinSize(200, 200);
+    }
+
+    @Override
+    public void cambioTamanoFuente(int tamano) {
+        Font fuente = new Font("Times New Roman", tamano);
+        btnEnvase.setFont(fuente);
+        btnTapas.setFont(fuente);
+        btnCerrarSesion.setFont(fuente);
+        btnListadoEnvases.setFont(fuente);
+        btnListadoTapas.setFont(fuente);
+        btnAjustarFuente.setFont(fuente);
+        btnExportar.setFont(fuente);
+        titulo.setFont(fuente);
     }
 
 }

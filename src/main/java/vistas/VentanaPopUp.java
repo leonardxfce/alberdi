@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,13 +20,16 @@ import javafx.stage.Stage;
  * @author SantiagoGuirado
  */
 public class VentanaPopUp extends VistaPadre {
+
+    Label label1 = new Label();
+    Button bntOk = new Button("OK");
+
     
     public void display(String dato) {
         Stage popup = new Stage();
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.setTitle("Mensaje");
-        Label label1 = new Label(dato);
-        Button bntOk = new Button("OK");
+        label1.setText(dato);
         
         bntOk.setOnAction(e -> popup.close());
 
@@ -50,5 +54,11 @@ public class VentanaPopUp extends VistaPadre {
         popup.setResizable(false);
         popup.showAndWait();
     }
-    
+
+    @Override
+    public void cambioTamanoFuente(int tamano) {
+        Font fuente = new Font("Times New Roman", tamano);
+        label1.setFont(fuente);
+        bntOk.setFont(fuente);
+    }
 }

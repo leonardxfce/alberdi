@@ -24,7 +24,6 @@ import modelos.Tapa;
 import utilidades.Exportar;
 import vistas.VistaListadoEnvases;
 
-
 public class Controlador implements EventHandler<ActionEvent> {
 
     Stage stage;
@@ -33,6 +32,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     VistaMenu vistaMenu;
     VistaEnvase vistaEnvase;
     VistaLogin vistaLogin;
+    VistaCambioDeFuente vistaFuente;
     //Modelos
     ModeloEnvase modeloEnvase;
     ModeloLogin modeloLogin;
@@ -61,6 +61,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaLogin = new VistaLogin();
         vistaTapa = new VistaTapa();
         vistaMenu = new VistaMenu();
+        vistaFuente = new VistaCambioDeFuente();
 
         validador = new Validador();
         exportar = new Exportar();
@@ -74,6 +75,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaLogin.config();
         vistaTapa.config();
         vistaMenu.config();
+        vistaFuente.config();
         //Alta de Botones de las Vistas
         vistaLogin.getBtnIngresar().setOnAction(this);
         vistaMenu.getBtnEnvase().setOnAction(this);
@@ -81,13 +83,16 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu.getBtnListadoEnvases().setOnAction(this);
         vistaMenu.getBtnListadoTapas().setOnAction(this);
         vistaMenu.getBtnCerrarSesion().setOnAction(this);
+        vistaMenu.getBtnAjustarFuente().setOnAction(this);
         vistaEnvase.getBtnGuardarEv().setOnAction(this);
         vistaEnvase.getBtnCancelar().setOnAction(this);
         vistaEnvase.getBtnModificar().setOnAction(this);
         vistaTapa.getBtnAceptar().setOnAction(this);
         vistaTapa.getBtnCancelar().setOnAction(this);
         vistaTapa.getBtnModificar().setOnAction(this);
-        
+        vistaFuente.getBtnCambiar().setOnAction(this);
+        vistaFuente.getBtnCancelar().setOnAction(this);
+
         vistaMenu.getBtnExportar().setOnAction(this);
 
         stage.setTitle("Sistema Alberdi");
@@ -143,13 +148,27 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "tapa_cancelar":
                 tapaCancelar();
                 break;
+            case "menu_ajustarFuente":
+                vistaAjustarFuente();
+                break;
+            case "cambiar_tamaño_fuente":
+                cambioDeFuente();
+                break;
+            case "salir_cambio_tamaño_fuente":
+                salirVistaAjustarFuente();
+                break;
             case "volver_menu":
                 stage.setScene(vistaMenu.getScene());
-
+                break;
+            default:
+                msjPopUp.display("metodo default");
+                break;
         }
 
     }
+
     String letras = "Los campos deben ser completados sólo con letras";
+
     public void loginIngresar() {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add(vistaLogin.getTxUsuario().getText());
@@ -161,7 +180,6 @@ public class Controlador implements EventHandler<ActionEvent> {
         } else {
             JOptionPane.showMessageDialog(null, "El Usuario ingresado no existe", "Error de petición", JOptionPane.ERROR_MESSAGE);
         }
-
 
     }
 
@@ -368,4 +386,36 @@ public class Controlador implements EventHandler<ActionEvent> {
             return row;
         });
     }
+
+    public void vistaAjustarFuente() {
+        stage.setScene(vistaFuente.getScene());
+    }
+
+    public void cambioDeFuente() {
+        if (validador.validarCambioDeFuenteVacio(vistaFuente.getTsf().getText())) {
+            msjPopUp.display("No ha ingresado un tamaño.");
+        } else {
+            if (validador.validarCambioDeFuenteNumero(vistaFuente.getTsf().getText())) {
+                msjPopUp.display("No esta ingresando los datos correctos. Debe ingresar numeros.");
+            } else {
+                int tamanoFuente = Integer.parseInt(vistaFuente.getTsf().getText());
+                if (tamanoFuente < 12) {
+                    msjPopUp.display("Recuerde que por debajo de 12 la fuente es demasiado pequeña.");
+                }
+                vistaLogin.cambioTamanoFuente(tamanoFuente);
+                vistaMenu.cambioTamanoFuente(tamanoFuente);
+                vistaEnvase.cambioTamanoFuente(tamanoFuente);
+                vistaTapa.cambioTamanoFuente(tamanoFuente);
+                vistaFuente.cambioTamanoFuente(tamanoFuente);
+                msjPopUp.cambioTamanoFuente(tamanoFuente);
+                stage.setScene(vistaMenu.getScene());
+            }
+
+        }
+    }
+
+    public void salirVistaAjustarFuente() {
+        stage.setScene(vistaMenu.getScene());
+    }
+
 }

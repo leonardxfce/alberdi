@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import modelos.Envase;
 
 public class VistaEnvase extends VistaPadre {
@@ -46,7 +47,7 @@ public class VistaEnvase extends VistaPadre {
 
         bxLabel = new VBox(13);
         bxTextField = new VBox(5);
-        edicion=new HBox(8);
+        edicion = new HBox(8);
         bxButton = new HBox(5);
     }
     //Getters
@@ -98,5 +99,22 @@ public class VistaEnvase extends VistaPadre {
         btnModificar.setVisible(false);
         btnGuardarEv.setManaged(true);
         btnModificar.setManaged(false);
+    }
+
+    @Override
+    public void cambioTamanoFuente(int tamano) {
+        Font fuente = new Font("Times New Roman", tamano);
+        textId.setFont(fuente);
+        textNombre.setFont(fuente);
+        textTipo.setFont(fuente);
+        textVol.setFont(fuente);
+        textDescrip.setFont(fuente);
+        labelNom.setFont(fuente);
+        labelTipo.setFont(fuente);
+        labelVol.setFont(fuente);
+        labelDescrip.setFont(fuente);
+        btnGuardarEv.setFont(fuente);
+        btnCancelar.setFont(fuente);
+        btnModificar.setFont(fuente);
     }
 }

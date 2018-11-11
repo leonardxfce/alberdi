@@ -21,5 +21,9 @@ public class VistaPadre {
     public Scene getScene() {
         return scene;
     }
+
+    public void cambioTamanoFuente(int tamano){
+        //este metodo se usara para cambiar el tamaño de la fuente de los menus
+    }
     
 }

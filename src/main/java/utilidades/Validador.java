@@ -21,11 +21,11 @@ public class Validador {
         cadena = nombre;
         cadena2 = descripcion;
         boolean validar;
-       
+
         if (cadena.equals("") || cadena2.equals("")) {
             validar = false;
-        }else{
-            validar= true;
+        } else {
+            validar = true;
         }
         return validar;
     }
@@ -37,14 +37,14 @@ public class Validador {
         boolean validar;
 
         if (cadena3.equals("") || cadena4.equals("") || cadena6.equals("")) {
-            validar=false;
-        }else{
-            validar=true;
+            validar = false;
+        } else {
+            validar = true;
         }
         return validar;
     }
-    
-    public boolean validarLetrasEnvase(String nombre, String tipo,String descripcion){
+
+    public boolean validarLetrasEnvase(String nombre, String tipo, String descripcion) {
         cadena3 = nombre;
         cadena4 = tipo;
         cadena6 = descripcion;
@@ -53,20 +53,43 @@ public class Validador {
         Matcher mat = pat.matcher(cadena3);
         Matcher mat1 = pat.matcher(cadena4);
         Matcher mat2 = pat.matcher(cadena6);
-        if(!mat.find()&&!mat1.find()&&!mat2.find()){
+        if (!mat.find() && !mat1.find() && !mat2.find()) {
             validar = true;
         }
         return validar;
     }
 
-    public boolean validarLetrasTapa(String descripcion){
+    public boolean validarLetrasTapa(String descripcion) {
         cadena2 = descripcion;
         boolean validar = false;
         Pattern pat = Pattern.compile("[0-9]");
         Matcher mat1 = pat.matcher(cadena2);
-        if(!mat1.find()){
+        if (!mat1.find()) {
             validar = true;
         }
+        return validar;
+    }
+
+    public boolean validarCambioDeFuenteVacio(String tamaño) {
+        boolean validar = false;
+
+        if (tamaño.equals("")) {
+            validar = true;
+        }
+
+        return validar;
+    }
+
+    public boolean validarCambioDeFuenteNumero(String tamaño) {
+        int dato;
+        boolean validar = false;
+
+        try {
+            dato = Integer.parseInt(tamaño);
+        } catch (Exception e) {
+            validar = true;
+        }
+
         return validar;
     }
 }

@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import modelos.Tapa;
 
 public class VistaTapa extends VistaPadre {
@@ -97,5 +98,16 @@ public class VistaTapa extends VistaPadre {
         btnModificar.setVisible(false);
         btnAceptar.setManaged(true);
         btnModificar.setManaged(false);
+    }
+
+    @Override
+    public void cambioTamanoFuente(int tamano) {
+        Font fuente = new Font("Times New Roman", tamano);
+        labelTipo.setFont(fuente);
+        labelDescripcion.setFont(fuente);
+        txTipo.setFont(fuente);
+        txDescripcion.setFont(fuente);
+        btnAceptar.setFont(fuente);
+        btnCancelar.setFont(fuente);
     }
 }
