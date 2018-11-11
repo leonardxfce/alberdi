@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import modelos.*;
 import vistas.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     VistaMenu vistaMenu;
     VistaEnvase vistaEnvase;
     VistaLogin vistaLogin;
-    prueba p;
+    VistaMovimiento vistaMovimiento;
     //Modelos
     ModeloEnvase modeloEnvase;
     ModeloLogin modeloLogin;
@@ -43,6 +45,9 @@ public class Controlador implements EventHandler<ActionEvent> {
     VentanaPopUp msjPopUp;
     Validador validador;
     Exportar exportar;
+    ModeloMovimientoEnvase modeloMovimientoEnvase;
+    static final int AGREGAR=1;//variable que se utilizara como indicador para agregar en el metodo agregarQuitar
+    static final int QUITAR=-1;//variable que se utilizara como indicador para quitar en el metodo agregarQuitar
 
     public Controlador(Stage primaryStage) {
 
@@ -70,6 +75,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         modeloEnvase = new ModeloEnvase();
         modeloTapa = new ModeloTapa();
         modeloLogin = new ModeloLogin();
+        modeloMovimientoEnvase = new ModeloMovimientoEnvase();
         //Configuracion de las Vistas
         vistaEnvase.config();
         vistaLogin.config();
@@ -82,6 +88,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu.getBtnListadoEnvases().setOnAction(this);
         vistaMenu.getBtnListadoTapas().setOnAction(this);
         vistaMenu.getBtnCerrarSesion().setOnAction(this);
+        vistaMenu.getBtnMovimientos().setOnAction(this);
         vistaEnvase.getBtnGuardarEv().setOnAction(this);
         vistaEnvase.getBtnCancelar().setOnAction(this);
         vistaEnvase.getBtnModificar().setOnAction(this);
@@ -146,11 +153,24 @@ public class Controlador implements EventHandler<ActionEvent> {
                 break;
             case "volver_menu":
                 stage.setScene(vistaMenu.getScene());
-
+                break;
+            case "movimiento":
+                vistaMovimiento = new VistaMovimiento(modeloEnvase.darTodosLosEnvases());
+                vistaMovimiento.getBtnAgregar().setOnAction(this);
+                vistaMovimiento.getBtnQuitar().setOnAction(this);
+                vistaMovimiento.getBtnCancelar().setOnAction(this);
+                stage.setScene(vistaMovimiento.getScene());
+                break;
+            case "movimiento_agregar":
+                movimientoAgregar();
+                break;
+            case "movimiento_quitar":
+                movimientoQuitar();
         }
-
     }
+
     String letras = "Los campos deben ser completados sólo con letras";
+
     public void loginIngresar() {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add(vistaLogin.getTxUsuario().getText());
@@ -368,5 +388,46 @@ public class Controlador implements EventHandler<ActionEvent> {
             });
             return row;
         });
+    }
+    //metodo encargado de agregar o qutar insumos, dependiendo si la variable es 1 o -1 respectivamente
+    public MovimientoEnvase agregarQuitar(int variable) {
+        int cantidadInsumo = (Integer.parseInt(vistaMovimiento.getCuadroCantidad().getText())) * variable; //toma el valor del TextField, lo castea a int y lo multiplica,por 1 si se agregan cantidades, o por -1 para quitar cantidades y que este quede con valor negativo
+        int indiceSeleccionado = vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex();//se toma el indice del la opcion seleccionada del ComboBox
+        LocalDate date = vistaMovimiento.getDatePicker().getValue(); //Se coloca en un LocalDate la fecha seleccionada del DataPicker
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");//Se configura el formato de la fecha
+        String fecha = (date).format(formatter);//se le coloca el formato a la fecha, y lo pasa a un String
+        int idIndice = Integer.parseInt(vistaMovimiento.getIdEnvases().get(indiceSeleccionado));//busca el contenido que hay en la observable list que tiene los IDs de los envases, dependiendo del indice de la opcion que se selecciono en el ComboBox y lo castea a int
+
+        return new MovimientoEnvase(idIndice, cantidadInsumo, fecha);
+    }
+
+    public void movimientoAgregar(){
+        if (validador.validarMovimiento(vistaMovimiento.getCuadroCantidad().getText(),
+                vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex(),
+                vistaMovimiento.getDatePicker().getValue())) {
+            if (!validador.validarLetrasTapa(vistaMovimiento.getCuadroCantidad().getText())) {
+                MovimientoEnvase movimientoEnvase = agregarQuitar(AGREGAR);
+                modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
+            } else {
+                msjPopUp.display("El campo sólo debe ser completado con números");
+            }
+        } else {
+            msjPopUp.display("Por favor, complete todos los campos");
+        }
+    }
+
+    public void movimientoQuitar(){
+        if (validador.validarMovimiento(vistaMovimiento.getCuadroCantidad().getText(),
+                vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex(),
+                vistaMovimiento.getDatePicker().getValue())) {
+            if (!validador.validarLetrasTapa(vistaMovimiento.getCuadroCantidad().getText())) {
+                MovimientoEnvase movimientoEnvase = agregarQuitar(QUITAR);
+                modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
+            } else {
+                msjPopUp.display("El campo sólo debe ser completado con números");
+            }
+        } else {
+            msjPopUp.display("Por favor, complete todos los campos");
+        }
     }
 }

@@ -12,6 +12,12 @@ public class MovimientoEnvase {
         this.cantidad = cantidad;
         this.fecha = fecha;
     }
+    public MovimientoEnvase(int idEnvase, int cantidad, String fecha) {
+        this.idEnvase = idEnvase;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+    }
+    public MovimientoEnvase(){ }
 
     public int getIdMovimiento() {
         return this.idMovimiento;
