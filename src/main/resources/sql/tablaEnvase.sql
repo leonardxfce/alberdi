@@ -5,5 +5,3 @@ TIPO text,
 VOLUMEN int,
 DESCRIPCION text
 );
-
-
