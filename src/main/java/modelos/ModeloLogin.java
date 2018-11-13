@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import principal.ManejadorProperties;
 
 /**
  * @author lauta
@@ -27,6 +28,10 @@ public class ModeloLogin extends ModeloPadre {
     }
 
     public ModeloLogin() {
+        super();
+        ManejadorProperties propiedades = new ManejadorProperties(1);
+        this.usuario = propiedades.leerPropiedad("usuario");
+        this.password = propiedades.leerPropiedad("password");
     }
 
 
