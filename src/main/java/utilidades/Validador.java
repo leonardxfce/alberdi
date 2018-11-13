@@ -5,8 +5,10 @@
  */
 package utilidades;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class Validador {
 
@@ -90,6 +92,13 @@ public class Validador {
             validar = true;
         }
 
+    public boolean validarMovimiento(String cantidad, int indiceComboBox, LocalDate date){
+        boolean validar;
+        if (cantidad.equals("")||indiceComboBox==-1||date==null){
+            validar=false;
+        }else {
+            validar=true;
+        }
         return validar;
     }
 }

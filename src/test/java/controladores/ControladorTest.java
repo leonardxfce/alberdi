@@ -84,4 +84,17 @@ public class ControladorTest extends ApplicationTest {
         clickOn("Cerrar Sesion");
     }
 
+    @Test
+    public void test_click_Movimiento_PopUp(){
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.ENTER);
+        clickOn("Ingresar");
+        clickOn("Manejo de Insumos");
+        write("abc");
+        verifyThat(".button", hasText("Agregar"));
+        clickOn("Quitar");
+        clickOn("OK");
+        clickOn("Cancelar");
+    }
+
 }

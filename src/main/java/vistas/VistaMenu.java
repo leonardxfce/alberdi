@@ -17,6 +17,7 @@ public class VistaMenu extends VistaPadre {
     private Button btnListadoTapas;
     private Button btnExportar;
     private Button btnAjustarFuente;
+    private Button btnMovimientos;
     private Label titulo;
 
     public VistaMenu() {
@@ -28,6 +29,7 @@ public class VistaMenu extends VistaPadre {
         btnExportar = new Button("Exportar");
         btnAjustarFuente = new Button("Ajustar Fuente");
         btnCerrarSesion = new Button("Cerrar Sesion");
+        btnMovimientos = new Button("Manejo de Insumos");
         titulo = new Label("-----");
     }
 
@@ -64,6 +66,8 @@ public class VistaMenu extends VistaPadre {
         this.btnAjustarFuente = btnAjustarFuente;
     }
 
+    public Button getBtnMovimientos() { return btnMovimientos; }
+
     public void config() {
         //IDs
         btnEnvase.setId("menu_envase");
@@ -73,8 +77,9 @@ public class VistaMenu extends VistaPadre {
         btnListadoTapas.setId("menu_listarTapas");
         btnAjustarFuente.setId("menu_ajustarFuente");
         btnCerrarSesion.setId("menu_cerrarSesion");
+        btnMovimientos.setId("movimiento");
         //Controles
-        contenido.getChildren().addAll(titulo, btnEnvase, btnTapas, btnListadoEnvases, btnListadoTapas, btnExportar, btnAjustarFuente, btnCerrarSesion);
+        contenido.getChildren().addAll(titulo, btnEnvase, btnTapas, btnListadoEnvases, btnListadoTapas, btnMovimientos, btnExportar, btnAjustarFuente, btnCerrarSesion);
         contenido.setAlignment(Pos.CENTER);
         contenido.setSpacing(5);
         contenido.setMinSize(200, 200);
