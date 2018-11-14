@@ -1,0 +1,5 @@
+<root>
+    <item name='java.awt.event.KeyEvent'>
+        <annotation name='java.lang.Deprecated'/>
+    </item>
+</root>
