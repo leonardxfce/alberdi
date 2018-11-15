@@ -59,5 +59,12 @@ public class PropiedadesPropertiesTest {
         String expResult = "jdbc:sqlite:sample.db";
         assertEquals(expResult, resultado);
     }
+    @Test
+    public void testLeerPropiedadTitulo() {
+        ManejadorProperties Titulo = new ManejadorProperties(1);
+        String resultado  = Titulo.leerPropiedad("titulo");
+        String expResult = "Sistemas Segundo";
+        assertEquals(expResult, resultado);
+    }
     
 }
