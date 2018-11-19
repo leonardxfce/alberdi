@@ -6,7 +6,11 @@
 package modelos;
 
 import org.apache.log4j.Logger;
+
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +55,23 @@ public class ModeloEnvase extends ModeloPadre {
                     + miAl.getTipo() + "',"
                     + miAl.getVolumen() + ",'"
                     + miAl.getDescripcion() + "');");
+            String sql2 = ""
+                    + "SELECT ID FROM "
+                    + "ENVASE WHERE "
+                    + " NOMBRE='" + miAl.getNombre()
+                    + "' AND TIPO = '" + miAl.getTipo()
+                    + "' AND VOLUMEN =" + miAl.getVolumen()
+                    + " AND DESCRIPCION = '" + miAl.getDescripcion() + "';";
+            ResultSet resultado = statement.executeQuery(sql2);
+            resultado.next();
+            int id = resultado.getInt("ID");
+            resultado.close();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String fecha = LocalDate.now().format(formatter);
+            statement.executeUpdate(
+                    "INSERT INTO MOVIMIENTOENVASE VALUES " +
+                            "( NULL," + id + ", 0 , '" + fecha + "' );"
+            );
             statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
@@ -60,11 +81,20 @@ public class ModeloEnvase extends ModeloPadre {
 
     public List darTodosLosEnvases() {
         ArrayList<Envase> misEnvases = new ArrayList<>();
-        String sql = "SELECT * FROM ENVASE;";
+        String sql = "SELECT e.*, SUM(me.CANTIDAD) stock\n" +
+                "FROM MOVIMIENTOENVASE me \n" +
+                "INNER JOIN  ENVASE e ON e.ID=me.ID_ENVASE\n" +
+                "GROUP BY e.ID";
         try (ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
-                Envase envase = new Envase(rs.getInt("id"), rs.getString("nombre"),
-                        rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
+                Envase envase = new Envase(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("tipo"),
+                        rs.getInt("Volumen"),
+                        rs.getString("descripcion"),
+                        rs.getInt("stock")
+                );
                 misEnvases.add(envase);
             }
             statement.close();
@@ -101,7 +131,7 @@ public class ModeloEnvase extends ModeloPadre {
         Envase envase = null;
         try (ResultSet rs = statement.executeQuery(sql)) {
             rs.next();
-            envase= new Envase(rs.getInt("id"), rs.getString("nombre"), rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
+            envase = new Envase(rs.getInt("id"), rs.getString("nombre"), rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
             statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
