@@ -43,6 +43,14 @@ public class Configurar {
                     + "DESCRIPCION text\n"
                     + ");");
             statement.close();
+            statement.executeUpdate("CREATE TABLE if not exists MOVIMIENTOENVASE (\n" +
+                    "ID_MOVIMIENTOENVASE integer PRIMARY KEY,\n" +
+                    "ID_ENVASE integer,\n" +
+                    "CANTIDAD integer,\n" +
+                    "FECHA text,\n" +
+                    "FOREIGN KEY(ID_ENVASE) REFERENCES ENVASE(ID)\n" +
+                    ");");
+            statement.close();
             statement.executeUpdate("insert or replace into USUARIOS values(1,'lautaro','12345')");
             statement.close();
             statement.executeUpdate("insert or replace into USUARIOS values(2,'marcelo','123')");

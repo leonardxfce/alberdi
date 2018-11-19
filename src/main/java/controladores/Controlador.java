@@ -50,6 +50,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     ModeloMovimientoEnvase modeloMovimientoEnvase;
     static final int AGREGAR=1;//variable que se utilizara como indicador para agregar en el metodo agregarQuitar
     static final int QUITAR=-1;//variable que se utilizara como indicador para quitar en el metodo agregarQuitar
+    static final String CARGACORRECTA="Los datos se han cargado correctamente.";
 
     public Controlador(Stage primaryStage) {
 
@@ -161,6 +162,8 @@ public class Controlador implements EventHandler<ActionEvent> {
                 break;
             case "movimiento":
                 vistaMovimiento = new VistaMovimiento(modeloEnvase.darTodosLosEnvases());
+                vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
+                vistaMovimiento.config();
                 vistaMovimiento.getBtnAgregar().setOnAction(this);
                 vistaMovimiento.getBtnQuitar().setOnAction(this);
                 vistaMovimiento.getBtnCancelar().setOnAction(this);
@@ -280,7 +283,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                     msjPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
                 } else {
                     modeloTapa.insert(tapa);
-                    msjPopUp.display("Los datos se han cargado correctamente.");
+                    msjPopUp.display(CARGACORRECTA);
                     vistaTapa.getTxTipo().clear();
                     vistaTapa.getTxDescripcion().clear();
                 }
@@ -365,7 +368,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                     msjPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
                 } else {
                     modeloTapa.modificarTapa(tapa);
-                    msjPopUp.display("Los datos se han cargado correctamente.");
+                    msjPopUp.display(CARGACORRECTA);
                     vistaTapa.getTxTipo().clear();
                     vistaTapa.getTxDescripcion().clear();
                     stage.setScene(vistaMenu.getScene());
@@ -394,7 +397,7 @@ public class Controlador implements EventHandler<ActionEvent> {
             return row;
         });
     }
-    //metodo encargado de agregar o qutar insumos, dependiendo si la variable es 1 o -1 respectivamente
+    //metodo encargado crear un nuevo Movimiento, con las cantidades para agregar o quitar, dependiendo si la variable es 1 o -1 respectivamente
     public MovimientoEnvase agregarQuitar(int variable) {
         int cantidadInsumo = (Integer.parseInt(vistaMovimiento.getCuadroCantidad().getText())) * variable; //toma el valor del TextField, lo castea a int y lo multiplica,por 1 si se agregan cantidades, o por -1 para quitar cantidades y que este quede con valor negativo
         int indiceSeleccionado = vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex();//se toma el indice del la opcion seleccionada del ComboBox
@@ -413,6 +416,10 @@ public class Controlador implements EventHandler<ActionEvent> {
             if (!validador.validarLetrasTapa(vistaMovimiento.getCuadroCantidad().getText())) {
                 MovimientoEnvase movimientoEnvase = agregarQuitar(AGREGAR);
                 modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
+                vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
+                msjPopUp.display(CARGACORRECTA);
+                limpiaCamposVentanaMovimiento();
+
             } else {
                 msjPopUp.display("El campo sólo debe ser completado con números");
             }
@@ -428,11 +435,20 @@ public class Controlador implements EventHandler<ActionEvent> {
             if (!validador.validarLetrasTapa(vistaMovimiento.getCuadroCantidad().getText())) {
                 MovimientoEnvase movimientoEnvase = agregarQuitar(QUITAR);
                 modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
+                vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
+                msjPopUp.display(CARGACORRECTA);
+                limpiaCamposVentanaMovimiento();
             } else {
                 msjPopUp.display("El campo sólo debe ser completado con números");
             }
         } else {
             msjPopUp.display("Por favor, complete todos los campos");
         }
+    }
+
+    public void limpiaCamposVentanaMovimiento(){
+        vistaMovimiento.getCuadroCantidad().clear();
+        vistaMovimiento.getListadoInsumos().getSelectionModel().clearSelection();
+        vistaMovimiento.getDatePicker().setValue(null);
     }
 }

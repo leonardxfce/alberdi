@@ -6,6 +6,8 @@ public class MovimientoEnvase {
     private int cantidad;
     private String fecha;
 
+    private String nombre;//he añadido este atributo para poder mostrar un correcto nombre sobre una de las columnas de las tableView..no se ha ocurrido una mejor idea todavia :V @Lisa
+
     public MovimientoEnvase(int idMovimiento, int idEnvase, int cantidad, String fecha) {
         this.idMovimiento = idMovimiento;
         this.idEnvase = idEnvase;
@@ -18,6 +20,12 @@ public class MovimientoEnvase {
         this.fecha = fecha;
     }
     public MovimientoEnvase(){ }
+
+    public MovimientoEnvase(String nombre, int cantidad, String fecha){
+        this.nombre=nombre;
+        this.cantidad=cantidad;
+        this.fecha=fecha;
+    }
 
     public int getIdMovimiento() {
         return this.idMovimiento;
@@ -51,4 +59,11 @@ public class MovimientoEnvase {
         this.fecha = fecha;
     }
 
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombreDelEnvase(String nombreDelEnvase) {
+        this.nombre = nombreDelEnvase;
+    }
 }
