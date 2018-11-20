@@ -1,5 +1,6 @@
 package controladores;
 
+import javafx.scene.image.Image;
 import utilidades.Validador;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -62,7 +63,9 @@ public class Controlador implements EventHandler<ActionEvent> {
                 evt.consume();
             }
         });
+        stage.getIcons().add(new Image("/ies.png"));
         //Instancias de Vistas
+        
         vistaEnvase = new VistaEnvase();
         vistaLogin = new VistaLogin();
         vistaTapa = new VistaTapa();

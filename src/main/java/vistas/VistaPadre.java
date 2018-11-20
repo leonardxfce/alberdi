@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
+
 public class VistaPadre {
     Scene scene;
     VBox contenido;

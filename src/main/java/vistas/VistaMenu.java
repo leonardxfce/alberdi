@@ -23,13 +23,20 @@ public class VistaMenu extends VistaPadre {
     public VistaMenu() {
         super();
         btnEnvase = new Button("Cargar Envase");
+        btnEnvase.setMaxSize(200 , 200);
         btnTapas = new Button("Cargar Tapa");
+        btnTapas.setMaxSize(200, 200);
         btnListadoEnvases=new Button("Ver Listado de Envases");
+        btnListadoEnvases.setMaxSize(200, 200);
         btnListadoTapas=new Button("Ver Listado de Tapas");
+        btnListadoTapas.setMaxSize(200, 200);
         btnExportar = new Button("Exportar");
         btnAjustarFuente = new Button("Ajustar Fuente");
+        btnExportar.setMaxSize(200, 200);
         btnCerrarSesion = new Button("Cerrar Sesion");
+        btnCerrarSesion.setMaxSize(200, 200);
         btnMovimientos = new Button("Manejo de Insumos");
+        btnMovimientos.setMaxSize(200, 200);
         titulo = new Label("-----");
     }
 
