@@ -24,6 +24,7 @@ import javafx.scene.control.TableView;
 import modelos.Envase;
 import modelos.ModeloTapa;
 import modelos.Tapa;
+import principal.ManejadorProperties;
 import utilidades.Exportar;
 import vistas.VistaListadoEnvases;
 
@@ -102,7 +103,8 @@ public class Controlador implements EventHandler<ActionEvent> {
         
         vistaMenu.getBtnExportar().setOnAction(this);
 
-        stage.setTitle("Sistema Alberdi");
+        ManejadorProperties propiedades = new ManejadorProperties(1);
+        stage.setTitle(propiedades.leerPropiedad("titulo"));
         stage.setScene(vistaLogin.getScene());
         stage.setResizable(false);
         stage.show();
