@@ -88,6 +88,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu.config();
         //Alta de Botones de las Vistas
         vistaLogin.getBtnIngresar().setOnAction(this);
+        vistaLogin.getBtnIngresar().setDefaultButton(true);
         vistaMenu.getBtnEnvase().setOnAction(this);
         vistaMenu.getBtnTapas().setOnAction(this);
         vistaMenu.getBtnListadoEnvases().setOnAction(this);

@@ -20,7 +20,7 @@ public class ControladorTest extends ApplicationTest {
     @Test
     public void test_se_hace_clic() {
         write("marcelo").push(KeyCode.TAB);
-        write("123").push(KeyCode.ENTER);
+        write("123").push(KeyCode.TAB);
         verifyThat(".button", hasText("Ingresar"));
         clickOn(".button");
         verifyThat(".button", hasText("Cargar Envase"));
@@ -34,7 +34,6 @@ public class ControladorTest extends ApplicationTest {
     public void test_click_GuardarEnvase() {
         write("marcelo").push(KeyCode.TAB);
         write("123").push(KeyCode.ENTER);
-        clickOn("Ingresar");
         clickOn("Cargar Envase");
         verifyThat(".button", hasText("Guardar"));
     }
@@ -42,7 +41,7 @@ public class ControladorTest extends ApplicationTest {
     @Test
     public void test_click_GuardarEnvase_Popup() {
         write("lautaro").push(KeyCode.TAB);
-        write("12345").push(KeyCode.ENTER);
+        write("12345").push(KeyCode.TAB);
         clickOn("Ingresar");
         clickOn("Cargar Envase");
         clickOn("Guardar");
@@ -53,7 +52,7 @@ public class ControladorTest extends ApplicationTest {
     @Test
     public void test_click_GuardarTapa_Popup() {
         write("lautaro").push(KeyCode.TAB);
-        write("12345").push(KeyCode.ENTER);
+        write("12345").push(KeyCode.TAB);
         clickOn("Ingresar");
         clickOn("Cargar Tapa");
         clickOn("Aceptar");
@@ -65,7 +64,6 @@ public class ControladorTest extends ApplicationTest {
     public void test_click_listados (){
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
-        clickOn("Ingresar");
         clickOn("Ver Listado de Envases");
         clickOn("Cancelar");
         clickOn("Ver Listado de Tapas");
@@ -77,13 +75,19 @@ public class ControladorTest extends ApplicationTest {
     public void test_click_Movimiento_PopUp(){
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
-        clickOn("Ingresar");
         clickOn("Manejo de Insumos");
         write("abc");
         verifyThat(".button", hasText("Agregar"));
         clickOn("Quitar");
         clickOn("OK");
         clickOn("Cancelar");
+    }
+    @Test
+    public void test_ingresarConEnter(){
+        write("marcelo").push(KeyCode.TAB);
+        write("123").push(KeyCode.TAB);
+        push(KeyCode.ENTER);
+        clickOn("Cerrar Sesion");
     }
 
 }
