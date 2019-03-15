@@ -31,7 +31,6 @@ public class VistaMovimiento extends VistaListadoPadre {
     TableColumn column1;
     TableColumn column2;
 
-
     public VistaMovimiento(List<Envase> envases) {
         super();
         idEnvases = FXCollections.observableArrayList();
@@ -60,40 +59,31 @@ public class VistaMovimiento extends VistaListadoPadre {
         movimientos = new TableView<>();
 
     }
-
     //Getters
     public TextField getCuadroCantidad() {
         return this.cuadroCantidad;
     }
-
     public ComboBox<String> getListadoInsumos() {
         return this.listadoInsumos;
     }
-
     public DatePicker getDatePicker() {
         return this.datePicker;
     }
-
     public Button getBtnAgregar() {
         return this.btnAgregar;
     }
-
     public Button getBtnQuitar() {
         return this.btnQuitar;
     }
-
     public Button getBtnCancelar() {
         return this.btnCancelar;
     }
-
     public ObservableList<String> getIdEnvases() {
         return this.idEnvases;
     }
-
     public TableView getMovimientos() {
         return this.movimientos;
     }
-
     public void configTablaMovimientos(List<MovimientoEnvase> movimientoEnvases) {
         movimientos.getItems().clear();
         movimientos.getItems().addAll(movimientoEnvases);
@@ -103,7 +93,6 @@ public class VistaMovimiento extends VistaListadoPadre {
         column2 = crearColumnas("fecha");
         movimientos.getColumns().addAll(column0, column1, column2);
     }
-
     public void config() {
         btnAgregar.setId("movimiento_agregar");
         btnQuitar.setId("movimiento_quitar");
@@ -113,16 +102,11 @@ public class VistaMovimiento extends VistaListadoPadre {
         botones.setAlignment(Pos.CENTER_RIGHT);
         movimientos.setMinWidth(450);
         contenido.setSpacing(10);
-
         etiquetasEditado.setAlignment(Pos.CENTER);
-
         etiquetas.getChildren().addAll(lbCantidad, lbEnvase, lbFecha);
         botones.getChildren().addAll(btnAgregar, btnQuitar, btnCancelar);
         editado.getChildren().addAll(cuadroCantidad, listadoInsumos, datePicker);
         etiquetasEditado.getChildren().addAll(etiquetas, editado);
         contenido.getChildren().addAll(etiquetasEditado, botones, movimientos);
     }
-
 }
-
-
