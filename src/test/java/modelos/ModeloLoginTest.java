@@ -66,6 +66,14 @@ public class ModeloLoginTest {
         boolean result = instance.comprobarExistencia(atributosLogin);
         assertEquals(true, result);
     }
+    public void testRecuperarContrasenia() {
+        ArrayList<String> atributosLogin = new ArrayList<>();
+        atributosLogin.add("lautaro");
+        atributosLogin.add("12345");
+        ModeloLogin instance = new ModeloLogin("lautaro","12345");
+        boolean result = instance.comprobarExistencia(atributosLogin);
+        assertEquals("12345",result);
+    }
 
     public void test(){
         assertTrue("gooa", true);
