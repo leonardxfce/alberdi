@@ -23,6 +23,7 @@ public class VistaLogin extends VistaPadre {
         txUsuario = new TextField();
         txContrasena = new TextField();
         btnIngresar = new Button("Ingresar");
+        
     }
 
     public TextField getTxUsuario() {
@@ -35,6 +36,7 @@ public class VistaLogin extends VistaPadre {
 
     public Button getBtnIngresar() {
         return btnIngresar;
+        
     }
 
     public void config() {
