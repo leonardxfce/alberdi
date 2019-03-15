@@ -70,7 +70,6 @@ public class ControladorTest extends ApplicationTest {
         clickOn("Cancelar");
         clickOn("Cerrar Sesion");
     }
-
     @Test
     public void test_click_Movimiento_PopUp(){
         write("lautaro").push(KeyCode.TAB);
@@ -88,6 +87,9 @@ public class ControladorTest extends ApplicationTest {
         write("123").push(KeyCode.TAB);
         push(KeyCode.ENTER);
         clickOn("Cerrar Sesion");
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.TAB);
+        push(KeyCode.ENTER);
+        clickOn("Cerrar Sesion");
     }
-
 }
