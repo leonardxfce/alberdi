@@ -53,13 +53,10 @@ public class Controlador implements EventHandler<ActionEvent> {
     static final String CARGACORRECTA="Los datos se han cargado correctamente.";
 
     public Controlador(Stage primaryStage) {
-
         stage = primaryStage;
-
         primaryStage.setOnCloseRequest(evt -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Está seguro que desea salir?", ButtonType.YES, ButtonType.NO);
             ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
-
             if (ButtonType.NO.equals(result)) {
                 // no choice or no clicked -> don't close
                 evt.consume();
@@ -67,15 +64,12 @@ public class Controlador implements EventHandler<ActionEvent> {
         });
         stage.getIcons().add(new Image("/ies.png"));
         //Instancias de Vistas
-        
         vistaEnvase = new VistaEnvase();
         vistaLogin = new VistaLogin();
         vistaTapa = new VistaTapa();
         vistaMenu = new VistaMenu();
-
         validador = new Validador();
         exportar = new Exportar();
-
         //Intancias de Modelos
         modeloEnvase = new ModeloEnvase();
         modeloTapa = new ModeloTapa();
@@ -88,7 +82,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu.config();
         //Alta de Botones de las Vistas
         vistaLogin.getBtnIngresar().setOnAction(this);
-        vistaLogin.getBtnIngresar().setDefaultButton(true);
+        vistaLogin.getBtnIngresar().setDefaultButton(true); //Responde a ENTER el BtnIngresar
         vistaMenu.getBtnEnvase().setOnAction(this);
         vistaMenu.getBtnTapas().setOnAction(this);
         vistaMenu.getBtnListadoEnvases().setOnAction(this);
@@ -101,9 +95,8 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaTapa.getBtnAceptar().setOnAction(this);
         vistaTapa.getBtnCancelar().setOnAction(this);
         vistaTapa.getBtnModificar().setOnAction(this);
-        
         vistaMenu.getBtnExportar().setOnAction(this);
-
+        //Instanciamos la clase ManejadorProperties
         ManejadorProperties propiedades = new ManejadorProperties(1);
         stage.setTitle(propiedades.leerPropiedad("titulo"));
         stage.setScene(vistaLogin.getScene());
@@ -112,7 +105,6 @@ public class Controlador implements EventHandler<ActionEvent> {
 
         msjPopUp = new VentanaPopUp();
     }
-
     @Override
     public void handle(ActionEvent event) {
         Button botonSeleccionado = (Button) event.getSource();
