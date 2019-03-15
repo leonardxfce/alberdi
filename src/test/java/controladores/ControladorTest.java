@@ -81,16 +81,4 @@ public class ControladorTest extends ApplicationTest {
         clickOn("OK");
         clickOn("Cancelar");
     }
-    @Test
-    public void test_ingresarConEnter(){
-        write("marcelo").push(KeyCode.TAB);
-        write("123").push(KeyCode.TAB);
-        push(KeyCode.ENTER);
-        clickOn("Cerrar Sesion");
-        push(KeyCode.TAB);
-        write("lautaro").push(KeyCode.TAB);
-        write("12345").push(KeyCode.TAB);
-        push(KeyCode.ENTER);
-        clickOn("Cerrar Sesion");
-    }
 }
