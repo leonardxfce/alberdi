@@ -87,6 +87,7 @@ public class ControladorTest extends ApplicationTest {
         write("123").push(KeyCode.TAB);
         push(KeyCode.ENTER);
         clickOn("Cerrar Sesion");
+        push(KeyCode.TAB);
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.TAB);
         push(KeyCode.ENTER);
