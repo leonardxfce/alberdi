@@ -13,6 +13,8 @@ import org.apache.log4j.Logger;
 import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import principal.Configurar;
 
 /**
@@ -65,4 +67,7 @@ public class ModeloLoginTest {
         assertEquals(true, result);
     }
 
+    public void test(){
+        assertTrue("gooa", true);
+    }
 }
