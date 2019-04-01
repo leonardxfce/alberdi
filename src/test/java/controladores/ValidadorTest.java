@@ -5,6 +5,8 @@
  */
 package controladores;
 
+import modelos.Envase;
+import modelos.Tapa;
 import utilidades.Validador;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -46,9 +48,10 @@ public class ValidadorTest {
         System.out.println("validarTapa");
         String nombre = "";
         String descripcion = "";
+        Tapa tapa = new Tapa(nombre,descripcion);
         Validador instance = new Validador();
         boolean expResult = false;
-        boolean result = instance.validarTapa(nombre, descripcion);
+        boolean result = instance.validarTapa(tapa);
         assertEquals(expResult, result);
     }
 
@@ -61,37 +64,11 @@ public class ValidadorTest {
         String nombre = "";
         String tipo = "";
         String descripcion = "";
+        int volumen = 1;
+        Envase envase = new Envase(nombre, tipo, volumen,descripcion);
         Validador instance = new Validador();
         boolean expResult = false;
-        boolean result = instance.validarEnvase(nombre, tipo, descripcion);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of validarLetrasEnvase method, of class Validador.
-     */
-    @Test
-    public void testValidarLetrasEnvase() {
-        System.out.println("validarLetrasEnvase");
-        String nombre = "123bote";
-        String tipo = "axial";
-        String descripcion = "asd";
-        Validador instance = new Validador();
-        boolean expResult = false;
-        boolean result = instance.validarLetrasEnvase(nombre, tipo, descripcion);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of validarLetrasTapa method, of class Validador.
-     */
-    @Test
-    public void testValidarLetrasTapa() {
-        System.out.println("validarLetrasTapa");
-        String descripcion = "12asdf";
-        Validador instance = new Validador();
-        boolean expResult = false;
-        boolean result = instance.validarLetrasTapa(descripcion);
+        boolean result = instance.validarEnvase(envase);
         assertEquals(expResult, result);
     }
     

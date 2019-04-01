@@ -1,16 +1,16 @@
 package vistas;
 
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class VistaLogin extends VistaPadre {
     private Label labelUsuario;
     private Label labelContrasena;
     private TextField txUsuario;
-    private TextField txContrasena;
+    private PasswordField txContrasena;
     private Button btnIngresar;
 
 
@@ -21,7 +21,7 @@ public class VistaLogin extends VistaPadre {
         labelContrasena = new Label("Contraseña");
         labelContrasena.setId("pass");
         txUsuario = new TextField();
-        txContrasena = new TextField();
+        txContrasena = new PasswordField();
         btnIngresar = new Button("Ingresar");
         
     }
