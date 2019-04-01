@@ -18,6 +18,14 @@ public class Envase {
         this.volumen = volumen;
         this.descripcion = descripcion;
     }
+    
+    public Envase(String nombre, String tipo, int volumen, String descripcion) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.volumen = volumen;
+        this.descripcion = descripcion;
+    }
+    
     public Envase() {
         this.id = 1;
         this.nombre = "frasco";

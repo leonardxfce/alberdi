@@ -154,13 +154,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                 stage.setScene(vistaMenu.getScene());
                 break;
             case "movimiento":
-                vistaMovimiento = new VistaMovimiento(modeloEnvase.darTodosLosEnvases());
-                vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
-                vistaMovimiento.config();
-                vistaMovimiento.getBtnAgregar().setOnAction(this);
-                vistaMovimiento.getBtnQuitar().setOnAction(this);
-                vistaMovimiento.getBtnCancelar().setOnAction(this);
-                stage.setScene(vistaMovimiento.getScene());
+                movimientoEnvase();
                 break;
             case "movimiento_agregar":
                 movimientoAgregar();
@@ -172,6 +166,16 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     String letras = "Los campos deben ser completados sólo con letras";
 
+    public void movimientoEnvase(){
+        vistaMovimiento = new VistaMovimiento(modeloEnvase.darTodosLosEnvases());
+        vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
+        vistaMovimiento.config();
+        vistaMovimiento.getBtnAgregar().setOnAction(this);
+        vistaMovimiento.getBtnQuitar().setOnAction(this);
+        vistaMovimiento.getBtnCancelar().setOnAction(this);
+        stage.setScene(vistaMovimiento.getScene());
+    }
+    
     public void loginIngresar() {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add(vistaLogin.getTxUsuario().getText());
@@ -231,21 +235,18 @@ public class Controlador implements EventHandler<ActionEvent> {
             envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText().trim()));
         }
         envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase().trim());
-        boolean validar = validador.validarEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
-        boolean validarLetras = validador.validarLetrasEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
-        if (!validar) {
+        boolean validarVacio = validador.validarEnvase(envase);
+        if (!validarVacio) {
             msjPopUp.display("Los campos se encuentran vacíos");
         } else {
-            if (!validarLetras) {
-                msjPopUp.display(letras);
+            
+            if (!modeloEnvase.repetido(envase)) {
+                modeloEnvase.guardarEnvaseNuevo(envase);
+                msjPopUp.display("Se guardaron los datos.");
             } else {
-                if (!modeloEnvase.repetido(envase)) {
-                    modeloEnvase.guardarEnvaseNuevo(envase);
-                    msjPopUp.display("Se guardaron los datos.");
-                } else {
-                    msjPopUp.display("Los datos estan repetidos.");
-                }
+                msjPopUp.display("Los datos estan repetidos.");
             }
+            
         }
 
         vistaEnvase.getTextNombre().clear();
@@ -264,23 +265,20 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void tapaGuardar() {
         Tapa tapa = new Tapa(vistaTapa.getTxTipo().getText().trim(), vistaTapa.getTxDescripcion().getText().trim());
-        boolean validar = validador.validarTapa(tapa.getNombre(), tapa.getDescripcion());
-        boolean validarLetras = validador.validarLetrasTapa(tapa.getDescripcion());
-        if (!validar) {
+        boolean validarVacio = validador.validarTapa(tapa);
+        if (!validarVacio) {
             msjPopUp.display("Los campos se encuentran vacios");
         } else {
-            if (!validarLetras) {
-                msjPopUp.display(letras);
+            
+            if (modeloTapa.repetido(tapa)) {
+                msjPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
             } else {
-                if (modeloTapa.repetido(tapa)) {
-                    msjPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
-                } else {
-                    modeloTapa.insert(tapa);
-                    msjPopUp.display(CARGACORRECTA);
-                    vistaTapa.getTxTipo().clear();
-                    vistaTapa.getTxDescripcion().clear();
-                }
+                modeloTapa.insert(tapa);
+                msjPopUp.display(CARGACORRECTA);
+                vistaTapa.getTxTipo().clear();
+                vistaTapa.getTxDescripcion().clear();
             }
+            
         }
     }
 
@@ -301,21 +299,17 @@ public class Controlador implements EventHandler<ActionEvent> {
             envase.setVolumen(Integer.parseInt(vistaEnvase.getTextVol().getText().trim()));
         }
         envase.setDescripcion(vistaEnvase.getTextDescrip().getText().toUpperCase().trim());
-        boolean validar = validador.validarEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
-        boolean validarLetras = validador.validarLetrasEnvase(envase.getNombre(), envase.getTipo(), envase.getDescripcion());
+        boolean validar = validador.validarEnvase(envase);
         if (!validar) {
             msjPopUp.display("Los campos se encuentran vacíos");
         } else {
-            if (!validarLetras) {
-                msjPopUp.display(letras);
+            
+            if (!modeloEnvase.repetido(envase)) {
+                modeloEnvase.modificarEnvase(envase);
+                msjPopUp.display("Se modificaron los datos.");
+                stage.setScene(vistaMenu.getScene());
             } else {
-                if (!modeloEnvase.repetido(envase)) {
-                    modeloEnvase.modificarEnvase(envase);
-                    msjPopUp.display("Se modificaron los datos.");
-                    stage.setScene(vistaMenu.getScene());
-                } else {
-                    msjPopUp.display("Los datos estan repetidos.");
-                }
+                msjPopUp.display("Los datos estan repetidos.");
             }
         }
         vistaEnvase.getTextNombre().clear();
@@ -349,23 +343,18 @@ public class Controlador implements EventHandler<ActionEvent> {
     public void modificarTapa() {
         Integer id = new Integer(vistaTapa.getTxId().getText().trim());
         Tapa tapa = new Tapa(id, vistaTapa.getTxTipo().getText().trim(), vistaTapa.getTxDescripcion().getText().trim());
-        boolean validar = validador.validarTapa(tapa.getNombre(), tapa.getDescripcion());
-        boolean validarLetras = validador.validarLetrasTapa(tapa.getDescripcion());
+        boolean validar = validador.validarTapa(tapa);
         if (!validar) {
             msjPopUp.display("Los campos se encuentran vacios");
         } else {
-            if (!validarLetras) {
-                msjPopUp.display(letras);
-            } else {
-                if (modeloTapa.repetido(tapa)) {
+            if (modeloTapa.repetido(tapa)) {
                     msjPopUp.display("Los datos que intenta cargar ya estan en la base de datos.");
-                } else {
-                    modeloTapa.modificarTapa(tapa);
-                    msjPopUp.display(CARGACORRECTA);
-                    vistaTapa.getTxTipo().clear();
-                    vistaTapa.getTxDescripcion().clear();
-                    stage.setScene(vistaMenu.getScene());
-                }
+            } else {
+                modeloTapa.modificarTapa(tapa);
+                msjPopUp.display(CARGACORRECTA);
+                vistaTapa.getTxTipo().clear();
+                vistaTapa.getTxDescripcion().clear();
+                stage.setScene(vistaMenu.getScene());
             }
         }
         vistaTapa.getTxTipo().clear();
@@ -406,16 +395,11 @@ public class Controlador implements EventHandler<ActionEvent> {
         if (validador.validarMovimiento(vistaMovimiento.getCuadroCantidad().getText(),
                 vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex(),
                 vistaMovimiento.getDatePicker().getValue())) {
-            if (!validador.validarLetrasTapa(vistaMovimiento.getCuadroCantidad().getText())) {
                 MovimientoEnvase movimientoEnvase = agregarQuitar(AGREGAR);
                 modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
                 vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
                 msjPopUp.display(CARGACORRECTA);
                 limpiaCamposVentanaMovimiento();
-
-            } else {
-                msjPopUp.display("El campo sólo debe ser completado con números");
-            }
         } else {
             msjPopUp.display("Por favor, complete todos los campos");
         }
@@ -425,15 +409,11 @@ public class Controlador implements EventHandler<ActionEvent> {
         if (validador.validarMovimiento(vistaMovimiento.getCuadroCantidad().getText(),
                 vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex(),
                 vistaMovimiento.getDatePicker().getValue())) {
-            if (!validador.validarLetrasTapa(vistaMovimiento.getCuadroCantidad().getText())) {
                 MovimientoEnvase movimientoEnvase = agregarQuitar(QUITAR);
                 modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
                 vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
                 msjPopUp.display(CARGACORRECTA);
                 limpiaCamposVentanaMovimiento();
-            } else {
-                msjPopUp.display("El campo sólo debe ser completado con números");
-            }
         } else {
             msjPopUp.display("Por favor, complete todos los campos");
         }

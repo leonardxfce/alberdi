@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import org.apache.log4j.Logger;
-import principal.ManejadorProperties;
 
 /**
  *
@@ -19,12 +18,10 @@ public class ModeloPadre {
 
     Connection connection;
     Statement statement;
-    String url  ;
+    String url = "jdbc:sqlite:sample.db";
 
     public  ModeloPadre() {
         try {
-            ManejadorProperties propiedades = new ManejadorProperties(1);
-            url = propiedades.leerPropiedad("url");
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
         } catch (Exception e) {
