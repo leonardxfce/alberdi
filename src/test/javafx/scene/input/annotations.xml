@@ -1,5 +1,0 @@
-<root>
-    <item name='javafx.scene.input.KeyCode'>
-        <annotation name='java.lang.Deprecated'/>
-    </item>
-</root>
