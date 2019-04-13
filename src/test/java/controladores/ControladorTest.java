@@ -9,7 +9,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 import principal.Configurar;
 
-public class ControladorTest extends ApplicationTest {
+class ControladorTesters extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) {
