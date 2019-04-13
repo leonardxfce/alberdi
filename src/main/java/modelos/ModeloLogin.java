@@ -16,29 +16,19 @@ import principal.ManejadorProperties;
  */
 public class ModeloLogin extends ModeloPadre {
 
-    int id;
-    String usuario;
-    String password;
     ResultSet contenidoDeRespuesta;
 
-    public ModeloLogin(String usuario, String password) {
-        super();
-        this.usuario = usuario;
-        this.password = password;        
-    }
-
     public ModeloLogin() {
-        super();
-        ManejadorProperties propiedades = new ManejadorProperties(1);
-        this.usuario = propiedades.leerPropiedad("usuario");
-        this.password = propiedades.leerPropiedad("password");
+          ManejadorProperties propiedades = new ManejadorProperties(1);
+        String usuario = propiedades.leerPropiedad("usuario");
+        String password = propiedades.leerPropiedad("password");
+
     }
-
-
-    public boolean comprobarExistencia(ArrayList<String> ArrUsuario) {
+    
+    public boolean comprobarExistencia(Usuario ArrUsuario) {
         
-        usuario = ArrUsuario.get(0);
-        password = ArrUsuario.get(1);
+        String usuario = ArrUsuario.getUsuario();
+        String password = ArrUsuario.getPassword();
         try {
             ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
             boolean result = contenidoDeRespuesta.next();
@@ -63,17 +53,23 @@ public class ModeloLogin extends ModeloPadre {
         return null;
     }
 
-    public void insertar() {
+    public boolean insertar(String usuario, String password) {
+        boolean variable;
         try {
-            statement.executeUpdate("INSERT INTO USUARIOS(ID, USUARIO, PASSWORD) VALUES (null,'" + usuario + "','" + password + "')");
+            statement.executeQuery("INSERT INTO USUARIOS VALUES (null,'"+ usuario +" ','" + password + "');");
             statement.close();
+            variable =true;
         } catch (SQLException ex) {
+            System.out.println("No se registro el usuario, por que ya hay uno con ese mismo nombre");
             System.out.println(ex.getMessage());
+            variable = false;
         }
+        
+         return variable;
     }
     //eldavidmodificoesto
 
-    public void eliminar() {
+    public void eliminar(String usuario, String password) {
         try {
             //solo para eliminar un user
             statement.executeUpdate("DELETE * FROM `USUARIOS`(`ID`, `USUARIO`, `PASSWORD`) VALUES (null,'" + usuario + "'," + password + ")");

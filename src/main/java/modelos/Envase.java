@@ -4,7 +4,7 @@ package modelos;
 
 public class Envase {
 
-    private int id;
+    private int id ;
     private String nombre;
     private String tipo;
     private int volumen;

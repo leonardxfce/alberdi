@@ -42,6 +42,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     ModeloEnvase modeloEnvase;
     ModeloLogin modeloLogin;
     ModeloTapa modeloTapa;
+    ManejadorProperties ManejadorProperties;
     VistaListadoEnvases vistaListadoEnvases;
     VistaListadoTapas vistaListadoTapas;
     VentanaPopUp msjPopUp;
@@ -177,11 +178,8 @@ public class Controlador implements EventHandler<ActionEvent> {
     }
     
     public void loginIngresar() {
-        ArrayList<String> atributosLogin = new ArrayList<>();
-        atributosLogin.add(vistaLogin.getTxUsuario().getText());
-        atributosLogin.add(vistaLogin.getTxContrasena().getText());
-
-        boolean resultado = modeloLogin.comprobarExistencia(atributosLogin);
+        Usuario usuario = new Usuario(vistaLogin.getTxUsuario().getText(),vistaLogin.getTxContrasena().getText());
+        boolean resultado = modeloLogin.comprobarExistencia(usuario);
         if (resultado) {
             stage.setScene(vistaMenu.getScene());
         } else {

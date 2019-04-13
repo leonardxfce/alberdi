@@ -49,22 +49,24 @@ public class ModeloLoginTest {
      */
     @Test
     public void testExistencia() {
-        ArrayList<String> atributosLogin = new ArrayList<>();
-        atributosLogin.add("leo");
-        atributosLogin.add("2221");
-        ModeloLogin instance = new ModeloLogin("leo", "2221");
-        boolean result = instance.comprobarExistencia(atributosLogin);
-        assertEquals(false, result);
-    }
-
-    public void testinsert() {
-        ArrayList<String> atributosLogin = new ArrayList<>();
-        atributosLogin.add("JUANES");
-        atributosLogin.add("2610");
-        ModeloLogin instance = new ModeloLogin("JUANES", "2610");
-        instance.insertar();
-        boolean result = instance.comprobarExistencia(atributosLogin);
+        Usuario usuario = new Usuario("leo","2221");
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.comprobarExistencia(usuario);
         assertEquals(true, result);
+    }
+    @Test
+    public void testInsertRepetido() {
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.insertar("lautaro","12345");
+        assertEquals(false,result);
+    }
+    @Test
+    public void testInsertar() {
+        Usuario usuario = new Usuario("JUANES","12345");
+        ModeloLogin instance = new ModeloLogin();
+        instance.insertar("JUANES","12345");
+        boolean result = instance.comprobarExistencia(usuario);
+        assertEquals(false,result);
     }
 
     public void test(){

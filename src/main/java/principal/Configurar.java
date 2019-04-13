@@ -23,9 +23,11 @@ public class Configurar {
     try {
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
+            statement.executeUpdate("DROP TABLE USUARIOS;");
+            statement.close();
             statement.executeUpdate("CREATE TABLE if not exists USUARIOS (\n"
                     + "ID integer PRIMARY KEY,\n"
-                    + "USUARIO text,\n"
+                    + "USUARIO text unique,\n"
                     + "PASSWORD text\n"
                     + ");");
             statement.close();
@@ -51,9 +53,11 @@ public class Configurar {
                     "FOREIGN KEY(ID_ENVASE) REFERENCES ENVASE(ID)\n" +
                     ");");
             statement.close();
-            statement.executeUpdate("insert or replace into USUARIOS values(1,'lautaro','12345')");
+            statement.executeUpdate("insert or replace into USUARIOS values(null,'lautaro','12345')");
             statement.close();
-            statement.executeUpdate("insert or replace into USUARIOS values(2,'marcelo','123')");
+            statement.executeUpdate("insert or replace into USUARIOS values(null,'marcelo','123')");
+            statement.close();
+            statement.executeUpdate("insert or replace into USUARIOS values(null,'leo','2221')");
             statement.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
