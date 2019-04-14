@@ -5,48 +5,24 @@
  */
 package modelos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import principal.Configurar;
+
 import java.util.ArrayList;
-import org.apache.log4j.Logger;
-import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import principal.Configurar;
 
 /**
  * @author lauta
  */
 public class ModeloLoginTest {
 
-
-    public ModeloLoginTest() {
-    }
-
     @BeforeClass
     public static void setUpClass() {
         new Configurar();
     }
 
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-        
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of seleccionar method, of class ModeloLogin.
-     */
     @Test
     public void testExistencia() {
         ArrayList<String> atributosLogin = new ArrayList<>();
@@ -57,7 +33,7 @@ public class ModeloLoginTest {
         assertEquals(false, result);
     }
 
-    public void testinsert() {
+    public void testInsert() {
         ArrayList<String> atributosLogin = new ArrayList<>();
         atributosLogin.add("JUANES");
         atributosLogin.add("2610");
@@ -67,7 +43,4 @@ public class ModeloLoginTest {
         assertEquals(true, result);
     }
 
-    public void test(){
-        assertTrue("gooa", true);
-    }
 }

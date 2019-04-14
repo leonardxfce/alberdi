@@ -5,42 +5,23 @@
  */
 package modelos;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.*;
 import principal.Configurar;
 
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 /**
- *
  * @author caro_
  */
 public class ModeloEnvaseTest {
-
-    public ModeloEnvaseTest() {
-    }
 
     @BeforeClass
     public static void setUpClass() {
         new Configurar();
     }
 
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
     @Test
     public void testRepetido() {
         Envase miAl = new Envase();
@@ -77,6 +58,7 @@ public class ModeloEnvaseTest {
         ModeloEnvase instance = new ModeloEnvase();
         instance.guardarEnvaseNuevo(miAl);
     }
+
     @Test
     public void testDarTodosLosEnvases() {
         Envase miAl = new Envase();
@@ -87,24 +69,26 @@ public class ModeloEnvaseTest {
         ModeloEnvase instance = new ModeloEnvase();
         instance.guardarEnvaseNuevo(miAl);
         List andrea = instance.darTodosLosEnvases();
-        assertEquals(false,andrea.isEmpty());
+        assertEquals(false, andrea.isEmpty());
     }
+
     @Test
-    public void testDarUnEnvase(){
+    public void testDarUnEnvase() {
         int uno = 1;
         ModeloEnvase instance = new ModeloEnvase();
         Envase env = instance.darUno(uno);
         assertTrue(env instanceof Envase);
     }
+
     @Test
-    public void testModificarEnvase(){
+    public void testModificarEnvase() {
         int uno = 1;
         ModeloEnvase instance = new ModeloEnvase();
         Envase env = instance.darUno(uno);
         env.setNombre("bote1");
         instance.modificarEnvase(env);
         Envase env2 = instance.darUno(uno);
-        assertNotEquals(env,env2);
+        assertNotEquals(env, env2);
     }
 
 }

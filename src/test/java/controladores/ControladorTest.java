@@ -4,17 +4,17 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
+import principal.Configurar;
 
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
-import principal.Configurar;
 
 class ControladorTesters extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) {
         new Configurar();
-        new Controlador(primaryStage);  
+        new Controlador(primaryStage);
     }
 
     @Test
@@ -61,7 +61,7 @@ class ControladorTesters extends ApplicationTest {
     }
 
     @Test
-    public void test_click_listados (){
+    public void test_click_listados() {
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
         clickOn("Ver Listado de Envases");
@@ -70,8 +70,9 @@ class ControladorTesters extends ApplicationTest {
         clickOn("Cancelar");
         clickOn("Cerrar Sesion");
     }
+
     @Test
-    public void test_click_Movimiento_PopUp(){
+    public void test_click_Movimiento_PopUp() {
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
         clickOn("Manejo de Insumos");

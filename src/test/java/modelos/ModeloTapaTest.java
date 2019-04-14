@@ -5,52 +5,29 @@
  */
 package modelos;
 
-import java.util.List;
-import modelos.Tapa;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import principal.Configurar;
 
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 /**
- *
  * @author santiagopc
  */
 public class ModeloTapaTest {
-    
-    public ModeloTapaTest() {
-    }
-    
+
     @BeforeClass
     public static void setUpClass() {
         new Configurar();
     }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-    /**
-     * Test of insert method, of class ModeloTapa.
-     */
     @Test
     public void testInsert() {
-        Tapa tapa = new Tapa("corona","106");
+        Tapa tapa = new Tapa("corona", "106");
         ModeloTapa instance = new ModeloTapa();
         instance.insert(tapa);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -58,11 +35,11 @@ public class ModeloTapaTest {
      */
     @Test
     public void testDarTodosLosEnvases() {
-        Tapa tapa = new Tapa("100","axial");
+        Tapa tapa = new Tapa("100", "axial");
         ModeloTapa instance = new ModeloTapa();
         instance.insert(tapa);
         List lista = instance.darTodasLasTapas();
-        assertEquals(false,lista.isEmpty());
+        assertEquals(false, lista.isEmpty());
     }
 
     /**
@@ -70,7 +47,7 @@ public class ModeloTapaTest {
      */
     @Test
     public void testRepetido1() {
-        Tapa tapa = new Tapa("106","corona"); 
+        Tapa tapa = new Tapa("106", "corona");
         ModeloTapa instance = new ModeloTapa();
         instance.insert(tapa);
         boolean expResult = true;
@@ -85,7 +62,7 @@ public class ModeloTapaTest {
      */
     @Test
     public void testRepetido2() {
-        Tapa tapa = new Tapa("105","corona"); 
+        Tapa tapa = new Tapa("105", "corona");
         ModeloTapa instance = new ModeloTapa();
         boolean expResult = false;
         boolean result = instance.repetido(tapa);
@@ -93,23 +70,25 @@ public class ModeloTapaTest {
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
+
     @Test
-    public void testDarUnEnvase(){
+    public void testDarUnEnvase() {
         int uno = 1;
         ModeloTapa instance = new ModeloTapa();
         Tapa tapa = instance.darUno(uno);
         assertTrue(tapa instanceof Tapa);
     }
+
     @Test
-    public void testModificarEnvase(){
+    public void testModificarEnvase() {
         int uno = 1;
         ModeloTapa instance = new ModeloTapa();
         Tapa tapa = instance.darUno(uno);
         tapa.setNombre("tapita");
         instance.modificarTapa(tapa);
         Tapa tapa2 = instance.darUno(uno);
-        assertNotEquals(tapa,tapa2);
+        assertNotEquals(tapa, tapa2);
     }
 
-    
+
 }
