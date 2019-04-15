@@ -12,7 +12,7 @@ public class VistaLogin extends VistaPadre {
     private TextField txUsuario;
     private PasswordField txContrasena;
     private Button btnIngresar;
-
+    private Button btnRegistrar;
 
     public VistaLogin() {
         super();
@@ -23,7 +23,7 @@ public class VistaLogin extends VistaPadre {
         txUsuario = new TextField();
         txContrasena = new PasswordField();
         btnIngresar = new Button("Ingresar");
-        
+        btnRegistrar = new Button("Registrar");
     }
 
     public TextField getTxUsuario() {
@@ -38,13 +38,33 @@ public class VistaLogin extends VistaPadre {
         return btnIngresar;
         
     }
+    public Button getBtnRegresar(){
+        return btnRegistrar;
+    }
 
     public void config() {
         //IDs
         btnIngresar.setId("login_ingresar");
+        btnRegistrar.setId("registrarUser");
         //Controles
-        contenido.getChildren().addAll(labelUsuario, txUsuario, labelContrasena, txContrasena, btnIngresar);
+        this.mostrarBotonesLogin();
+        contenido.getChildren().addAll(labelUsuario, txUsuario, labelContrasena, txContrasena, btnIngresar,btnRegistrar);
         contenido.setSpacing(5);
     }
-
+    
+    public void prepararBotones(){
+        btnIngresar.setVisible(false);
+        btnRegistrar.setVisible(true);
+        btnIngresar.setManaged(false);
+        btnRegistrar.setManaged(true);
+        txUsuario.clear();
+        txContrasena.clear();
+    }
+    
+    public void mostrarBotonesLogin(){
+        btnIngresar.setVisible(true);
+        btnRegistrar.setVisible(false);
+        btnIngresar.setManaged(true);
+        btnRegistrar.setManaged(false);
+    }
 }
