@@ -24,23 +24,7 @@ public class ModeloLogin extends ModeloPadre {
         String password = propiedades.leerPropiedad("password");
 
     }
-    
-    public boolean comprobarExistencia(Usuario ArrUsuario) {
-        
-        String usuario = ArrUsuario.getUsuario();
-        String password = ArrUsuario.getPassword();
-        try {
-            ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
-            boolean result = contenidoDeRespuesta.next();
-            statement.close();
-            return result;
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return false;
-    }
-
-    public String seleccionar(String usuario, String password) {
+      public String seleccionar(String usuario, String password) {
         try {
 
             contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
@@ -52,32 +36,51 @@ public class ModeloLogin extends ModeloPadre {
         }
         return null;
     }
-
-    public boolean insertar(String usuario, String password) {
-        boolean variable;
+    public boolean comprobarExistencia(Usuario ArrUsuario) {
+        
+        String usuario = ArrUsuario.getUsuario();
+        String password = ArrUsuario.getPassword();
         try {
-            statement.executeQuery("INSERT INTO USUARIOS VALUES (null,'"+ usuario +" ','" + password + "');");
+            ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
+            boolean result = contenidoDeRespuesta.next();
             statement.close();
-            variable =true;
+            return result;
         } catch (SQLException ex) {
-            System.out.println("No se registro el usuario, por que ya hay uno con ese mismo nombre");
             System.out.println(ex.getMessage());
-            variable = false;
+            return false;
         }
         
-         return variable;
     }
-    //eldavidmodificoesto
 
-    public void eliminar(String usuario, String password) {
+    public boolean insertar(Usuario ArrUsuario)  {
+        String usuario = ArrUsuario.getUsuario();
+        String password = ArrUsuario.getPassword();
+        int bandera;
+        try {
+            bandera = statement.executeUpdate("INSERT INTO USUARIOS VALUES (null,'"+usuario+"','"+password+"');");
+        if (bandera > 0 ) {
+            return true;
+        }else{
+            return false;
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    }
+    
+    public boolean eliminar(String usuario, String password) {
+        boolean resultado;
         try {
             //solo para eliminar un user
             statement.executeUpdate("DELETE * FROM `USUARIOS`(`ID`, `USUARIO`, `PASSWORD`) VALUES (null,'" + usuario + "'," + password + ")");
-
             statement.close();
-
+            resultado = true;
         } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            resultado = false;
         }
+        return resultado;
     }
 }

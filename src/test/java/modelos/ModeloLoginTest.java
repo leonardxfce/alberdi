@@ -7,6 +7,7 @@ package modelos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
@@ -57,16 +58,33 @@ public class ModeloLoginTest {
     @Test
     public void testInsertRepetido() {
         ModeloLogin instance = new ModeloLogin();
-        boolean result = instance.insertar("lautaro","12345");
+        Usuario user = new Usuario("lautaro","12345");
+        boolean result = instance.insertar(user);
         assertEquals(false,result);
     }
+    
     @Test
-    public void testInsertar() {
-        Usuario usuario = new Usuario("JUANES","12345");
+    public void testInsertNewUser()  {
         ModeloLogin instance = new ModeloLogin();
-        instance.insertar("JUANES","12345");
+        Usuario user = new Usuario("PABLO","445");
+        boolean result = instance.insertar(user);
+        assertEquals(true,result);
+    }
+    @Test
+    public void testInsertarwhitComprobacion(){
+        ModeloLogin instance = new ModeloLogin();
+        Usuario usuario = new Usuario("carla","12399");
+        instance.insertar(usuario);
         boolean result = instance.comprobarExistencia(usuario);
-        assertEquals(false,result);
+        assertEquals(true,result);
+    }
+    @Test
+    public void testEliminar() {
+        Usuario user = new Usuario("carlos","247");
+        ModeloLogin instance = new ModeloLogin();
+        instance.insertar(user);
+        boolean result = instance.comprobarExistencia(user);
+        assertEquals(true,result);
     }
 
     public void test(){
