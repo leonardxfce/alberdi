@@ -72,6 +72,12 @@ class ControladorTesters extends ApplicationTest {
     }
 
     @Test
+    public void test_click_Registrar(){
+        clickOn("Registrar Usuario");
+        verifyThat(".button", hasText("Registrar"));
+    }
+    
+    @Test
     public void test_click_Movimiento_PopUp() {
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
