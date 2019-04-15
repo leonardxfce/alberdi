@@ -96,6 +96,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaTapa.getBtnCancelar().setOnAction(this);
         vistaTapa.getBtnModificar().setOnAction(this);
         vistaMenu.getBtnExportar().setOnAction(this);
+        vistaMenu.getBtnNuevoUsuario().setOnAction(this);
         //Instanciamos la clase ManejadorProperties
         ManejadorProperties propiedades = new ManejadorProperties(1);
         stage.setTitle(propiedades.leerPropiedad("titulo"));
@@ -113,9 +114,12 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "login_ingresar":
                 loginIngresar();
                 break;
+            case "registrarUsuario":
+                stage.setScene(vistaLogin.getScene());
+                vistaLogin.prepararBotones();
+                break;
             case "menu_envase":
                 menuEnvase();
-
                 break;
             case "menu_tapa":
                 menuTapa();
