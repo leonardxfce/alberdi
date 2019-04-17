@@ -5,12 +5,12 @@
  */
 package modelos;
 
+import java.nio.charset.Charset;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import principal.Configurar;
-
 import java.util.ArrayList;
-
+import java.util.Random;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -25,22 +25,28 @@ public class ModeloLoginTest {
 
     @Test
     public void testExistencia() {
-        ArrayList<String> atributosLogin = new ArrayList<>();
-        atributosLogin.add("leo");
-        atributosLogin.add("2221");
-        ModeloLogin instance = new ModeloLogin("leo", "2221");
-        boolean result = instance.comprobarExistencia(atributosLogin);
+        Usuario user = new Usuario("leo","2221");
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.comprobarExistencia(user);
         assertEquals(false, result);
     }
-
+    @Test
     public void testInsert() {
-        ArrayList<String> atributosLogin = new ArrayList<>();
-        atributosLogin.add("JUANES");
-        atributosLogin.add("2610");
-        ModeloLogin instance = new ModeloLogin("JUANES", "2610");
-        instance.insertar();
-        boolean result = instance.comprobarExistencia(atributosLogin);
-        assertEquals(true, result);
+        byte[] array = new byte[7]; // length is bounded by 7
+    new Random().nextBytes(array);
+    String generatedString = new String(array, Charset.forName("UTF-8"));
+        Usuario user = new Usuario(generatedString,"123");
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.insertar(user);
+        assertEquals(true,result);
     }
+    @Test
+    public void testInsertRepetido() {
+        Usuario user = new Usuario("lautaro","12345");
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.insertar(user);
+        assertEquals(false,result);
+    }
+    
 
 }
