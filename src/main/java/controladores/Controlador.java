@@ -181,11 +181,8 @@ public class Controlador implements EventHandler<ActionEvent> {
     }
     
     public void loginIngresar() {
-        ArrayList<String> atributosLogin = new ArrayList<>();
-        atributosLogin.add(vistaLogin.getTxUsuario().getText());
-        atributosLogin.add(vistaLogin.getTxContrasena().getText());
-
-        boolean resultado = modeloLogin.comprobarExistencia(atributosLogin);
+        Usuario user = new Usuario(vistaLogin.getTxUsuario().getText(),vistaLogin.getTxContrasena().getText());
+        boolean resultado = modeloLogin.comprobarExistencia(user);
         if (resultado) {
             stage.setScene(vistaMenu.getScene());
         } else {

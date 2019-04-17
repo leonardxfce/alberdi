@@ -25,7 +25,7 @@ public class Configurar {
             statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE if not exists USUARIOS (\n"
                     + "ID integer PRIMARY KEY,\n"
-                    + "USUARIO text,\n"
+                    + "USUARIO text unique,\n"
                     + "PASSWORD text\n"
                     + ");");
             statement.close();

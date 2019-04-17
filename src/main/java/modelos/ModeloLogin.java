@@ -16,31 +16,21 @@ import principal.ManejadorProperties;
  */
 public class ModeloLogin extends ModeloPadre {
 
-    int id;
-    String usuario;
-    String password;
     ResultSet contenidoDeRespuesta;
-
-    public ModeloLogin(String usuario, String password) {
-        super();
-        this.usuario = usuario;
-        this.password = password;        
-    }
 
     public ModeloLogin() {
         super();
         ManejadorProperties propiedades = new ManejadorProperties(1);
-        this.usuario = propiedades.leerPropiedad("usuario");
-        this.password = propiedades.leerPropiedad("password");
+        String usuario = propiedades.leerPropiedad("usuario");
+        String password = propiedades.leerPropiedad("password");
     }
 
+    public boolean comprobarExistencia(Usuario ArrUser) {
 
-    public boolean comprobarExistencia(ArrayList<String> ArrUsuario) {
-        
-        usuario = ArrUsuario.get(0);
-        password = ArrUsuario.get(1);
+        String user = ArrUser.getUser();
+        String pass = ArrUser.getPass();
         try {
-            ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
+            ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + user + "' AND PASSWORD = '" + pass + "';");
             boolean result = contenidoDeRespuesta.next();
             statement.close();
             return result;
@@ -50,10 +40,10 @@ public class ModeloLogin extends ModeloPadre {
         return false;
     }
 
-    public String seleccionar(String usuario, String password) {
+    public String seleccionar(String user, String pass) {
         try {
 
-            contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + usuario + "' AND PASSWORD = '" + password + "';");
+            contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + user + "' AND PASSWORD = '" + pass + "';");
             contenidoDeRespuesta.next();
             statement.close();
             return contenidoDeRespuesta.getString("USUARIO");
@@ -63,20 +53,30 @@ public class ModeloLogin extends ModeloPadre {
         return null;
     }
 
-    public void insertar() {
+    public boolean insertar(Usuario ArrUser) {
+        String user = ArrUser.getUser();
+        String pass = ArrUser.getPass();
+        int count;
         try {
-            statement.executeUpdate("INSERT INTO USUARIOS(ID, USUARIO, PASSWORD) VALUES (null,'" + usuario + "','" + password + "')");
+            count = statement.executeUpdate("INSERT INTO USUARIOS VALUES (null,'" + user + "','" + pass + "');");
             statement.close();
-        } catch (SQLException ex) {
+            if (count > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            return false;
         }
     }
     //eldavidmodificoesto
 
-    public void eliminar() {
+    public void eliminar(String user, String pass) {
         try {
             //solo para eliminar un user
-            statement.executeUpdate("DELETE * FROM `USUARIOS`(`ID`, `USUARIO`, `PASSWORD`) VALUES (null,'" + usuario + "'," + password + ")");
+            statement.executeUpdate("DELETE * FROM `USUARIOS`(`ID`, `USUARIO`, `PASSWORD`) VALUES (null,'" + user + "'," + pass + ")");
 
             statement.close();
 
