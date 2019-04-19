@@ -72,24 +72,15 @@ public class ModeloLogin extends ModeloPadre {
         return null;
     }
 
-    public boolean insertar(Usuario arrUser) {
+    public void insertar(Usuario arrUser) {
         String user = arrUser.getUser();
         String pass = arrUser.getPass();
-        int count;
-        boolean error;
         try {
-            count = statement.executeUpdate("INSERT INTO USUARIOS VALUES (null,'" + user + "','" + pass + "');");
+            statement.executeUpdate("INSERT INTO USUARIOS VALUES (null,'" + user + "','" + pass + "');");
             statement.close();
-            if (count > 0) {
-                error = true;
-            } else {
-                error = false;
-            }
         } catch (Exception ex) {
             Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
-            error = false;
         }
-        return error;
     }
     //eldavidmodificoesto
 
