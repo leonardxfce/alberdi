@@ -6,9 +6,9 @@
 package modelos;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import principal.ManejadorProperties;
 
 /**
@@ -17,66 +17,87 @@ import principal.ManejadorProperties;
 public class ModeloLogin extends ModeloPadre {
 
     ResultSet contenidoDeRespuesta;
+    ManejadorProperties propiedades;
+    String usuario;
+    String password;
 
     public ModeloLogin() {
         super();
-        ManejadorProperties propiedades = new ManejadorProperties(1);
-        String usuario = propiedades.leerPropiedad("usuario");
-        String password = propiedades.leerPropiedad("password");
+        propiedades = new ManejadorProperties(1);
+        usuario = propiedades.leerPropiedad("usuario");
+        password = propiedades.leerPropiedad("password");
     }
 
-    public boolean comprobarExistencia(Usuario ArrUser) {
-
-        String user = ArrUser.getUser();
-        String pass = ArrUser.getPass();
+    public boolean comprobarExistencia(Usuario arrUser) {
+        String user = arrUser.getUser();
+        String pass = arrUser.getPass();
+        setQuery("SELECT * FROM USUARIOS where USUARIO = '" + user + "' AND PASSWORD = '" + pass + "';");
         try {
-            ResultSet contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + user + "' AND PASSWORD = '" + pass + "';");
-            boolean result = contenidoDeRespuesta.next();
+            ResultSet respuesta = statement.executeQuery(getQuery());
+            boolean result = respuesta.next();
             statement.close();
+            respuesta.close();
             return result;
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    //Este metodo sirve para verificar si el nombre de usuario ya existe. Agregado por Santiago
+    public boolean comprobarExistenciaUser(String user) {
+        setQuery("SELECT USUARIO FROM USUARIOS where USUARIO = '" + user + "';");
+        try {
+            ResultSet respuesta = statement.executeQuery(getQuery());
+            boolean result = respuesta.next();
+            statement.close();
+            respuesta.close();
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 
     public String seleccionar(String user, String pass) {
+        setQuery("SELECT * FROM USUARIOS where USUARIO = '" + user + "' AND PASSWORD = '" + pass + "';");
         try {
-
-            contenidoDeRespuesta = statement.executeQuery("SELECT * FROM USUARIOS where USUARIO = '" + user + "' AND PASSWORD = '" + pass + "';");
+            contenidoDeRespuesta = statement.executeQuery(getQuery());
             contenidoDeRespuesta.next();
             statement.close();
             return contenidoDeRespuesta.getString("USUARIO");
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    public boolean insertar(Usuario ArrUser) {
-        String user = ArrUser.getUser();
-        String pass = ArrUser.getPass();
+    public boolean insertar(Usuario arrUser) {
+        String user = arrUser.getUser();
+        String pass = arrUser.getPass();
         int count;
+        boolean error;
         try {
             count = statement.executeUpdate("INSERT INTO USUARIOS VALUES (null,'" + user + "','" + pass + "');");
             statement.close();
             if (count > 0) {
-                return true;
+                error = true;
             } else {
-                return false;
+                error = false;
             }
-
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return false;
+            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
+            error = false;
         }
+        return error;
     }
     //eldavidmodificoesto
 
     public void eliminar(String user, String pass) {
+        setQuery("DELETE * FROM `USUARIOS`(`ID`, `USUARIO`, `PASSWORD`) VALUES (null,'" + user + "'," + pass + ")");
         try {
             //solo para eliminar un user
-            statement.executeUpdate("DELETE * FROM `USUARIOS`(`ID`, `USUARIO`, `PASSWORD`) VALUES (null,'" + user + "'," + pass + ")");
+            statement.executeUpdate(getQuery());
 
             statement.close();
 

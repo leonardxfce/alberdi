@@ -9,7 +9,7 @@ import principal.Configurar;
 import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 
-class ControladorTesters extends ApplicationTest {
+public class ControladorTest extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) {
@@ -45,7 +45,7 @@ class ControladorTesters extends ApplicationTest {
         clickOn("Ingresar");
         clickOn("Cargar Envase");
         clickOn("Guardar");
-        clickOn("OK");
+        clickOn("Aceptar");
         verifyThat(".button", hasText("Guardar"));
     }
 
@@ -56,7 +56,7 @@ class ControladorTesters extends ApplicationTest {
         clickOn("Ingresar");
         clickOn("Cargar Tapa");
         clickOn("Aceptar");
-        clickOn("OK");
+        clickOn("Aceptar");
         verifyThat(".button", hasText("Aceptar"));
     }
 
@@ -73,10 +73,34 @@ class ControladorTesters extends ApplicationTest {
 
     @Test
     public void test_click_Registrar(){
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.TAB);
+        clickOn("Ingresar");
         clickOn("Registrar Usuario");
-        verifyThat(".button", hasText("Registrar"));
+        push(KeyCode.TAB);push(KeyCode.TAB);
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.TAB);
+        clickOn("Registrar");
+        clickOn("Aceptar");
     }
-    
+    @Test
+    public void test_click_Registrar2(){
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.TAB);
+        clickOn("Ingresar");
+        clickOn("Registrar Usuario");
+        clickOn("Cancelar");
+    }
+    @Test
+    public void test_click_Registrar3(){
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.TAB);
+        clickOn("Ingresar");
+        clickOn("Registrar Usuario");
+        clickOn("Registrar");
+        clickOn("Aceptar");
+    }
+
     @Test
     public void test_click_Movimiento_PopUp() {
         write("lautaro").push(KeyCode.TAB);
@@ -85,7 +109,8 @@ class ControladorTesters extends ApplicationTest {
         write("abc");
         verifyThat(".button", hasText("Agregar"));
         clickOn("Quitar");
-        clickOn("OK");
+        clickOn("Aceptar");
         clickOn("Cancelar");
     }
+
 }

@@ -11,7 +11,6 @@ import vistas.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Alert;
@@ -114,9 +113,11 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "login_ingresar":
                 loginIngresar();
                 break;
-            case "registrarUsuario":
-                stage.setScene(vistaLogin.getScene());
-                vistaLogin.prepararBotones();
+            case "menu_registrarUsuario":
+                menu_registrarUsuario();
+                break;
+            case "login_registrarUser":
+                registrarUser();
                 break;
             case "menu_envase":
                 menuEnvase();
@@ -165,6 +166,8 @@ public class Controlador implements EventHandler<ActionEvent> {
                 break;
             case "movimiento_quitar":
                 movimientoQuitar();
+                break;
+                default:
         }
     }
 
@@ -192,6 +195,30 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     }
 
+    public void menu_registrarUsuario(){
+        stage.setScene(vistaLogin.getScene());
+        vistaLogin.prepararBotonesIngresarUserNuevo();
+        vistaLogin.getBtnRegistrar().setOnAction(this);
+        vistaLogin.getBtnCancelar().setOnAction(this);
+    }
+
+    public void registrarUser(){
+        boolean camposVacios = vistaLogin.validarCampos();
+        if (camposVacios) {
+            msjPopUp.display(vistaLogin.getMensajeDeError());
+        } else {
+            boolean userRepetido = modeloLogin.comprobarExistenciaUser(vistaLogin.getTxUsuario().getText());
+            if (userRepetido){
+                msjPopUp.display("El usuario ingresado ya existe");
+            } else {
+                Usuario userNuevo = new Usuario(vistaLogin.getTxUsuario().getText(), vistaLogin.getTxContrasena().getText());
+                modeloLogin.insertar(userNuevo);
+                msjPopUp.display("El Usuario se agrego Correctamente");
+                vistaLogin.eliminarContenido();
+            }
+        }
+    }
+
     public void menuEnvase() {
         vistaEnvase.mostrarBotones();
         stage.setScene(vistaEnvase.getScene());
@@ -203,6 +230,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     }
 
     public void menuCerrarSesion() {
+        vistaLogin.mostrarBotonesLogin();
         stage.setScene(vistaLogin.getScene());
         vistaLogin.getTxUsuario().clear();
         vistaLogin.getTxContrasena().clear();

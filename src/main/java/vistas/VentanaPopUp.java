@@ -25,9 +25,10 @@ public class VentanaPopUp extends VistaPadre {
         popup.initModality(Modality.APPLICATION_MODAL);
         popup.setTitle("Mensaje");
         Label label1 = new Label(dato);
-        Button bntOk = new Button("OK");
-        
-        bntOk.setOnAction(e -> popup.close());
+        Button btnOk = new Button("Aceptar");
+
+        btnOk.defaultButtonProperty().bind(btnOk.focusedProperty());
+        btnOk.setOnAction(e -> popup.close());
 
         HBox hBox = new HBox(20);
         HBox hBox1 = new HBox(20);
@@ -36,7 +37,7 @@ public class VentanaPopUp extends VistaPadre {
         hBox.getChildren().addAll(label1);
         hBox.setAlignment(Pos.CENTER);
         
-        hBox1.getChildren().addAll(bntOk);
+        hBox1.getChildren().addAll(btnOk);
         hBox1.setAlignment(Pos.CENTER);
 
         vBox.getChildren().addAll(hBox, hBox1);

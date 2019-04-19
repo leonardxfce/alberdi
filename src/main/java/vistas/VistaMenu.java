@@ -80,7 +80,7 @@ public class VistaMenu extends VistaPadre {
         btnListadoTapas.setId("menu_listarTapas");
         btnCerrarSesion.setId("menu_cerrarSesion");
         btnMovimientos.setId("movimiento");
-        btnNuevoUsuario.setId("registrarUsuario");
+        btnNuevoUsuario.setId("menu_registrarUsuario");
         //Controles
 
         contenido.getChildren().addAll(titulo, btnEnvase, btnTapas, btnListadoEnvases, btnListadoTapas, btnMovimientos,btnNuevoUsuario,btnExportar, btnCerrarSesion);

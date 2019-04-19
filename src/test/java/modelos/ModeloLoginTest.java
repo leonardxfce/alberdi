@@ -31,6 +31,18 @@ public class ModeloLoginTest {
         assertEquals(false, result);
     }
     @Test
+    public void testExistenciaUsuario1() {
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.comprobarExistenciaUser("santiago");
+        assertEquals(false, result);
+    }
+    @Test
+    public void testExistenciaUsuario2() {
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.comprobarExistenciaUser("marcelo");
+        assertEquals(true, result);
+    }
+    @Test
     public void testInsert() {
         byte[] array = new byte[7]; // length is bounded by 7
     new Random().nextBytes(array);
@@ -47,6 +59,6 @@ public class ModeloLoginTest {
         boolean result = instance.insertar(user);
         assertEquals(false,result);
     }
-    
+
 
 }

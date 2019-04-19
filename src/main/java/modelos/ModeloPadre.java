@@ -19,6 +19,7 @@ public class ModeloPadre {
     Connection connection;
     Statement statement;
     String url = "jdbc:sqlite:sample.db";
+    private String query;
 
     public  ModeloPadre() {
         try {
@@ -30,4 +31,12 @@ public class ModeloPadre {
         }
     }
 
+    //Setters && Getters
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
 }
