@@ -179,21 +179,21 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMovimiento.getBtnCancelar().setOnAction(this);
         stage.setScene(vistaMovimiento.getScene());
     }
-    //Metodo que instancia la VISTA DE LOGUEO
-    //Requiere la comprobación de usuario y contraseña
-    //llama a modeloLogin encargado de transaccionar datos(user,password) alta baja y modificación 
+    /*Metodo que instancia la VISTA DE LOGUEO*/
+    /*Requiere la comprobación de usuario y contraseña*/
+    /*llama a modeloLogin encargado de transaccionar datos(user,password) alta baja y modificación*/
     public void loginIngresar() {
         Usuario user = new Usuario(vistaLogin.getTxUsuario().getText(),
                                     vistaLogin.getTxContrasena().getText());
-        //guardamos los datos ingresados de textField al Objeto Usuario
+        /*guardamos los datos ingresados de textField al Objeto Usuario*/
         boolean resultado = modeloLogin.comprobarExistencia(user); 
-        //Le enviamos el Usuario declarado anteriormente al método
-        //se comprueba el método y devuelve T or F 
+        /*Le enviamos el Usuario declarado anteriormente al método*/
+        /*se comprueba el método y devuelve T or F*/
         if (resultado) {
-            stage.setScene(vistaMenu.getScene()); //si la rpta es TRUE accedemos al Menu Principal
+            stage.setScene(vistaMenu.getScene()); /*si la rpta es TRUE accedemos al Menu Principal*/
         } else {
             JOptionPane.showMessageDialog(null, "El Usuario ingresado no existe", "Error de petición", JOptionPane.ERROR_MESSAGE);
-        } //sino volvemos al Login
+        } /*sino volvemos al Login*/
 
 
     }
