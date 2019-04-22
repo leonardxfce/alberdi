@@ -77,14 +77,4 @@ public class ModeloLogin extends ModeloPadre {
             return false;
         }
     }
-    public void eliminar(String user, String pass) {
-        try {
-            statement.executeUpdate("DELETE * FROM `USUARIOS`(`ID`, `USUARIO`, `PASSWORD`) VALUES (null,'" + user + "'," + pass + ")");
-
-            statement.close();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ModeloLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }
