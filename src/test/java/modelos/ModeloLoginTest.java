@@ -20,7 +20,7 @@ public class ModeloLoginTest {
 
     @BeforeClass
     public static void setUpClass() {
-        //Llamada al constructor configurar, encargado de levantar la base de datos
+        /*Llamada al constructor configurar, encargado de levantar la base de datos*/
         new Configurar();
     }
 
