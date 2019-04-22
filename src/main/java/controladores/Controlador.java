@@ -50,6 +50,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     ModeloMovimientoEnvase modeloMovimientoEnvase;
     static final int AGREGAR=1;//variable que se utilizara como indicador para agregar en el metodo agregarQuitar
     static final int QUITAR=-1;//variable que se utilizara como indicador para quitar en el metodo agregarQuitar
+    int agregarQuitar=0;
     static final String CARGACORRECTA="Los datos se han cargado correctamente.";
 
     public Controlador(Stage primaryStage) {
@@ -161,10 +162,12 @@ public class Controlador implements EventHandler<ActionEvent> {
                 movimientoEnvase();
                 break;
             case "movimiento_agregar":
-                movimientoAgregar();
+                agregarQuitar=AGREGAR;
+                movimientoAgregarQuitar();
                 break;
             case "movimiento_quitar":
-                movimientoQuitar();
+                agregarQuitar=QUITAR;
+                movimientoAgregarQuitar();
         }
     }
 
@@ -398,11 +401,11 @@ public class Controlador implements EventHandler<ActionEvent> {
         return new MovimientoEnvase(idIndice, cantidadInsumo, fecha);
     }
 
-    public void movimientoAgregar(){
+    public void movimientoAgregarQuitar(){
         if (validador.validarMovimiento(vistaMovimiento.getCuadroCantidad().getText(),
                 vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex(),
                 vistaMovimiento.getDatePicker().getValue())) {
-                MovimientoEnvase movimientoEnvase = agregarQuitar(AGREGAR);
+                MovimientoEnvase movimientoEnvase = agregarQuitar(agregarQuitar);
                 modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
                 vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
                 msjPopUp.display(CARGACORRECTA);
@@ -411,21 +414,9 @@ public class Controlador implements EventHandler<ActionEvent> {
             msjPopUp.display("Por favor, complete todos los campos");
         }
     }
+//asdashl
 
-    public void movimientoQuitar(){
-        if (validador.validarMovimiento(vistaMovimiento.getCuadroCantidad().getText(),
-                vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex(),
-                vistaMovimiento.getDatePicker().getValue())) {
-                MovimientoEnvase movimientoEnvase = agregarQuitar(QUITAR);
-                modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
-                vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
-                msjPopUp.display(CARGACORRECTA);
-                limpiaCamposVentanaMovimiento();
-        } else {
-            msjPopUp.display("Por favor, complete todos los campos");
-        }
-    }
-
+   
     public void limpiaCamposVentanaMovimiento(){
         vistaMovimiento.getCuadroCantidad().clear();
         vistaMovimiento.getListadoInsumos().getSelectionModel().clearSelection();
