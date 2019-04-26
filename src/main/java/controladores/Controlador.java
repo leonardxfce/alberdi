@@ -50,7 +50,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     ModeloMovimientoEnvase modeloMovimientoEnvase;
     static final int AGREGAR=1;//variable que se utilizara como indicador para agregar en el metodo agregarQuitar
     static final int QUITAR=-1;//variable que se utilizara como indicador para quitar en el metodo agregarQuitar
-    int agregarQuitar=0;
+    private int agregarQuitar=0;
     static final String CARGACORRECTA="Los datos se han cargado correctamente.";
 
     public Controlador(Stage primaryStage) {
@@ -416,7 +416,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     }
 //asdashl
 
-   
+
     public void limpiaCamposVentanaMovimiento(){
         vistaMovimiento.getCuadroCantidad().clear();
         vistaMovimiento.getListadoInsumos().getSelectionModel().clearSelection();
