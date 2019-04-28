@@ -54,6 +54,14 @@ public class Configurar {
                     "FOREIGN KEY(ID_ENVASE) REFERENCES ENVASE(ID)\n" +
                     ");");
             statement.close();
+            statement.executeUpdate("CREATE TABLE if not exists MOVIMIENTOTAPA (\n" +
+                    "ID_MOVIMIENTOTAPA integer PRIMARY KEY,\n" +
+                    "ID_TAPA integer,\n" +
+                    "CANTIDAD integer,\n" +
+                    "FECHA text,\n" +
+                    "FOREIGN KEY(ID_TAPA) REFERENCES TAPA(ID)\n" +
+                    ");");
+            statement.close();
             statement.executeUpdate("insert or replace into USUARIOS values(1,'lautaro','12345')");
             statement.close();
             statement.executeUpdate("insert or replace into USUARIOS values(2,'marcelo','123')");

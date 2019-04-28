@@ -17,6 +17,7 @@ public class VistaMenu extends VistaPadre {
     private Button btnExportar;
     private Button btnMovimientos;
     private Button btnNuevoUsuario;
+    private Button btnMovimientosTapa;
     private Label titulo;
 
     public VistaMenu() {
@@ -33,10 +34,12 @@ public class VistaMenu extends VistaPadre {
         btnExportar.setMaxSize(200, 200);
         btnCerrarSesion = new Button("Cerrar Sesion");
         btnCerrarSesion.setMaxSize(200, 200);
-        btnMovimientos = new Button("Manejo de Insumos");
+        btnMovimientos = new Button("Manejo de Insumos - Envases");
         btnMovimientos.setMaxSize(200, 200);
         btnNuevoUsuario = new Button("Registrar Usuario");
         btnNuevoUsuario.setMaxSize(200,200);
+        btnMovimientosTapa = new Button("Manejo de Insumos - Tapas");
+        btnMovimientosTapa.setMaxSize(200, 200);
         titulo = new Label("-----");
     }
 
@@ -66,6 +69,7 @@ public class VistaMenu extends VistaPadre {
     }
 
     public Button getBtnMovimientos() { return btnMovimientos; }
+    public Button getBtnMovimientosTapa() { return btnMovimientosTapa; }
 
     public Button getBtnNuevoUsuario(){
         return btnNuevoUsuario;
@@ -81,9 +85,10 @@ public class VistaMenu extends VistaPadre {
         btnCerrarSesion.setId("menu_cerrarSesion");
         btnMovimientos.setId("movimiento");
         btnNuevoUsuario.setId("registrarUsuario");
+        btnMovimientosTapa.setId("movimientoTapa");
         //Controles
 
-        contenido.getChildren().addAll(titulo, btnEnvase, btnTapas, btnListadoEnvases, btnListadoTapas, btnMovimientos,btnNuevoUsuario,btnExportar, btnCerrarSesion);
+        contenido.getChildren().addAll(titulo, btnEnvase, btnTapas, btnListadoEnvases, btnListadoTapas, btnMovimientos,btnMovimientosTapa,btnNuevoUsuario,btnExportar, btnCerrarSesion);
         contenido.setAlignment(Pos.CENTER);
         contenido.setSpacing(5);
         contenido.setMinSize(200, 200);
