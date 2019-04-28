@@ -432,7 +432,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     TableView.TableViewSelectionModel<Tapa> sm = vistaListadoTapas.getTableView().getSelectionModel();
                     int indice = sm.getSelectedIndex();
-                    Integer id = new Integer(vistaListadoTapas.getColumn().getCellObservableValue(indice).getValue().toString().trim());
+                    Integer id = new Integer(vistaListadoTapas.getColumn0().getCellObservableValue(indice).getValue().toString().trim());
                     String nombre = vistaListadoTapas.getColumn1().getCellObservableValue(indice).getValue().toString().trim();
                     String descripcion = vistaListadoTapas.getColumn2().getCellObservableValue(indice).getValue().toString().trim();
                     Tapa tapa = new Tapa(id, nombre, descripcion);
