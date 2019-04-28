@@ -9,7 +9,7 @@ import java.util.List;
 public class VistaListadoTapas extends VistaListadoPadre {
 
     private TableView tablaTapas;
-    private TableColumn column;
+    private TableColumn column0;
     private TableColumn column1;
     private TableColumn column2;
     private TableColumn column3;
@@ -17,17 +17,17 @@ public class VistaListadoTapas extends VistaListadoPadre {
     public VistaListadoTapas (List tapas){
         super();
         ObservableList miLista = FXCollections.observableArrayList(tapas);
-        column = crearColumnas("idTapa");
+        column0 = crearColumnas("idTapa");
         column1 = crearColumnas("nombre");//Se envía el nombre del atributo.
         column2 = crearColumnas("descripcion");
         column3 = crearColumnas("cantidad");
         tablaTapas = new TableView(miLista);
-        tablaTapas.getColumns().addAll(column,column1,column2,column3);
+        tablaTapas.getColumns().addAll(column0,column1,column2,column3);
 
         contenido.getChildren().addAll(tablaTapas,getBtnCerrarTabla());
     }
 
-    public TableColumn getColumn() {return column;}
+    public TableColumn getColumn0() {return column0;}
 
     public TableColumn getColumn1() {return column1;}
 
