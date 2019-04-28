@@ -414,9 +414,7 @@ public class Controlador implements EventHandler<ActionEvent> {
             msjPopUp.display("Por favor, complete todos los campos");
         }
     }
-//asdashl
-
-
+    
     public void limpiaCamposVentanaMovimiento(){
         vistaMovimiento.getCuadroCantidad().clear();
         vistaMovimiento.getListadoInsumos().getSelectionModel().clearSelection();
