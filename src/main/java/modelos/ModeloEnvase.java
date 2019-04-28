@@ -78,7 +78,27 @@ public class ModeloEnvase extends ModeloPadre {
             logger.error(e.getMessage());
         }
     }
-
+    public List darEnvasesCombo(){
+        ArrayList<Envase> envases = new ArrayList<>();
+        String sql = "SELECT * FROM ENVASE";
+        try(ResultSet r = statement.executeQuery(sql)){
+            while(r.next()){
+                Envase envase = new Envase(
+                    r.getInt("id"),
+                    r.getString("nombre"),
+                    r.getString("tipo"),
+                    r.getInt("Volumen"),
+                    r.getString("descripcion")
+                );
+                envases.add(envase);
+            }
+        }catch (Exception e) {
+            Logger logger = Logger.getLogger(ModeloEnvase.class);
+            logger.error(e.getMessage());
+        }
+        return envases;
+    }
+    
     public List darTodosLosEnvases() {
         ArrayList<Envase> misEnvases = new ArrayList<>();
         String sql = "SELECT e.*, SUM(me.CANTIDAD) stock\n" +

@@ -81,7 +81,19 @@ class ControladorTesters extends ApplicationTest {
     public void test_click_Movimiento_PopUp() {
         write("lautaro").push(KeyCode.TAB);
         write("12345").push(KeyCode.ENTER);
-        clickOn("Manejo de Insumos");
+        clickOn("Manejo de Insumos - Envases");
+        write("abc");
+        verifyThat(".button", hasText("Agregar"));
+        clickOn("Quitar");
+        clickOn("OK");
+        clickOn("Cancelar");
+    }
+
+    @Test
+    public void test_click_MovimientoTapa_PopUp() {
+        write("lautaro").push(KeyCode.TAB);
+        write("12345").push(KeyCode.ENTER);
+        clickOn("Manejo de Insumos - Tapas");
         write("abc");
         verifyThat(".button", hasText("Agregar"));
         clickOn("Quitar");
