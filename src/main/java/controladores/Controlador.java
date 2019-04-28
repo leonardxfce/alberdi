@@ -37,6 +37,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     VistaEnvase vistaEnvase;
     VistaLogin vistaLogin;
     VistaMovimiento vistaMovimiento;
+    VistaMovimientoTapa vistaMovimientoTapa;
     //Modelos
     ModeloEnvase modeloEnvase;
     ModeloLogin modeloLogin;
@@ -47,6 +48,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     Validador validador;
     Exportar exportar;
     ModeloMovimientoEnvase modeloMovimientoEnvase;
+    ModeloMovimientoTapa modeloMovimientoTapa;
     static final int AGREGAR=1;//variable que se utilizara como indicador para agregar en el metodo agregarQuitar
     static final int QUITAR=-1;//variable que se utilizara como indicador para quitar en el metodo agregarQuitar
     private int agregarQuitar=0;
@@ -75,6 +77,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         modeloTapa = new ModeloTapa();
         modeloLogin = new ModeloLogin();
         modeloMovimientoEnvase = new ModeloMovimientoEnvase();
+        modeloMovimientoTapa = new ModeloMovimientoTapa();
         //Configuracion de las Vistas
         vistaEnvase.config();
         vistaLogin.config();
@@ -91,6 +94,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu.getBtnListadoTapas().setOnAction(this);
         vistaMenu.getBtnCerrarSesion().setOnAction(this);
         vistaMenu.getBtnMovimientos().setOnAction(this);
+        vistaMenu.getBtnMovimientosTapa().setOnAction(this);
         vistaEnvase.getBtnGuardarEv().setOnAction(this);
         vistaEnvase.getBtnCancelar().setOnAction(this);
         vistaEnvase.getBtnModificar().setOnAction(this);
@@ -161,6 +165,9 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "volver_menu":
                 stage.setScene(vistaMenu.getScene());
                 break;
+            case "volverTapa_menu":
+                stage.setScene(vistaMenu.getScene());
+                break;
             case "movimiento":
                 movimientoEnvase();
                 break;
@@ -171,6 +178,17 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "movimiento_quitar":
                 agregarQuitar=QUITAR;
                 movimientoAgregarQuitar();
+                break;
+            case "movimientoTapa":
+                movimientoTapa();
+                break;
+            case "movimientoTapa_agregar":
+                agregarQuitar = AGREGAR;
+                movimientoAgregarQuitarTapa();
+                break;
+            case "movimientoTapa_quitar":
+                agregarQuitar = QUITAR;
+                movimientoAgregarQuitarTapa();
                 break;
             default:
                 msjPopUp.display("no selecciono nada");
@@ -188,7 +206,17 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMovimiento.getBtnCancelar().setOnAction(this);
         stage.setScene(vistaMovimiento.getScene());
     }
-    /*Metodo que instancia la VISTA DE LOGUEO*/
+   
+    public void movimientoTapa(){
+        vistaMovimientoTapa = new VistaMovimientoTapa(modeloTapa.darTodasLasTapas());
+        vistaMovimientoTapa.configTablaMovimientos(modeloMovimientoTapa.darTodosLosMovimientosConNombre());
+        vistaMovimientoTapa.config();
+        vistaMovimientoTapa.getBtnAgregar().setOnAction(this);
+        vistaMovimientoTapa.getBtnQuitar().setOnAction(this);
+        vistaMovimientoTapa.getBtnCancelar().setOnAction(this);
+        stage.setScene(vistaMovimientoTapa.getScene());
+    }
+     /*Metodo que instancia la VISTA DE LOGUEO*/
     /*Requiere la comprobación de usuario y contraseña*/
     /*llama a modeloLogin encargado de transaccionar datos(user,password) alta baja y modificación*/
     public void loginIngresar() {
@@ -300,7 +328,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     }
 
     public void tapaGuardar() {
-        Tapa tapa = new Tapa(vistaTapa.getTxTipo().getText().trim(), vistaTapa.getTxDescripcion().getText().trim());
+        Tapa tapa = new Tapa(vistaTapa.getTxTipo().getText().toUpperCase().trim(), vistaTapa.getTxDescripcion().getText().toUpperCase().trim());
         boolean validarVacio = validador.validarTapa(tapa);
         if (!validarVacio) {
             msjPopUp.display("Los campos se encuentran vacios");
@@ -404,7 +432,7 @@ public class Controlador implements EventHandler<ActionEvent> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     TableView.TableViewSelectionModel<Tapa> sm = vistaListadoTapas.getTableView().getSelectionModel();
                     int indice = sm.getSelectedIndex();
-                    Integer id = new Integer(vistaListadoTapas.getColumn0().getCellObservableValue(indice).getValue().toString().trim());
+                    Integer id = new Integer(vistaListadoTapas.getColumn().getCellObservableValue(indice).getValue().toString().trim());
                     String nombre = vistaListadoTapas.getColumn1().getCellObservableValue(indice).getValue().toString().trim();
                     String descripcion = vistaListadoTapas.getColumn2().getCellObservableValue(indice).getValue().toString().trim();
                     Tapa tapa = new Tapa(id, nombre, descripcion);
@@ -427,15 +455,29 @@ public class Controlador implements EventHandler<ActionEvent> {
         return new MovimientoEnvase(idIndice, cantidadInsumo, fecha);
     }
 
+    
     public void movimientoAgregarQuitar(){
         if (validador.validarMovimiento(vistaMovimiento.getCuadroCantidad().getText(),
-                vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex(),
-                vistaMovimiento.getDatePicker().getValue())) {
-                MovimientoEnvase movimientoEnvase = agregarQuitar(agregarQuitar);
+            vistaMovimiento.getListadoInsumos().getSelectionModel().getSelectedIndex(),
+            vistaMovimiento.getDatePicker().getValue())) {
+            MovimientoEnvase movimientoEnvase = agregarQuitar(agregarQuitar);
+            Integer cant = new Integer(vistaMovimiento.getCuadroCantidad().getText());
+            int id = movimientoEnvase.getIdEnvase();
+            if(agregarQuitar == -1){
+                if(modeloMovimientoEnvase.verificarCantStock(id,cant)){
+                    modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
+                    vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
+                    msjPopUp.display(CARGACORRECTA);
+                    limpiaCamposVentanaMovimiento();
+                }else{
+                    msjPopUp.display("La cantidad ingresada supera el stock existente");
+                }
+            }else{
                 modeloMovimientoEnvase.insertarMovimiento(movimientoEnvase);
                 vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
                 msjPopUp.display(CARGACORRECTA);
                 limpiaCamposVentanaMovimiento();
+            }       
         } else {
             msjPopUp.display("Por favor, complete todos los campos");
         }
@@ -445,5 +487,49 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMovimiento.getCuadroCantidad().clear();
         vistaMovimiento.getListadoInsumos().getSelectionModel().clearSelection();
         vistaMovimiento.getDatePicker().setValue(null);
+    }
+    
+    public MovimientoTapa agregarQuitarTapa(int variable) {
+        int cantidadInsumo = (Integer.parseInt(vistaMovimientoTapa.getCuadroCantidad().getText())) * variable; //toma el valor del TextField, lo castea a int y lo multiplica,por 1 si se agregan cantidades, o por -1 para quitar cantidades y que este quede con valor negativo
+        int indiceSeleccionado = vistaMovimientoTapa.getListadoInsumos().getSelectionModel().getSelectedIndex();//se toma el indice del la opcion seleccionada del ComboBox
+        LocalDate date = vistaMovimientoTapa.getDatePicker().getValue(); //Se coloca en un LocalDate la fecha seleccionada del DataPicker
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");//Se configura el formato de la fecha
+        String fecha = (date).format(formatter);//se le coloca el formato a la fecha, y lo pasa a un String
+        int idIndice = Integer.parseInt(vistaMovimientoTapa.getIdTapas().get(indiceSeleccionado));//busca el contenido que hay en la observable list que tiene los IDs de los envases, dependiendo del indice de la opcion que se selecciono en el ComboBox y lo castea a int
+
+        return new MovimientoTapa(idIndice, cantidadInsumo, fecha);
+    }
+
+    public void movimientoAgregarQuitarTapa(){
+        if (validador.validarMovimiento(vistaMovimientoTapa.getCuadroCantidad().getText(),
+            vistaMovimientoTapa.getListadoInsumos().getSelectionModel().getSelectedIndex(),
+            vistaMovimientoTapa.getDatePicker().getValue())) {
+            MovimientoTapa movimientoTapa = agregarQuitarTapa(agregarQuitar);
+            Integer cant = new Integer(vistaMovimientoTapa.getCuadroCantidad().getText());
+            int id = movimientoTapa.getIdTapa();
+            if(agregarQuitar == -1){
+               if(modeloMovimientoTapa.verificarCantStock(id,cant)){
+                   modeloMovimientoTapa.insertarMovimiento(movimientoTapa);
+                   vistaMovimientoTapa.configTablaMovimientos(modeloMovimientoTapa.darTodosLosMovimientosConNombre());
+                   msjPopUp.display(CARGACORRECTA);
+                   limpiaCamposVentanaMovimientoTapa();
+                }else{
+                   msjPopUp.display("La cantidad ingresada supera el stock existente");
+                }     
+            }else{
+                modeloMovimientoTapa.insertarMovimiento(movimientoTapa);
+                vistaMovimientoTapa.configTablaMovimientos(modeloMovimientoTapa.darTodosLosMovimientosConNombre());
+                msjPopUp.display(CARGACORRECTA);
+                limpiaCamposVentanaMovimientoTapa();
+            }
+        } else {
+            msjPopUp.display("Por favor, complete todos los campos");
+        }
+    }
+    
+    public void limpiaCamposVentanaMovimientoTapa(){
+        vistaMovimientoTapa.getCuadroCantidad().clear();
+        vistaMovimientoTapa.getListadoInsumos().getSelectionModel().clearSelection();
+        vistaMovimientoTapa.getDatePicker().setValue(null);
     }
 }

@@ -68,7 +68,7 @@ public class ModeloEnvase extends ModeloPadre {
             logger.error(e.getMessage());
         }
     }
-
+    
     public List darTodosLosEnvases() {
         ArrayList<Envase> misEnvases = new ArrayList<>();
         setQuery("SELECT e.*, SUM(me.CANTIDAD) stock\n" +
