@@ -7,29 +7,26 @@ package modelos;
 
 import org.apache.log4j.Logger;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author SantiagoGuirado
  */
 public class ModeloTapa extends ModeloPadre {
 
-    ResultSet rs;
-
     public ModeloTapa() {
         super();
     }
+
     //insert
     public void insert(Tapa tapa) {
         String nombre = tapa.getNombre();
         String descripcion = tapa.getDescripcion();
+        setQuery("INSERT INTO TAPA (ID, NOMBRE, DESCRIPCION) VALUES (NULL, '" + nombre + "', '" + descripcion + "');");
         try {
-            statement.executeUpdate("INSERT INTO TAPA (ID, NOMBRE, DESCRIPCION) VALUES (NULL, '"
-                    + nombre + "', '" + descripcion + "');");
+            statement.executeUpdate(getQuery());
             statement.close();
         } catch (SQLException ex) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
@@ -42,36 +39,34 @@ public class ModeloTapa extends ModeloPadre {
         String descripcion = tapa.getDescripcion();
         boolean bandera = false;
         try {
-            String sql = ""
-                    + "SELECT COUNT(*) as contar  FROM "
+            setQuery("SELECT COUNT(*) as contar  FROM "
                     + "TAPA WHERE "
                     + " NOMBRE='" + nombre
-                    + "' AND DESCRIPCION = '" + descripcion + "';";
-            rs = statement.executeQuery(sql);
-            rs.next();
-            int cuenta = rs.getInt("contar");
+                    + "' AND DESCRIPCION = '" + descripcion + "';");
+            setResultSet(statement.executeQuery(getQuery()));
+            getResultSet().next();
+            int cuenta = getResultSet().getInt("contar");
             if (cuenta >= 1) {
                 bandera = true;
             }
             statement.close();
-            rs.close();
+            getResultSet().close();
         } catch (SQLException ex) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(ex.getMessage());
         }
         return bandera;
     }
-    
-     public void modificarTapa(Tapa miAl) {
+
+    public void modificarTapa(Tapa miAl) {
         int id = miAl.getIdTapa();
         String nombre = miAl.getNombre();
         String descripcion = miAl.getDescripcion();
-        String sql = ""
-                + "UPDATE TAPA SET "
+        setQuery("UPDATE TAPA SET "
                 + " NOMBRE='" + nombre
-                + "',DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";";
+                + "',DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";");
         try {
-            statement.executeUpdate(sql);
+            statement.executeUpdate(getQuery());
             statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
@@ -82,14 +77,16 @@ public class ModeloTapa extends ModeloPadre {
     //select de todos los datos, copiado a modeloEnvase(creditos a quien corresponda )
     public List darTodasLasTapas() {
         ArrayList<Tapa> listadoTapas = new ArrayList<>();
+        setQuery("SELECT * FROM TAPA");
         try {
-            rs = statement.executeQuery("SELECT * FROM TAPA");
-            while (rs.next()) {
-                Tapa tapa = new Tapa(rs.getInt("ID"),rs.getString("nombre"), rs.getString("descripcion"));
+            setResultSet(statement.executeQuery(getQuery()));
+            while (getResultSet().next()) {
+                Tapa tapa = new Tapa(getResultSet().getInt("ID"), getResultSet().getString("nombre"),
+                        getResultSet().getString("descripcion"));
                 listadoTapas.add(tapa);
             }
             statement.close();
-            rs.close();
+            getResultSet().close();
         } catch (SQLException ex) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(ex.getMessage());
@@ -98,24 +95,19 @@ public class ModeloTapa extends ModeloPadre {
     }
 
     public Tapa darUno(int id) {
-        String sql = "SELECT * FROM TAPA WHERE ID= " + id + ";";
         Tapa tapa = null;
-        try (ResultSet rss = statement.executeQuery(sql)) {
-            rss.next();
-            tapa = new Tapa(rss.getInt("id"), rss.getString("nombre"),rss.getString("descripcion"));
+        setQuery("SELECT * FROM TAPA WHERE ID= " + id + ";");
+        try {
+            setResultSet(statement.executeQuery(getQuery()));
+            getResultSet().next();
+            tapa = new Tapa(getResultSet().getInt("id"),
+                    getResultSet().getString("nombre"), getResultSet().getString("descripcion"));
             statement.close();
+            getResultSet().close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
         }
         return tapa;
-    }
-    //setters && getters
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

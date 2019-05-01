@@ -11,7 +11,6 @@ import vistas.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.Alert;
@@ -83,7 +82,9 @@ public class Controlador implements EventHandler<ActionEvent> {
         vistaMenu.config();
         //Alta de Botones de las Vistas
         vistaLogin.getBtnIngresar().setOnAction(this);
-        vistaLogin.getBtnIngresar().setDefaultButton(true); //Responde a ENTER el BtnIngresar
+        vistaLogin.getBtnIngresar().setDefaultButton(true); //Responde a ENTER el BtnIngresar+
+        vistaLogin.getBtnRegistrar().setOnAction(this);
+        vistaLogin.getBtnVolver().setOnAction(this);
         vistaMenu.getBtnEnvase().setOnAction(this);
         vistaMenu.getBtnTapas().setOnAction(this);
         vistaMenu.getBtnListadoEnvases().setOnAction(this);
@@ -116,8 +117,10 @@ public class Controlador implements EventHandler<ActionEvent> {
                 loginIngresar();
                 break;
             case "registrarUsuario":
-                stage.setScene(vistaLogin.getScene());
-                vistaLogin.prepararBotones();
+                registrarUsuario();
+                break;
+            case "registrarNuevoUsuario":
+                registrarNuevoUsuario();
                 break;
             case "menu_envase":
                 menuEnvase();
@@ -168,6 +171,9 @@ public class Controlador implements EventHandler<ActionEvent> {
             case "movimiento_quitar":
                 agregarQuitar=QUITAR;
                 movimientoAgregarQuitar();
+                break;
+            default:
+                msjPopUp.display("no selecciono nada");
         }
     }
 
@@ -186,8 +192,8 @@ public class Controlador implements EventHandler<ActionEvent> {
     /*Requiere la comprobación de usuario y contraseña*/
     /*llama a modeloLogin encargado de transaccionar datos(user,password) alta baja y modificación*/
     public void loginIngresar() {
-        Usuario user = new Usuario(vistaLogin.getTxUsuario().getText(),
-                                    vistaLogin.getTxContrasena().getText());
+        Usuario user = new Usuario(vistaLogin.getTfUsuario().getText(),
+                                    vistaLogin.getTfContrasena().getText());
         /*guardamos los datos ingresados de textField al Objeto Usuario*/
         boolean resultado = modeloLogin.comprobarExistencia(user); 
         /*Le enviamos el Usuario declarado anteriormente al método*/
@@ -199,6 +205,26 @@ public class Controlador implements EventHandler<ActionEvent> {
         } /*sino volvemos al Login*/
 
 
+    }
+
+    public void registrarUsuario(){
+        stage.setScene(vistaLogin.getScene());
+        vistaLogin.prepararBotonesRegistrarUsuario();
+    }
+
+    public void registrarNuevoUsuario(){
+        if(vistaLogin.validarCampos()){
+            msjPopUp.display(vistaLogin.getMensajeError());
+        } else {
+            Usuario nuevoUsuario = new Usuario(vistaLogin.getTfUsuario().getText(), vistaLogin.getTfContrasena().getText());
+            boolean nombreDeUsuarioRepetido = modeloLogin.nombreDeUsuarioRepetido(nuevoUsuario);
+            if (nombreDeUsuarioRepetido) {
+                msjPopUp.display("El nombre de usuario ingresado\nya existe");
+            } else {
+                modeloLogin.insertar(nuevoUsuario);
+                msjPopUp.display("El nuevo usuario se cargó corectamente");
+            }
+        }
     }
 
     public void menuEnvase() {
@@ -213,8 +239,8 @@ public class Controlador implements EventHandler<ActionEvent> {
 
     public void menuCerrarSesion() {
         stage.setScene(vistaLogin.getScene());
-        vistaLogin.getTxUsuario().clear();
-        vistaLogin.getTxContrasena().clear();
+        vistaLogin.vaciarCampos();
+        vistaLogin.mostrarBotonesLogin();
     }
 
     public void listarEnvases() {
