@@ -8,19 +8,21 @@ package modelos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+
 import org.apache.log4j.Logger;
 
 /**
- *
  * @author SantiagoGuirado
  */
 public class ModeloPadre {
-
+    //Atributos
     Connection connection;
     Statement statement;
     String url = "jdbc:sqlite:sample.db";
+    private String query;
 
-    public  ModeloPadre() {
+    //Constructor
+    public ModeloPadre() {
         try {
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
@@ -30,4 +32,12 @@ public class ModeloPadre {
         }
     }
 
+    //Setters && Getters
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
 }
