@@ -67,4 +67,19 @@ public class ModeloLoginTest {
         boolean result = instance.insertar(user);
         assertEquals(false,result);
     }
+    @Test
+    /*Comprueba si el nombre del nuevo usuario que vamos a ingresar ya existe*/
+    public void testNombreDeUsuarioRepetido1() {
+        Usuario user = new Usuario("lautaro","12345");
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.nombreDeUsuarioRepetido(user);
+        assertEquals(true,result);
+    }
+    @Test
+    public void testNombreDeUsuarioRepetido2() {
+        Usuario user = new Usuario("lautaros","12345");
+        ModeloLogin instance = new ModeloLogin();
+        boolean result = instance.nombreDeUsuarioRepetido(user);
+        assertEquals(false,result);
+    }
 }

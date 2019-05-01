@@ -14,20 +14,20 @@ public class ManejadorProperties {
     String rutaFichero1 = "propiedades.properties";
     String rutaFichero2 = "log4j.properties";
     Properties propiedades;
-    
-   
+
+
     //contructor
     public ManejadorProperties(int opcion) {
         propiedades = new Properties();
-       if (opcion == 1){
+        if (opcion == 1) {
             rutaFichero = rutaFichero1;
         }
-        if (opcion == 2){
+        if (opcion == 2) {
             rutaFichero = rutaFichero2;
         }
         try {
             String direccion = System.getProperty("user.dir");
-            String direcion1 = direccion + "/src/main/resources/" + rutaFichero; 
+            String direcion1 = direccion + "/src/main/resources/" + rutaFichero;
             InputStream output = new FileInputStream(direcion1);
             propiedades.load(output);
         } catch (IOException ex) {
@@ -35,11 +35,9 @@ public class ManejadorProperties {
         }
 
     }
+
     //metodos
     public String leerPropiedad(String nombre) {
-
-        if (propiedades == null) {
-        }
 
         String resultado = "";
         resultado = propiedades.getProperty(nombre);
