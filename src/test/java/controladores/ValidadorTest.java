@@ -71,5 +71,10 @@ public class ValidadorTest {
         boolean result = instance.validarEnvase(envase);
         assertEquals(expResult, result);
     }
-    
+    @Test
+    public void testtValidarMovimietno(){
+        Validador f = new Validador();
+        boolean resultado = f.validarMovimiento("4", 5, null);
+        assertFalse(resultado);
+    }
 }
