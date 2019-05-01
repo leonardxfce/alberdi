@@ -8,7 +8,6 @@ package modelos;
 import org.apache.log4j.Logger;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,18 +28,17 @@ public class ModeloEnvase extends ModeloPadre {
         int volumen = miAl.getVolumen();
         String descripcion = miAl.getDescripcion();
         boolean bandera = false;
-        String sql = ""
-                + "SELECT COUNT(*) as contar  FROM "
-                + "ENVASE WHERE "
-                + " NOMBRE='" + nombre
-                + "' AND TIPO = '" + tipo
-                + "' AND VOLUMEN =" + volumen
-                + " AND DESCRIPCION = '" + descripcion + "';";
-        try (ResultSet rs = statement.executeQuery(sql);) { //Esto hace que el statement se cierre solo
-            rs.next();
-            int cuenta = rs.getInt("contar");
+
+        //se carga la query
+        setQuery("SELECT COUNT(*) as contar  FROM ENVASE WHERE NOMBRE='" + nombre + "' AND TIPO = '" + tipo
+                + "' AND VOLUMEN =" + volumen + " AND DESCRIPCION = '" + descripcion + "';");
+        try {
+            setResultSet(statement.executeQuery(getQuery()));
+            getResultSet().next();
+            int cuenta = getResultSet().getInt("contar");
             bandera = cuenta >= 1;
             statement.close();
+            getResultSet().close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
             logger.error(e.getMessage());
@@ -50,28 +48,20 @@ public class ModeloEnvase extends ModeloPadre {
 
     public void guardarEnvaseNuevo(Envase miAl) {
         try {
-            statement.executeUpdate("insert into ENVASE values(NULL,'"
-                    + miAl.getNombre() + "', '"
-                    + miAl.getTipo() + "',"
-                    + miAl.getVolumen() + ",'"
-                    + miAl.getDescripcion() + "');");
-            String sql2 = ""
-                    + "SELECT ID FROM "
-                    + "ENVASE WHERE "
-                    + " NOMBRE='" + miAl.getNombre()
-                    + "' AND TIPO = '" + miAl.getTipo()
-                    + "' AND VOLUMEN =" + miAl.getVolumen()
-                    + " AND DESCRIPCION = '" + miAl.getDescripcion() + "';";
-            ResultSet resultado = statement.executeQuery(sql2);
-            resultado.next();
-            int id = resultado.getInt("ID");
-            resultado.close();
+            setQuery("insert into ENVASE values(NULL,'" + miAl.getNombre() + "', '" + miAl.getTipo() + "',"
+                    + miAl.getVolumen() + ",'" + miAl.getDescripcion() + "');");
+            statement.executeUpdate(getQuery());
+            setQuery("SELECT ID FROM " + "ENVASE WHERE " + " NOMBRE='" + miAl.getNombre() + "' AND TIPO = '" +
+                    miAl.getTipo() + "' AND VOLUMEN =" + miAl.getVolumen() + " AND DESCRIPCION = '" +
+                    miAl.getDescripcion() + "';");
+            setResultSet(statement.executeQuery(getQuery()));
+            getResultSet().next();
+            int id = getResultSet().getInt("ID");
+            getResultSet().close();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             String fecha = LocalDate.now().format(formatter);
-            statement.executeUpdate(
-                    "INSERT INTO MOVIMIENTOENVASE VALUES " +
-                            "( NULL," + id + ", 0 , '" + fecha + "' );"
-            );
+            setQuery("INSERT INTO MOVIMIENTOENVASE VALUES " + "( NULL," + id + ", 0 , '" + fecha + "' );");
+            statement.executeUpdate(getQuery());
             statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
@@ -81,11 +71,11 @@ public class ModeloEnvase extends ModeloPadre {
 
     public List darTodosLosEnvases() {
         ArrayList<Envase> misEnvases = new ArrayList<>();
-        String sql = "SELECT e.*, SUM(me.CANTIDAD) stock\n" +
+        setQuery("SELECT e.*, SUM(me.CANTIDAD) stock\n" +
                 "FROM MOVIMIENTOENVASE me \n" +
                 "INNER JOIN  ENVASE e ON e.ID=me.ID_ENVASE\n" +
-                "GROUP BY e.ID";
-        try (ResultSet rs = statement.executeQuery(sql)) {
+                "GROUP BY e.ID");
+        try (ResultSet rs = statement.executeQuery(getQuery())) {
             while (rs.next()) {
                 Envase envase = new Envase(
                         rs.getInt("id"),
@@ -111,14 +101,10 @@ public class ModeloEnvase extends ModeloPadre {
         String tipo = miAl.getTipo();
         int volumen = miAl.getVolumen();
         String descripcion = miAl.getDescripcion();
-        String sql = ""
-                + "UPDATE ENVASE SET "
-                + " NOMBRE='" + nombre
-                + "', TIPO = '" + tipo
-                + "', VOLUMEN =" + volumen
-                + ", DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";";
+        setQuery("UPDATE ENVASE SET " + " NOMBRE='" + nombre + "', TIPO = '" + tipo + "', VOLUMEN =" + volumen
+                + ", DESCRIPCION = '" + descripcion + "' WHERE ID= " + id + ";");
         try {
-            statement.executeUpdate(sql);
+            statement.executeUpdate(getQuery());
             statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
@@ -127,9 +113,9 @@ public class ModeloEnvase extends ModeloPadre {
     }
 
     public Envase darUno(int id) {
-        String sql = "SELECT * FROM ENVASE WHERE ID= " + id + ";";
+        setQuery("SELECT * FROM ENVASE WHERE ID= " + id + ";");
         Envase envase = null;
-        try (ResultSet rs = statement.executeQuery(sql)) {
+        try (ResultSet rs = statement.executeQuery(getQuery())) {
             rs.next();
             envase = new Envase(rs.getInt("id"), rs.getString("nombre"), rs.getString("tipo"), rs.getInt("Volumen"), rs.getString("descripcion"));
             statement.close();
