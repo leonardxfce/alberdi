@@ -24,18 +24,19 @@ public class Usuario {
     public boolean comprobarUsuario(Usuario arrUser) {
         String user = arrUser.getUser();
         String pass = arrUser.getPass();
-        int sectores = pass.length();
+        int contador = pass.length();
+        if (contador>=8 ) {
 
-        if (user=="" & pass==""){
-            return false;
-        }
-        if (sectores>=8){
-            return false;
+            if (user==""& pass==""){
+                return false;
+            }
+            else{
+
+                return true;
+            }
         }
         else{
-
-            return true;
+            return false;
         }
-
     }
 }
