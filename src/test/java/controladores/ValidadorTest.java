@@ -83,4 +83,26 @@ public class ValidadorTest {
         boolean respuesta= prueba.validarVolumen(objetTest) ;
         assertFalse(respuesta);
     }
-}
+    @Test
+    public void testvalidarVolumenMayorACero(){
+        String nombre="";
+        String tipo="";
+        String descripcion="";
+        int volumen= 5;
+        Envase  objetTest =new Envase(nombre,tipo,volumen,descripcion);
+        Validador prueva2=new Validador();
+        boolean respuesta2= prueva2.validarVolumen(objetTest);
+        assertTrue(respuesta2);
+    }
+    @Test
+    public void  testValidarTodoElEnvase(){
+        String nombre="";
+        String tipo="";
+        String descripcion="";
+        int volumen = 3;
+        Envase objetTest = new Envase( nombre,tipo,volumen,descripcion);
+        Validador prueba= new Validador();
+        boolean respuesta =prueba.validarTodoElEnvase(objetTest);
+        assertFalse(respuesta);
+    }
+}   

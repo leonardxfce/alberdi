@@ -57,6 +57,16 @@ public class Validador {
         }
         return  validar;
     }
+    public boolean validarTodoElEnvase(Envase envase){
+        boolean validar;
+        Validador envaseAValidar=new Validador();
+        if (envaseAValidar.validarVolumen(envase)==true && envaseAValidar.validarEnvase(envase)==true){
+            validar= true;
+        }else {
+            validar= false;
+        }
+        return validar;
+    }
 
     public boolean validarMovimiento(String cantidad, int indiceComboBox, LocalDate date){
         boolean validar;
