@@ -61,9 +61,7 @@ public class ModeloMovimientoEnvase extends ModeloPadre {
             setResultSet(statement.executeQuery(getQuery()));
             if(quitar <= getResultSet().getInt("stock")){
                 respuesta = true;
-            }else{
-                respuesta = false;
-            } 
+            }
             statement.close();
             getResultSet().close();
         } catch (SQLException ex) {

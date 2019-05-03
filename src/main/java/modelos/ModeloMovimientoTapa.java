@@ -61,7 +61,6 @@ public class ModeloMovimientoTapa extends ModeloPadre {
     
     //se agregó el método verificarCantStock para evitar el ingreso de cantidades que superar el stock existente a la hora de quitar una cantidad de tapas
     public boolean verificarCantStock(int id,int quitar){
-        String sql2 = "SELECT SUM(CANTIDAD) stock FROM MOVIMIENTOTAPA WHERE ID_TAPA="+id+";";
         setQuery("SELECT SUM(CANTIDAD) stock FROM MOVIMIENTOTAPA WHERE ID_TAPA="+id+";");
         boolean respuesta = false;
         try {
@@ -74,7 +73,7 @@ public class ModeloMovimientoTapa extends ModeloPadre {
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ModeloMovimientoTapa.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return respuesta;   
+        return respuesta;
     }
     
 }

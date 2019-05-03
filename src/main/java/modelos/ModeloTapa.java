@@ -91,7 +91,7 @@ public class ModeloTapa extends ModeloPadre {
             logger.error(e.getMessage());
         }
     }
-     
+
     //select de todos los datos, copiado a modeloEnvase(creditos a quien corresponda )
     public List darTodasLasTapas() {
         ArrayList<Tapa> misTapas = new ArrayList<>();

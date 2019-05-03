@@ -477,8 +477,8 @@ public class Controlador implements EventHandler<ActionEvent> {
                 vistaMovimiento.configTablaMovimientos(modeloMovimientoEnvase.darTodosLosMovimientosConNombre());
                 msjPopUp.display(CARGACORRECTA);
                 limpiaCamposVentanaMovimiento();
-            }       
-        } else {
+            }
+        }else{
             msjPopUp.display("Por favor, complete todos los campos");
         }
     }
@@ -496,7 +496,6 @@ public class Controlador implements EventHandler<ActionEvent> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");//Se configura el formato de la fecha
         String fecha = (date).format(formatter);//se le coloca el formato a la fecha, y lo pasa a un String
         int idIndice = Integer.parseInt(vistaMovimientoTapa.getIdTapas().get(indiceSeleccionado));//busca el contenido que hay en la observable list que tiene los IDs de los envases, dependiendo del indice de la opcion que se selecciono en el ComboBox y lo castea a int
-
         return new MovimientoTapa(idIndice, cantidadInsumo, fecha);
     }
 
