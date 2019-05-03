@@ -17,9 +17,9 @@ public class MovimientoTapa {
     private String fecha;
     private String nombre;
     
-    public MovimientoTapa(int idMovimientoTapa, int idEnvase, int cantidad, String fecha) {
+    public MovimientoTapa(int idMovimientoTapa, int idTapa, int cantidad, String fecha) {
         this.idMovimientoTapa = idMovimientoTapa;
-        this.idTapa = idEnvase;
+        this.idTapa = idTapa;
         this.cantidad = cantidad;
         this.fecha = fecha;
     }
