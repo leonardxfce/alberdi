@@ -71,5 +71,15 @@ public class ValidadorTest {
         boolean result = instance.validarEnvase(envase);
         assertEquals(expResult, result);
     }
-    
+    @Test
+    public void testValidarVolumen(){
+        String nombre = "";
+        String tipo = "";
+        String descripcion = "";
+        int volumen = 6;
+        Envase envase = new Envase(nombre, tipo,volumen,descripcion);
+        Validador prueba = new Validador();
+        boolean resultado=prueba.validarVolumen(envase);
+        assertTrue(resultado);
+    }
 }
