@@ -1,6 +1,7 @@
 package vistas;
 
 
+import controladores.Controlador;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -25,12 +26,14 @@ public class VistaLogin extends VistaPadre {
     private String mensajeError;
 
     //Constructor
-    public VistaLogin() {
+    public VistaLogin(Controlador c) {
         super();
         implementarElementos();
         asignarIDs();
         escucharEnter();
         mostrarBotonesLogin();
+        bindEventController(c);
+        config();
     }
 
     //Metodos
@@ -56,6 +59,12 @@ public class VistaLogin extends VistaPadre {
         getBtnVolver().setId("volver_menu");
         getLabelUsuario().setId("user");
         getLabelContrasena().setId("pass");
+    }
+
+    public void bindEventController(Controlador controlador){
+        btnIngresar.setOnAction(controlador::handle);
+        btnRegistrar.setOnAction(controlador::handle);
+        btnVolver.setOnAction(controlador::handle);
     }
 
     public void config() {
