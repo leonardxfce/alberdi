@@ -1,6 +1,5 @@
 package vistas;
 
-import controladores.Controlador;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +20,7 @@ public class VistaMenu extends VistaPadre {
     private Button btnMovimientosTapa;
     private Label titulo;
 
-    public VistaMenu(Controlador c) {
+    public VistaMenu() {
         super();
         btnEnvase = new Button("Cargar Envase");
         btnEnvase.setMaxSize(200 , 200);
@@ -42,21 +41,8 @@ public class VistaMenu extends VistaPadre {
         btnMovimientosTapa = new Button("Manejo de Insumos - Tapas");
         btnMovimientosTapa.setMaxSize(200, 200);
         titulo = new Label("-----");
-        bindEventController(c);
-        config();
     }
 
-    public void bindEventController(Controlador c){
-        getBtnEnvase().setOnAction(c::handle);
-        getBtnTapas().setOnAction(c::handle);
-        getBtnListadoEnvases().setOnAction(c::handle);
-        getBtnListadoTapas().setOnAction(c::handle);
-        getBtnCerrarSesion().setOnAction(c::handle);
-        getBtnMovimientos().setOnAction(c::handle);
-        getBtnMovimientosTapa().setOnAction(c::handle);
-        getBtnExportar().setOnAction(c::handle);
-        getBtnNuevoUsuario().setOnAction(c::handle);
-    }
 
     public Button getBtnEnvase() {
         return btnEnvase;

@@ -66,10 +66,10 @@ public class Controlador implements EventHandler<ActionEvent> {
         });
         stage.getIcons().add(new Image("/ies.png"));
         //Instancias de Vistas
-        vistaEnvase = new VistaEnvase(this);
-        vistaLogin = new VistaLogin(this);
-        vistaTapa = new VistaTapa(this);
-        vistaMenu = new VistaMenu(this);
+        vistaEnvase = new VistaEnvase();
+        vistaLogin = new VistaLogin();
+        vistaTapa = new VistaTapa();
+        vistaMenu = new VistaMenu();
         validador = new Validador();
         exportar = new Exportar();
         //Intancias de Modelos
@@ -78,6 +78,35 @@ public class Controlador implements EventHandler<ActionEvent> {
         modeloLogin = new ModeloLogin();
         modeloMovimientoEnvase = new ModeloMovimientoEnvase();
         modeloMovimientoTapa = new ModeloMovimientoTapa();
+        //Configuracion de las Vistas
+        vistaEnvase.config();
+        vistaLogin.config();
+        vistaTapa.config();
+        vistaMenu.config();
+        //Alta de Botones de las Vistas
+        vistaLogin.getBtnIngresar().setOnAction(this);
+        vistaLogin.getBtnIngresar().setDefaultButton(true); //Responde a ENTER el BtnIngresar+
+        vistaLogin.getBtnRegistrar().setOnAction(this);
+        vistaLogin.getBtnVolver().setOnAction(this);
+        vistaMenu.getBtnEnvase().setOnAction(this);
+        vistaMenu.getBtnTapas().setOnAction(this);
+        vistaMenu.getBtnListadoEnvases().setOnAction(this);
+        vistaMenu.getBtnListadoTapas().setOnAction(this);
+        vistaMenu.getBtnCerrarSesion().setOnAction(this);
+        vistaMenu.getBtnMovimientos().setOnAction(this);
+        vistaMenu.getBtnMovimientosTapa().setOnAction(this);
+        vistaEnvase.getBtnGuardarEv().setOnAction(this);
+        vistaEnvase.getBtnCancelar().setOnAction(this);
+        vistaEnvase.getBtnModificar().setOnAction(this);
+        vistaTapa.getBtnAceptar().setOnAction(this);
+        vistaTapa.getBtnCancelar().setOnAction(this);
+        vistaTapa.getBtnModificar().setOnAction(this);
+        vistaMenu.getBtnExportar().setOnAction(this);
+        vistaMenu.getBtnNuevoUsuario().setOnAction(this);
+        //Instanciamos la clase ManejadorProperties
+        ManejadorProperties propiedades = new ManejadorProperties(1);
+        stage.setTitle(propiedades.leerPropiedad("titulo"));
+        stage.setScene(vistaLogin.getScene());
         stage.setResizable(false);
         stage.show();
 
@@ -87,14 +116,7 @@ public class Controlador implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         Button botonSeleccionado = (Button) event.getSource();
         String botonID = botonSeleccionado.getId();
-        accionar(botonID);
-    }
-
-    public void accionar(String accion){
-        switch (accion) {
-            case "inicio":
-                mostrarLogin();
-                break;
+        switch (botonID) {
             case "login_ingresar":
                 loginIngresar();
                 break;
@@ -173,9 +195,7 @@ public class Controlador implements EventHandler<ActionEvent> {
         }
     }
 
-    private void mostrarLogin() {
-        stage.setScene(vistaLogin.getScene());
-    }
+    String letras = "Los campos deben ser completados sólo con letras";
 
     public void movimientoEnvase(){
         vistaMovimiento = new VistaMovimiento(modeloEnvase.darTodosLosEnvases());

@@ -13,7 +13,6 @@ public class Inicio extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         new Configurar();
-        Controlador x = new Controlador(primaryStage);
-        x.accionar("inicio");
+        new Controlador(primaryStage);
     }
 }

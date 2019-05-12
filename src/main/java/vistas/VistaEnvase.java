@@ -1,6 +1,5 @@
 package vistas;
 
-import controladores.Controlador;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,7 +27,7 @@ public class VistaEnvase extends VistaPadre {
     private HBox edicion;
     private HBox bxButton;
 
-    public VistaEnvase(Controlador c) {
+    public VistaEnvase() {
         super();
         labelNom = new Label("Nombre");
         labelTipo = new Label("Tipo");
@@ -49,14 +48,6 @@ public class VistaEnvase extends VistaPadre {
         bxTextField = new VBox(5);
         edicion=new HBox(8);
         bxButton = new HBox(5);
-        bindEventController(c);
-        config();
-    }
-
-    public void bindEventController(Controlador c){
-        getBtnGuardarEv().setOnAction(c::handle);
-        getBtnCancelar().setOnAction(c::handle);
-        getBtnModificar().setOnAction(c::handle);
     }
     //Getters
     public TextField getTextId() { return textId; }

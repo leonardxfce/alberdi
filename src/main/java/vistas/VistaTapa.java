@@ -1,6 +1,5 @@
 package vistas;
 
-import controladores.Controlador;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +23,7 @@ public class VistaTapa extends VistaPadre {
     HBox bxEdicion;
     HBox bxBotones;
 
-    public VistaTapa(Controlador c) {
+    public VistaTapa() {
         super();
         labelTipo = new Label("Nombre");
         labelDescripcion = new Label("Descripción");
@@ -41,14 +40,6 @@ public class VistaTapa extends VistaPadre {
         bxTextField = new VBox(5);
         bxEdicion = new HBox(8);
         bxBotones = new HBox(5);
-        bindEventController(c);
-        config();
-    }
-
-    public void bindEventController(Controlador c){
-        getBtnAceptar().setOnAction(c::handle);
-        getBtnCancelar().setOnAction(c::handle);
-        getBtnModificar().setOnAction(c::handle);
     }
 
     public TextField getTxTipo() {
