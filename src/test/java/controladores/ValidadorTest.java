@@ -104,5 +104,12 @@ public class ValidadorTest {
         Validador prueba= new Validador();
         boolean respuesta =prueba.validarTodoElEnvase(objetTest);
         assertFalse(respuesta);
+    }   
+
+    @Test
+    public void testtValidarMovimietno(){
+        Validador f = new Validador();
+        boolean resultado = f.validarMovimiento("4", 5, null);
+        assertFalse(resultado);
     }
-}   
+}
