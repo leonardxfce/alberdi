@@ -82,4 +82,11 @@ public class ValidadorTest {
         boolean resultado=prueba.validarVolumen(envase);
         assertTrue(resultado);
     }
+    @Test
+    public void testtValidarMovimietno(){
+        Validador f = new Validador();
+        boolean resultado = f.validarMovimiento("4", 5, null);
+        assertFalse(resultado);
+
+    }
 }
