@@ -25,7 +25,7 @@ public class ModeloTapaTest {
 
     @Test
     public void testInsert() {
-        Tapa tapa = new Tapa("corona", "106");
+        Tapa tapa= new Tapa("corona", "106");
         ModeloTapa instance = new ModeloTapa();
         instance.insert(tapa);
     }

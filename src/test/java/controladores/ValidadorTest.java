@@ -5,8 +5,10 @@
  */
 package controladores;
 
+import examen.Calculadora;
 import modelos.Envase;
 import modelos.Tapa;
+import modelos.Usuario;
 import utilidades.Validador;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -14,6 +16,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import examen.EsPar;
+import examen.Saludo;
+import org.junit.Assert;
 
 /**
  *
@@ -89,4 +94,131 @@ public class ValidadorTest {
         assertFalse(resultado);
 
     }
+    
+    @Test
+    public void testValidarVolumenFrasco() {
+        Envase envase = new Envase();
+        envase.setNombre("frasco");
+        envase.setTipo("hexagonal");
+        envase.setVolumen(150);
+        envase.setDescripcion("vidrio");
+        Validador instance = new Validador();
+        boolean result= instance.validarVolumen(envase);
+        assertEquals(true, result);
+    } 
+    
+    @Test
+    public void testValidarPassword(){
+        Usuario usuario=new Usuario("marcelo", "12345678");
+        Validador instance = new Validador();
+        boolean result= instance.validarPassword(usuario);
+        assertEquals(true, result);
+
+        
+    }
+    
+    @Test
+    public void testEsPar(){
+        EsPar instance= new EsPar(10);
+        boolean result= instance.esPar();
+        assertEquals(true,result);
+        
+    }
+    @Test
+    public void testEsImpar(){
+        EsPar instance= new EsPar(5);
+        boolean result= instance.esPar();
+        assertEquals(false,result);
+        
+    }
+    
+    @Test
+    public void testSaludo(){
+        Saludo instance=new Saludo("yamila");
+        String result=instance.saludo();
+        String esperado="yamila";
+        Assert.assertSame(esperado, result);
+    }
+    
+    @Test
+    public void testCalculadora(){
+        Calculadora instance=new Calculadora();
+        int result=instance.raizCuadrada(16);
+        int esperado=4;
+        assertEquals(esperado,result);
+    }
+    
+    @Test
+    public void testSuma(){
+        Calculadora instance=new Calculadora();
+        int result=instance.suma(2,2);
+        int esperado=4;
+        assertEquals(esperado,result);
+    }
+    
+    @Test
+    public void testDoble(){
+        Calculadora instance=new Calculadora();
+        int result= instance.doble(2);
+        int esperado=4;
+        assertEquals(esperado, result);
+    }
+    
+    @Test
+    public void testDoble1(){
+        Calculadora instance=new Calculadora();
+        int result= instance.doble(-2);
+        int esperado=-4;
+        assertEquals(esperado, result);
+    }
+    
+    
+    @Test
+    public void testReemplazarSQL(){
+       Calculadora c= new Calculadora();
+       String resultado = c.crearINSERTAR("Leonardo");
+       String esperado = "INSERT INTO ALUMNOS VALUES(NULL,'Leonardo')";
+       assertEquals(esperado,resultado);
+             
+               
+   }
+    
+    @Test
+    public void testReemplazarTapasSQL(){
+       Calculadora c= new Calculadora();
+       Tapa tap = new Tapa();
+       tap.setCantidad(100);
+       tap.setDescripcion("tapa muy amarilla de color amarillo");
+       tap.setNombre("Tapa amarilla");
+       String resultado = c.crearINSERTARTapa(tap);
+       String esperado = "INSERT INTO ALUMNOS VALUES(NULL,'Tapa amarilla','tapa muy amarilla de color amarillo',100)";
+       assertEquals(esperado,resultado);
+    }
+    
+    @Test 
+    public void testModificarTapasSQL(){
+        Calculadora c= new Calculadora();
+        Tapa tap = new Tapa();
+        tap.setNombre("tapa verde");
+        tap.setCantidad(100);
+        tap.setDescripcion("tapa muy amarilla de color amarillo");
+        String resultado= c.modificarTapa(tap);
+        String esperado= "UPDATE ALUMNOS SET NOMBRE ='tapa verde' where CANTIDAD=100" ;
+        assertEquals(esperado,resultado);
+    }
+    
+    @Test
+    public void testBorrarTapasSQL(){
+        Calculadora c= new Calculadora();
+        Tapa tap = new Tapa();
+        tap.setNombre("tapa verde");
+        tap.setCantidad(100);
+        tap.setDescripcion("tapa muy amarilla de color amarillo");
+        String resultado= c.borrarTapa(tap);
+        String esperado= "DELETE FROM ALUMNOS WHERE CANTIDAD=100" ;
+        assertEquals(esperado,resultado);
+    }
+    
+    
+   
 }

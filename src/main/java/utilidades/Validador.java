@@ -5,9 +5,11 @@
  */
 package utilidades;
 
+import examen.EsPar;
 import java.time.LocalDate;
 import modelos.Envase;
 import modelos.Tapa;
+import modelos.Usuario;
 
 
 public class Validador {
@@ -64,4 +66,14 @@ public class Validador {
         }
         return validar;
     }
+    
+    public boolean validarPassword(Usuario usuario){
+        boolean result = false;
+        char contrasena[]= usuario.getPass().toCharArray();
+        if(contrasena.length>=8){
+            result=true;
+        }return result;
+    }
+
+    
 }
