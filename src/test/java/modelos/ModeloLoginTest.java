@@ -8,6 +8,7 @@ package modelos;
 import java.nio.charset.Charset;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import principal.Configurar;
 
@@ -59,6 +60,7 @@ public class ModeloLoginTest {
     }
 
     @Test
+    @Ignore
     /*Test que comprueba el funcionamiento del metodo insertar usuarios*/
     /*genera aleatoriamente un usuario, y lo comprueba. Al ser aleatorio no se repite en la bd y cumple con UNIQUE*/
     /*devuelve un valor true*/
