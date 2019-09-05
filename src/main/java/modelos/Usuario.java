@@ -20,4 +20,22 @@ public class Usuario {
     public String getPass(){
         return this.pass;
     }
+
+    public boolean comprobarUsuario(Usuario arrUser) {
+        String user = arrUser.getUser();
+        String pass = arrUser.getPass();
+        int sectores = pass.length();
+
+        if (user=="" & pass==""){
+            return false;
+        }
+        if (sectores>=8){
+            return false;
+        }
+        else{
+
+            return true;
+        }
+
+    }
 }
