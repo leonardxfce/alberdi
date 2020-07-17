@@ -44,7 +44,7 @@ public class ModeloLoginTest {
         Usuario user = new Usuario("marcelo", "123");
         ModeloLogin instance = new ModeloLogin();
         boolean result = instance.comprobarExistencia(user);
-        assertEquals(true, result);
+        assertEquals(false, result);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class ModeloLoginTest {
     /*Comprueba el método insertar, pero al ingresar un usuario ya existente en la base de datos*/
     /*obtendremos un false debido a que se ejecuta la restricción de unique aplicada a usuario(solo a usuario no a password).*/
     public void testInsertRepetido() {
-        Usuario user = new Usuario("lautaro", "12345");
+        Usuario user = new Usuario("lautaro", "1234578");
         ModeloLogin instance = new ModeloLogin();
         boolean result = instance.insertar(user);
         assertEquals(false, result);
@@ -88,7 +88,7 @@ public class ModeloLoginTest {
     /*Comprueba el método seleccionar, que selecciona un nombre usuario si este existe*/
     /*El metodo devolvera un String con el nombre del usuario si este existe*/
     public void testSeleccionar1() {
-        Usuario user = new Usuario("marcelo", "123");
+        Usuario user = new Usuario("marcelo", "12345678");
         ModeloLogin instance = new ModeloLogin();
         String result = instance.seleccionar(user);
         assertEquals("marcelo", result);
@@ -120,5 +120,17 @@ public class ModeloLoginTest {
         ModeloLogin instance = new ModeloLogin();
         boolean result = instance.nombreDeUsuarioRepetido(user);
         assertEquals(false, result);
+    }
+    
+    @Test
+    public void testValidarCaracteresPassword(){
+        String pass= "12345";
+        char mivector[] = null;
+        mivector= pass.toCharArray();
+        int pas= mivector.length;
+        for(int i=0;i<mivector.length;i++){  
+            System.out.print(mivector[i]);  
+        }
+        
     }
 }

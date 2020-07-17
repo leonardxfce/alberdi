@@ -58,6 +58,20 @@ public class ModeloEnvaseTest {
         ModeloEnvase instance = new ModeloEnvase();
         instance.guardarEnvaseNuevo(miAl);
     }
+    
+    @Test
+    public void testGuardarEnvSinRepetir(){
+        Envase envase = new Envase();
+        envase.setNombre("bote");
+        envase.setTipo("corona");
+        envase.setVolumen(150);
+        envase.setDescripcion("vidrio");
+        ModeloEnvase instance = new ModeloEnvase();
+        boolean result= instance.repetido(envase);
+        assertEquals(true,result);
+       
+    }
+   
 
     @Test
     public void testDarTodosLosEnvases() {

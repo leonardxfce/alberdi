@@ -235,6 +235,8 @@ public class Controlador implements EventHandler<ActionEvent> {
             }
         }
     }
+    
+    
 
     public void menuEnvase() {
         vistaEnvase.mostrarBotones();

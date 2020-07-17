@@ -62,9 +62,9 @@ public class Configurar {
                     "FOREIGN KEY(ID_TAPA) REFERENCES TAPA(ID)\n" +
                     ");");
             statement.close();
-            statement.executeUpdate("insert or replace into USUARIOS values(1,'lautaro','12345')");
+            statement.executeUpdate("insert or replace into USUARIOS values(1,'lautaro','12345678')");
             statement.close();
-            statement.executeUpdate("insert or replace into USUARIOS values(2,'marcelo','123')");
+            statement.executeUpdate("insert or replace into USUARIOS values(2,'marcelo','12345678')");
             statement.close();
         } catch (Exception e) {
             Logger logger = Logger.getLogger(ModeloEnvase.class);
